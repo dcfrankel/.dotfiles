@@ -1,3 +1,18 @@
 # Things to ignore
 \#*#
 *~
+
+# Emacs things to ignore
+auto-save-list
+.*~
+init.el~
+eshell
+ido.last
+ido.last~
+elpa
+recentf
+recentf~
+.cache*
+projectile*
+\#*#
+**elpy

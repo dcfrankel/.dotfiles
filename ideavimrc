@@ -1,0 +1,14 @@
+set incsearch
+set ignorecase
+set relativenumber
+set number
+set showmode
+
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" Enable select plugins
+set surround
+set commentary
