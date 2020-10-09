@@ -5,7 +5,6 @@ export PATH=$PATH:~/google-cloud-sdk/bin
 export PATH=$PATH:/usr/local/opt/llvm/bin
 export PATH=$PATH:~/bin
 
-# Go specific configurations
 export GOPATH=$HOME/go
 export GOROOT="$(brew --prefix golang)/libexec"
 export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
@@ -66,3 +65,7 @@ autoload -Uz compinit && compinit
 
 # fzf setup
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Syntax highlighting
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
