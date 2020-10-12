@@ -42,6 +42,7 @@ Plug 'dense-analysis/ale'
 Plug 'sheerun/vim-polyglot'
 Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
+Plug 'airblade/vim-rooter'
 
 " Go Dev
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
@@ -61,6 +62,9 @@ endif
 " ==================
 " = Plugin Configs =
 " ==================
+
+" Rooter conifgs
+let g:rooter_patterns = ['.git']
 
 " Airline configs
 let g:airline#extensions#tabline#enabled = 1
