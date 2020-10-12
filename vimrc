@@ -10,6 +10,7 @@ set scrolloff=1 " When to start showing text when scrolling
 set laststatus=2
 set backspace=indent,eol,start " Allow backspace to work as expected
 set undofile " Keep undo history after closing
+set belloff=all
 set nocompatible
 set noshowmode
 set autoindent
@@ -45,7 +46,6 @@ Plug 'vim-airline/vim-airline'
 " Go Dev
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 call plug#end()
-
 
 " Color Themes and Highlighting
 colorscheme gruvbox 
