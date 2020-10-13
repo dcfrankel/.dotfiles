@@ -18,6 +18,16 @@ set splitbelow
 set splitright
 syntax on
 
+" Change cursor based on mode
+let &t_SI = "\e[6 q"
+let &t_EI = "\e[2 q"
+
+" Reset the cursor on start:
+augroup myCmds
+au!
+autocmd VimEnter * silent !echo -ne "\e[2 q"
+augroup END
+
 " General remaps
 let mapleader = " " 
 nnoremap <C-J> <C-W><C-J>
