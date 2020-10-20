@@ -9,7 +9,7 @@ export GOPATH=$HOME/go
 export GOROOT="$(brew --prefix golang)/libexec"
 export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
 
-ZSH_THEME="robbyrussell"
+ZSH_THEME="eastwood"
 TERM=xterm
 if [[ $TERM == xterm  ]]; then TERM=xterm-256color; fi
 
