@@ -1,6 +1,7 @@
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
+export PATH=/usr/local/opt/python@3.7/bin:$PATH
 export PATH=$PATH:~/google-cloud-sdk/bin
 export PATH=$PATH:/usr/local/opt/llvm/bin
 export PATH=$PATH:~/bin
