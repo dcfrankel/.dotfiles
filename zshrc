@@ -5,9 +5,13 @@ export PATH=$PATH:~/google-cloud-sdk/bin
 export PATH=$PATH:/usr/local/opt/llvm/bin
 export PATH=$PATH:~/bin
 
+# Go configs
 export GOPATH=$HOME/go
 export GOROOT="$(brew --prefix golang)/libexec"
 export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
+
+# Homebrew configs
+export HOMEBREW_NO_AUTO_UPDATE=1
 
 ZSH_THEME="eastwood"
 TERM=xterm
