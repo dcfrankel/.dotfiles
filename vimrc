@@ -18,10 +18,6 @@ set splitbelow
 set splitright
 syntax on
 
-" Change cursor based on mode
-let &t_SI = "\e[6 q"
-let &t_EI = "\e[2 q"
-
 " General remaps
 let mapleader = " " 
 nnoremap <C-J> <C-W><C-J>
