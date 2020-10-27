@@ -22,12 +22,6 @@ syntax on
 let &t_SI = "\e[6 q"
 let &t_EI = "\e[2 q"
 
-" Reset the cursor on start:
-augroup myCmds
-au!
-autocmd VimEnter * silent !echo -ne "\e[2 q"
-augroup END
-
 " General remaps
 let mapleader = " " 
 nnoremap <C-J> <C-W><C-J>
@@ -60,14 +54,6 @@ call plug#end()
 
 " Color Themes and Highlighting
 colorscheme gruvbox 
-
-" Enable true color
-if exists('+termguicolors')
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-  set termguicolors
-endif
-
 
 " ==================
 " = Plugin Configs =
