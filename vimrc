@@ -44,7 +44,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'dense-analysis/ale' 
 Plug 'sheerun/vim-polyglot'
-Plug 'morhetz/gruvbox'
+" Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
 Plug 'airblade/vim-rooter'
 
@@ -53,7 +53,7 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 call plug#end()
 
 " Color Themes and Highlighting
-colorscheme gruvbox 
+" colorscheme gruvbox 
 
 " ==================
 " = Plugin Configs =
