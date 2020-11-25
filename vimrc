@@ -40,7 +40,6 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'dense-analysis/ale' 
 Plug 'sheerun/vim-polyglot'
-" Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
 Plug 'airblade/vim-rooter'
 

@@ -23,7 +23,7 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
-# aliases
+# Aliases
 alias gpurge='git branch --merged | grep -v "\*" | grep -v "master" | xargs -n 1 git branch -d'
 alias glog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"
 alias grep='grep  --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
@@ -43,3 +43,13 @@ autoload -Uz compinit && compinit
 # Syntax highlighting
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+# Functions
+listening() {
+    if [ $# -eq 0 ]; then
+        sudo lsof -iTCP -sTCP:LISTEN -n -P
+    elif [ $# -eq 1 ]; then
+        sudo lsof -iTCP -sTCP:LISTEN -n -P | grep -i --color $1
+    else
+        echo "Usage: listening [pattern]"
+    fi
+}
