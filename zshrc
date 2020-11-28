@@ -1,15 +1,14 @@
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-export PATH=/usr/local/opt/python@3.7/bin:$PATH
-export PATH=$PATH:~/google-cloud-sdk/bin
-export PATH=$PATH:/usr/local/opt/llvm/bin
-export PATH=$PATH:~/bin
+export PATH="~/bin:$PATH"
+export PATH="/usr/local/bin:$PATH"
 
-# Go configs
-export GOPATH=$HOME/go
-export GOROOT="$(brew --prefix golang)/libexec"
-export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
+# Google cloud SDK
+export PATH="$PATH:~/google-cloud-sdk/bin"
+
+# Python poetry 
+export PATH="$HOME/.poetry/bin:$PATH"
 
 # Homebrew configs
 export HOMEBREW_NO_AUTO_UPDATE=1
@@ -53,3 +52,4 @@ listening() {
         echo "Usage: listening [pattern]"
     fi
 }
+
