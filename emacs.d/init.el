@@ -36,9 +36,8 @@
     projectile ;; project management
     evil ;; vim keybindings
     yaml-mode ;; yaml mode
-    pyvenv ;; use python environments
-    elpy ;; python goodness
-    nord-theme ;; Nord theme
+    cider ;; Working with clojure
+    company ;; autocompletion
     ))
 
 ;; If the package listed is not already installed, install it
@@ -46,9 +45,6 @@
           (unless (package-installed-p package)
             (package-install package)))
       myPackages)
-
-;; Theme
-(load-theme 'nord t)
 
 ;; which key config
 (require 'which-key)
@@ -62,19 +58,19 @@
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
 
-;; elpy config
-(elpy-enable)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (elpy pyvenv yaml-mode evil-escape evil projectile org-bullets which-key))))
+;; company mode
+(add-hook 'after-init-hook 'global-company-mode)
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(cider yaml-mode which-key projectile org-bullets nord-theme evil-escape evil elpy)))
