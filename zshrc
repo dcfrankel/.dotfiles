@@ -24,7 +24,8 @@ source $ZSH/oh-my-zsh.sh
 
 # Aliases
 alias gpurge='git branch --merged | grep -v "\*" | grep -v "master" | xargs -n 1 git branch -d'
-alias glog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"
+alias glog='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset"'
+alias gappend='git reset --soft "HEAD^" && git commit --amend --no-edit'
 alias grep='grep  --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 alias mysql=/usr/local/mysql/bin/mysql
 
