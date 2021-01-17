@@ -10,9 +10,6 @@ export PATH="$PATH:~/google-cloud-sdk/bin"
 # Python poetry 
 export PATH="$HOME/.poetry/bin:$PATH"
 
-# Homebrew configs
-export HOMEBREW_NO_AUTO_UPDATE=1
-
 ZSH_THEME="eastwood"
 
 # ZSH Plugins
