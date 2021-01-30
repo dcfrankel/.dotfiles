@@ -40,18 +40,17 @@ Plug 'dense-analysis/ale'
 Plug 'sheerun/vim-polyglot'
 Plug 'vim-airline/vim-airline'
 Plug 'airblade/vim-rooter'
-
-" Go Dev
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'lifepillar/vim-gruvbox8'
 call plug#end()
 
 " Color Themes and Highlighting
-" colorscheme gruvbox 
+colorscheme gruvbox8
 
 " ==================
 " = Plugin Configs =
 " ==================
 
+" For plugins with large configs
 source ~/.dotfiles/vim/coc.vim
 
 " Rooter conifgs
@@ -81,11 +80,6 @@ let g:ale_fix_on_save = 1
 " Closetag default config
 " These are the file extensions where this plugin is enabled.
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.eex'
-
-" ===== Nerdtree default configs =====
-" Open Nerdtree when opening a directory in vim
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
 
 " Open Nerdtree mapping
 map <C-n> :NERDTreeToggle<CR>
