@@ -12,17 +12,9 @@ export PATH="$HOME/.poetry/bin:$PATH"
 
 ZSH_THEME="eastwood"
 
-# ZSH Plugins
-plugins=(
-    git
-)
-
 source $ZSH/oh-my-zsh.sh
 
 # Aliases
-alias gpurge='git branch --merged | grep -v "\*" | grep -v "master" | xargs -n 1 git branch -d'
-alias glog='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset"'
-alias gappend='git reset --soft "HEAD^" && git commit --amend --no-edit'
 alias grep='grep  --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 alias mysql=/usr/local/mysql/bin/mysql
 
@@ -40,7 +32,8 @@ autoload -Uz compinit && compinit
 # Syntax highlighting
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# Functions
+### Functions ###
+# Find process at port
 listening() {
     if [ $# -eq 0 ]; then
         sudo lsof -iTCP -sTCP:LISTEN -n -P
@@ -51,3 +44,22 @@ listening() {
     fi
 }
 
+# Select git branch
+gcheckout() {
+    git checkout $(git branch -a --format '%(refname:short)' | sed 's~origin/~~' | sort | uniq | fzf)
+}
+
+# Clean up local branches
+gpurge() {
+    git branch --merged | grep -v "\*" | grep -v "master" | xargs -n 1 git branch -d
+}
+
+# See prettier git logs
+glog() {
+    git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset"
+}
+
+# Quickly append the last commit to the one before it
+gappend() {
+    git reset --soft "HEAD^" && git commit --amend --no-edit
+}
