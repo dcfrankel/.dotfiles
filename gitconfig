@@ -1,6 +1,6 @@
 # Work specific configs
-[includeIf "gitdir:~/work/"]
-  path = ~/work/.gitconfig
+[includeIf "gitdir:~/zoom/"]
+  path = ~/zoom/.gitconfig
 
 # Personal configs
 [includeIf "gitdir:~/Projects/"]
