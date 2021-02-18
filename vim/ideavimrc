@@ -5,6 +5,7 @@ set number
 set showmode
 
 " General remaps
+nnoremap <SPACE> <Nop>
 let mapleader = " " 
 nnoremap <leader>j <C-W><C-J>
 nnoremap <leader>k <C-W><C-K>
