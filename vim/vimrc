@@ -3,11 +3,9 @@ set ignorecase " Ignore search cases
 set wildmenu " Tab completion for menus
 set hlsearch " Highlight searches
 set number relativenumber " Show relative line numbers
-set ruler " Show line number and column at bottom
 set scrolloff=1 " When to start showing text when scrolling
 set laststatus=2
 set backspace=indent,eol,start " Allow backspace to work as expected
-set undofile " Keep undo history after closing
 set belloff=all
 set nocompatible
 set noshowmode
@@ -23,6 +21,10 @@ nnoremap <leader>j <C-W><C-J>
 nnoremap <leader>k <C-W><C-K>
 nnoremap <leader>l <C-W><C-L>
 nnoremap <leader>h <C-W><C-H>
+
+" Show trailing white space
+set list
+set listchars=tab:\|\ ,trail:.,extends:>,precedes:<
 
 " ===== Plugins =====
 call plug#begin('~/.vim/plugged')
