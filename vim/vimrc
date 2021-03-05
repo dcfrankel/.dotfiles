@@ -26,13 +26,19 @@ nnoremap <leader>h <C-W><C-H>
 set list
 set listchars=tab:\|\ ,trail:.,extends:>,precedes:<
 
+" Simple netrw configs
+let g:netrw_liststyle = 3
+let g:netrw_winsize = 25
+let g:netrw_browse_split = 3
+map <leader>n :Vex<CR> " Open netrw
+
 " ===== Plugins =====
 call plug#begin('~/.vim/plugged')
 " Generally useful plugins
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'preservim/nerdtree'
+" Plug 'preservim/nerdtree'
 Plug 'jiangmiao/auto-pairs'
 Plug 'alvan/vim-closetag'
 Plug 'mattn/emmet-vim'
@@ -56,7 +62,7 @@ colorscheme gruvbox8
 " Separate plugin specific configs
 source ~/.dotfiles/vim/coc.vim
 source ~/.dotfiles/vim/fzf.vim
-source ~/.dotfiles/vim/nerdtree.vim
+" source ~/.dotfiles/vim/nerdtree.vim
 
 " Rooter conifgs
 let g:rooter_patterns = ['.git']
