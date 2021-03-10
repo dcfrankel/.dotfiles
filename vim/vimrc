@@ -7,9 +7,10 @@ set scrolloff=1 " When to start showing text when scrolling
 set laststatus=2
 set backspace=indent,eol,start " Allow backspace to work as expected
 set belloff=all
-set nocompatible
+set nocompatible " Don't try to emulate vi
 set noshowmode
-set autoindent
+set autoindent " Maintain indent of previous line
+set smartindent " Slightly smart indenting
 set splitbelow
 set splitright
 syntax on
