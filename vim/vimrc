@@ -50,11 +50,11 @@ Plug 'dense-analysis/ale'
 Plug 'sheerun/vim-polyglot'
 Plug 'vim-airline/vim-airline'
 Plug 'airblade/vim-rooter'
-Plug 'lifepillar/vim-gruvbox8'
+Plug 'arcticicestudio/nord-vim'
 call plug#end()
 
 " Color Themes and Highlighting
-colorscheme gruvbox8
+colorscheme nord
 
 " ==================
 " = Plugin Configs =
