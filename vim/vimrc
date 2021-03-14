@@ -13,6 +13,7 @@ set autoindent " Maintain indent of previous line
 set smartindent " Slightly smart indenting
 set splitbelow
 set splitright
+set showcmd " Show commands ad they are typed
 syntax on
 
 " General remaps
@@ -39,7 +40,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'preservim/nerdtree'
 Plug 'jiangmiao/auto-pairs'
 Plug 'alvan/vim-closetag'
 Plug 'mattn/emmet-vim'
@@ -49,6 +49,7 @@ Plug 'tpope/vim-repeat'
 Plug 'dense-analysis/ale' 
 Plug 'sheerun/vim-polyglot'
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-rooter'
 Plug 'arcticicestudio/nord-vim'
 call plug#end()
@@ -69,19 +70,16 @@ source ~/.dotfiles/vim/fzf.vim
 let g:rooter_patterns = ['.git']
 
 " Airline configs
+let g:airline_theme='deus'
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_tab_nr = 1
+let g:airline#extensions#tabline#show_close_button = 1
+
 
 " Emmet configs
 let g:user_emmet_leader_key = ','
 let g:user_emmet_install_global = 0
 autocmd FileType html,css,eelixir EmmetInstall
-
-" Ale configs
-let g:ale_lint_on_text_changed = 'always'
-let g:ale_fixers = {'elixir': ['mix_format']}
-let g:ale_linters = {'elixir': ['elixir-ls']}
-let g:ale_fixers['javascript'] = ['eslint']
-let g:ale_fix_on_save = 1
 
 " Closetag default config
 " These are the file extensions where this plugin is enabled.
