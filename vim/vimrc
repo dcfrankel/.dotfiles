@@ -15,6 +15,7 @@ set splitbelow
 set splitright
 set showcmd " Show commands ad they are typed
 syntax on
+set termguicolors " Make most colorscheme work 
 
 " General remaps
 nnoremap <SPACE> <Nop>
