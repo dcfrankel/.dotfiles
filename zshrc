@@ -10,7 +10,7 @@ export PATH="$PATH:~/google-cloud-sdk/bin"
 # Python poetry 
 export PATH="$HOME/.poetry/bin:$PATH"
 
-ZSH_THEME="eastwood"
+ZSH_THEME="af-magic"
 
 source $ZSH/oh-my-zsh.sh
 
