@@ -4,12 +4,6 @@ export ZSH="$HOME/.oh-my-zsh"
 export PATH="~/bin:$PATH"
 export PATH="/usr/local/bin:$PATH"
 
-# Google cloud SDK
-export PATH="$PATH:~/google-cloud-sdk/bin"
-
-# Python poetry 
-export PATH="$HOME/.poetry/bin:$PATH"
-
 ZSH_THEME="af-magic"
 
 source $ZSH/oh-my-zsh.sh
