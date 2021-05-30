@@ -20,12 +20,6 @@ zstyle ':completion:*' list-suffixes
 zstyle ':completion:*' expand prefix suffix
 autoload -Uz compinit && compinit
 
-# fzf setup
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# Syntax highlighting
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
 ### Functions ###
 # Find process at port
 listening() {
@@ -37,3 +31,8 @@ listening() {
         echo "Usage: listening [pattern]"
     fi
 }
+
+### Plugins ###
+source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
