@@ -12,10 +12,10 @@ source $ZSH/oh-my-zsh.sh
 alias grep='grep  --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 alias mysql=/usr/local/mysql/bin/mysql
 
-# case insensitive path-completion
+# Case insensitive path-completion
 zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*'
 
-# partial completion suggestions
+# Partial completion suggestions
 zstyle ':completion:*' list-suffixes
 zstyle ':completion:*' expand prefix suffix
 autoload -Uz compinit && compinit
@@ -33,6 +33,11 @@ listening() {
 }
 
 ### Plugins ###
-source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+# Enable syntax highlighting in shell
+[ -f ~/.zsh/zsh-syntax-highlighting ] && source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# Enable automatic suggestions like fish
+[ -f ~/.zsh/zsh-autosuggestions ] && source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# Enable fzf integration
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
