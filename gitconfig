@@ -14,9 +14,11 @@
   plog = "!git log --graph --pretty=format:'%C(magenta)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"
   append = "!git reset --soft 'HEAD^' && git commit --amend --no-edit"
 
-
 [color "status"]
   added = green bold
   changed = red bold strike
   untracked = yellow bold
   branch = green bold ul
+
+[help]
+  autocorrect = 20
