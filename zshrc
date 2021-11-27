@@ -9,7 +9,9 @@ ZSH_THEME="af-magic"
 source $ZSH/oh-my-zsh.sh
 
 # Aliases
-alias grep='grep  --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
+# Sane grep defaults
+alias g='grep --color=always --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
+alias gg='git --no-pager grep --color=always --extended-regex --line-number'
 alias mysql=/usr/local/mysql/bin/mysql
 
 # Case insensitive path-completion
