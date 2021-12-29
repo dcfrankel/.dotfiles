@@ -21,4 +21,4 @@
   branch = green bold ul
 
 [help]
-  autocorrect = 20
+  autocorrect = prompt
