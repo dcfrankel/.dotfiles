@@ -36,10 +36,23 @@ listening() {
 
 ### Plugins ###
 # Enable syntax highlighting in shell
-[ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+zsh_syntax_loc=~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if [ -f $zsh_syntax_loc ]; then 
+    source $zsh_syntax_loc
+else
+    source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh || echo "Failed to set up zsh-syntax-highlighting"
+fi
 
 # Enable automatic suggestions like fish
-[ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ] && source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+zsh_auto_loc=~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+if [ -f $zsh_auto_loc ]; then
+    source $zsh_auto_loc
+else
+    source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh || echo "Failed to set up zsh-autosuggestions"
+fi
 
 # Enable fzf integration
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# asdf
+. /usr/local/opt/asdf/libexec/asdf.sh
