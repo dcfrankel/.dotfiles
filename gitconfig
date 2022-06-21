@@ -11,6 +11,7 @@
 
 [alias]
   plog = "!git log --graph --pretty=format:'%C(magenta)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"
+  create-remote = "!git push -u origin $(git branch --show-current)"
 
 [color "status"]
   added = green bold

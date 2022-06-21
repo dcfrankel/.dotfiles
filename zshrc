@@ -58,3 +58,7 @@ listening() {
 
 # Enable asdf
 [ -f "/usr/local/opt/asdf/libexec/asdf.sh" ] && . "/usr/local/opt/asdf/libexec/asdf.sh"
+
+
+### Work Specific Configs
+[ -f "$HOME/.work_zshrc.zsh" ] && source "$HOME/.work_zshrc.zsh"
