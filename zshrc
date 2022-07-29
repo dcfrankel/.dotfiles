@@ -15,12 +15,12 @@ autoload -Uz compinit && compinit
 
 ### ZSH Plugins ###
 # Enable syntax highlighting in shell
-zsh_syntax_loc="$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-if [ -f $zsh_syntax_loc ]; then 
-    source $zsh_syntax_loc
-else
-    source "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" || echo "Failed to set up zsh-syntax-highlighting"
-fi
+# zsh_syntax_loc="$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+# if [ -f $zsh_syntax_loc ]; then 
+#     source $zsh_syntax_loc
+# else
+#     source "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" || echo "Failed to set up zsh-syntax-highlighting"
+# fi
 
 # Enable automatic suggestions like fish
 zsh_auto_loc="$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
