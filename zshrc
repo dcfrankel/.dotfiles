@@ -6,6 +6,7 @@ source "$ZSH/oh-my-zsh.sh"
 ### ZSH Configs ###
 # Case insensitive path-completion
 zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*'
+DISABLE_MAGIC_FUNCTIONS=true
 
 # Partial completion suggestions
 zstyle ':completion:*' list-suffixes
