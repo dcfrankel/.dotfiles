@@ -1,76 +1,81 @@
 ;; =======================
 ;; Basic Customization
 ;; =======================
-;; better buffer list
+;; Better buffer list
 (defalias 'list-buffers 'ibuffer) 
-;; automatically add closing delimters
+
+;; Automatically add closing delimiters
 (electric-pair-mode 1) 
-(load-theme 'manoj-dark)
 (setq show-trailing-whitespace t)
-;; better completions
+
+;; Better completions
 (require 'ido)
 (ido-mode t)
 
-;; use relative line numbers
+;; Use relative line numbers
 (global-display-line-numbers-mode t)
 
-;;disable splash screen and startup message
+;; Disable splash screen and startup message
 (setq inhibit-startup-message t) 
 (setq initial-scratch-message nil)
+
+;; Disable all the ugly menu bars
+(menu-bar-mode -1) 
+(scroll-bar-mode -1) 
+(tool-bar-mode -1) 
+
 
 ;; =========================
 ;; Package Support
 ;; =========================
+;; Theme
+(use-package modus-themes 
+  :ensure t
+  :config (load-theme 'modus-vivendi-tinted t))
+
+;; Add package repos
 (require 'package)
-
-;; adds MELPA as repo
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/") t)
-
+(add-to-list 'package-archives '("gnu"   . "https://elpa.gnu.org/packages/"))
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (package-initialize)
-(when (not package-archive-contents)
-  (package-refresh-contents))
 
-(defvar myPackages
-  '(which-key ;; which key to help show emacs commands
-    projectile ;; project management
-    evil ;; vim keybindings
-    yaml-mode ;; yaml mode
-    cider ;; Working with clojure
-    company ;; autocompletion
-    ))
+;; Install use-package automatically
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
 
-;; If the package listed is not already installed, install it
-(mapc #'(lambda (package)
-          (unless (package-installed-p package)
-            (package-install package)))
-      myPackages)
+;; Which key config
+(use-package which-key
+  :ensure t
+  :config (which-key-mode))
 
-;; which key config
-(require 'which-key)
-(which-key-mode)
+;; Evil config
+(use-package evil 
+  :ensure t
+  :config
+  (evil-mode 1))
 
-;; evil configs
-(require 'evil)
-(evil-mode 1)
+;; Yaml mode config
+(use-package yaml-mode
+  :ensure t
+  :mode ("\\.yml\\" . yaml-mode))
 
-;; yaml mode config
-(require 'yaml-mode)
-(add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
+;; Org mode config
+(use-package org
+  :mode ("\\.org\\" . org-mode)
+  :ensure t)
 
-;; company mode
-(add-hook 'after-init-hook 'global-company-mode)
-
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("30dc9873c16a0efb187bb3f8687c16aae46b86ddc34881b7cae5273e56b97580" default))
+ '(package-selected-packages '(yaml-mode evil which-key use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(cider yaml-mode which-key projectile org-bullets nord-theme evil-escape evil elpy)))
