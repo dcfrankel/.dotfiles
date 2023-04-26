@@ -20,8 +20,10 @@ source "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.z
 # Enable automatic suggestions like fish
 source "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh" || echo "Failed to source zsh-autosuggestions plugin"
 
-# Enable kube-ps1 prompt
-source "$(brew --prefix)/share/kube-ps1.sh" && PROMPT='$(kube_ps1) '$PROMPT || echo "Failed to source kube_ps1 plugin"
+# Enable kube-ps1 prompt if kube config exists
+if [ -f "$HOME/.kube/config" ]; then
+  source "$(brew --prefix)/share/kube-ps1.sh" && PROMPT='$(kube_ps1) '$PROMPT || echo "Failed to source kube_ps1 plugin"
+fi
 
 ### PATH Changes ###
 # User binaries
