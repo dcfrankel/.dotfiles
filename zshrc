@@ -1,6 +1,6 @@
 ### oh-my-zsh setup ###
 export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME="robbyrussell"
+ZSH_THEME="eastwood"
 source "$ZSH/oh-my-zsh.sh"
 
 ### ZSH Configs ###
