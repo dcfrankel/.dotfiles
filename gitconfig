@@ -12,7 +12,8 @@
 [alias]
   plog = "!git log --graph --pretty=format:'%C(magenta)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"
   create-remote = "!git push -u origin $(git branch --show-current)"
-  patch ="!git add --patch"
+  patch = "!git add --patch"
+  root = "!git rev-parse --show-toplevel"
 
 [color "status"]
   added = green bold

@@ -40,8 +40,5 @@ alias gg='git --no-pager grep --color=always --extended-regex --line-number'
 # Enable fzf
 [ -f "$HOME/.fzf.zsh" ] && source "$HOME/.fzf.zsh"
 
-# Enable asdf
-[ -f "/usr/local/opt/asdf/libexec/asdf.sh" ] && . "/usr/local/opt/asdf/libexec/asdf.sh"
-
 # Work Specific Configs
 [ -f "$HOME/.work_zshrc.zsh" ] && source "$HOME/.work_zshrc.zsh"
