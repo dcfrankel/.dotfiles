@@ -23,3 +23,6 @@
 
 [help]
   autocorrect = prompt
+
+[http]
+  postBuffer = 524288000
