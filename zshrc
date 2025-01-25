@@ -47,7 +47,8 @@ alias gg='git --no-pager grep --color=always --extended-regex --line-number'
 
 ### Additional Integrations ###
 # Enable fzf
-[ -f "$HOME/.fzf.zsh" ] && source "$HOME/.fzf.zsh"
+fzf_path=$(which fzf)
+[ -x "$fzf_path" ] && source <(fzf --zsh)
 
 # Work Specific Configs
 [ -f "$HOME/.zshrc_work.zsh" ] && source "$HOME/.zshrc_work.zsh"
