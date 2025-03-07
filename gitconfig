@@ -1,3 +1,33 @@
+[branch]
+  # Better sort for git branch
+  sort = committerdate
+
+[tag]
+  # Better sort for git tag
+  sort = version:refname
+
+[commit]
+  # Add the commit diff into the default commit message (useful for remembering what you did)
+  verbose = true
+
+[push]
+  # Prevents the need to manually run git push --set-upstream origin my-branch-name
+  autoSetupRemote = true
+  # Makes sure to push local tags to the remote
+  followTags = true
+
+[pull]
+  # Prevents the need for constantly setting --rebase
+  rebase = true
+
+[diff]
+  # Newer diff algorithm with
+  algorithm = histogram
+  # Highlight if something moved vs if something was added or deleted
+  coloMoved = plain
+  # Show if something was renamed
+  renames = true 
+
 # Work specific configs
 [includeIf "gitdir:~/work/"]
   path = ~/work/.gitconfig
