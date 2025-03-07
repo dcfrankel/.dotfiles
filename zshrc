@@ -41,9 +41,7 @@ ZVM_INIT_MODE=sourcing
 plugins+=(zsh-vi-mode)
 
 ### Aliases ###
-# Sane grep defaults
-alias g='grep --color=always --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
-alias gg='git --no-pager grep --color=always --extended-regex --line-number'
+alias ls='ls -lah'
 
 ### Additional Integrations ###
 # Enable fzf
