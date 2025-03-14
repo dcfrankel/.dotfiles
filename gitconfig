@@ -26,7 +26,7 @@
   # Highlight if something moved vs if something was added or deleted
   coloMoved = plain
   # Show if something was renamed
-  renames = true 
+  renames = true
 
 # Work specific configs
 [includeIf "gitdir:~/work/"]
@@ -38,6 +38,10 @@
 
 # If in .dotfiles use project config
 [includeIf "gitdir:~/.dotfiles/"]
+  path = ~/Projects/.gitconfig
+
+# If in .dotfiles use project config
+[includeIf "gitdir:~/setup/"]
   path = ~/Projects/.gitconfig
 
 [alias]
