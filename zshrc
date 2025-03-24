@@ -42,6 +42,7 @@ plugins+=(zsh-vi-mode)
 
 ### Aliases ###
 alias ls='ls -lah'
+[ -x "$(command -v bat)" ] && alias cat='bat --paging=never'
 
 ### Additional Integrations ###
 # Enable fzf
