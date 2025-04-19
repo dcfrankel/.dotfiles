@@ -28,6 +28,10 @@
   # Show if something was renamed
   renames = true
 
+[rebase]
+ # Prevents the need for using --autosquash when rebasing
+  autosquash = true
+
 # Work specific configs
 [includeIf "gitdir:~/work/"]
   path = ~/work/.gitconfig
