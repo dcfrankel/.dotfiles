@@ -4,11 +4,11 @@
 
 [branch]
   # Better sort for git branch
-  sort = committerdate
+  sort = -committerdate
 
 [tag]
   # Better sort for git tag
-  sort = version:refname
+  sort = -version:refname
 
 [commit]
   # Add the commit diff into the default commit message (useful for remembering what you did)
