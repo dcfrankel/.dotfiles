@@ -1,5 +1,6 @@
 [core]
   editor = vim
+  whitespace = trailing-space 
 
 [branch]
   # Better sort for git branch
