@@ -31,12 +31,15 @@ export LSCOLORS="exfxxxxxxxxxxxxxxxxxxx"
 ##### Aliases #####
 alias ls='ls -lah'
 
-##### Additional Integrations #####
-# Enable fzf
-[ -x "$(command -v fzf)" ] && source <(fzf --zsh)
-
 # Enable bat
 [ -x "$(command -v bat)" ] && alias cat='bat --paging=never'
+
+##### Additional Integrations #####
+# fzf configs
+export FZF_DEFAULT_OPTS='--style full'
+# Use fd if i'ts presetn on the system
+[ -x "$(command -v fd)" ] && export FZF_DEFAULT_COMMAND='fd --type file --hidden --exclude .git'
+[ -x "$(command -v fzf)" ] && source <(fzf --zsh)
 
 # ZSH Autosuggestions Configs
 zsh_autosuggestions_path="$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
