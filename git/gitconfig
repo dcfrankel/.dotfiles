@@ -1,6 +1,6 @@
 [core]
   editor = vim
-  whitespace = trailing-space 
+  whitespace = trailing-space
 
 [branch]
   # Better sort for git branch
@@ -72,3 +72,8 @@
 
 [init]
   defaultBranch = main
+
+[status]
+  # Use short git status for my own sanity
+  short = true
+  branch = true
