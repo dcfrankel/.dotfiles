@@ -24,12 +24,8 @@ setopt auto_remove_slash # automatically remove slash from completions
 setopt inc_append_history # save commands in history immediately
 setopt share_history # share history between shells
 
-##### ls Configs #####
-# # ls configs -- see man ls
-export LSCOLORS="exfxxxxxxxxxxxxxxxxxxx"
-
 ##### Aliases #####
-alias ls='ls -lah'
+alias ls='ls -lah --color'
 
 # Enable bat
 [ -x "$(command -v bat)" ] && alias cat='bat --paging=never'
