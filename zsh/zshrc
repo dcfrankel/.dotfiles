@@ -38,7 +38,7 @@ export FZF_DEFAULT_OPTS='--style full'
 [ -x "$(command -v fzf)" ] && source <(fzf --zsh)
 
 # ZSH Autosuggestions Configs
-zsh_autosuggestions_path="$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+zsh_autosuggestions_path="$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 [ -f "$zsh_autosuggestions_path" ] && source "$zsh_autosuggestions_path"
 
 # kube-ps1 Configs
@@ -49,14 +49,12 @@ KUBE_PS1_NS_COLOR="${KUBE_PS1_NS_COLOR-green}"
 KUBE_PS1_BG_COLOR="${KUBE_PS1_BG_COLOR}"
 
 if [ -f "$HOME/.kube/config" ]; then
-  source "$HOMEBREW_PREFIX/share/kube-ps1.sh" && PROMPT='$(kube_ps1) '$PROMPT || echo "Failed to source kube_ps1 plugin"
+  source "$(brew --prefix)/share/kube-ps1.sh" && PROMPT='$(kube_ps1) '$PROMPT || echo "Failed to source kube_ps1 plugin"
 fi
 
 #Vim Mode Configs
-zsh_vi_mode_path="$HOMEBREW_PREFIX/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
-ZVM_INIT_MODE=sourcing
+zsh_vi_mode_path="$(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
 [ -f "$zsh_vi_mode_path" ] && source "$zsh_vi_mode_path"
-plugins+=(zsh-vi-mode)
 
 ##### Work Specific Configs #####
 [ -f "$HOME/.zshrc_work.zsh" ] && source "$HOME/.zshrc_work.zsh"
