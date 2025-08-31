@@ -27,36 +27,11 @@ setopt share_history # share history between shells
 ##### Aliases #####
 alias ls='ls -lah --color'
 
-##### Work Specific Configs #####
-[ -f "$HOME/.zshrc_work.zsh" ] && source "$HOME/.zshrc_work.zsh"
-
-##### Additional Integrations #####
-# Vim Mode Configs
-# Needs to go above FZF for search to work
-zsh_vi_mode_path="$(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
-[ -f "$zsh_vi_mode_path" ] && source "$zsh_vi_mode_path"
-
-# fzf configs
-export FZF_DEFAULT_OPTS='--style full'
-# Use fd if i'ts presetn on the system
-[ -x "$(command -v fd)" ] && export FZF_DEFAULT_COMMAND='fd --type file --hidden --exclude .git'
-# For some reason zsh vi mode breaks CTRL+R search unless added here
-[ -x "$(command -v fzf)" ] && [ -f "$zsh_vi_mode_path" ] && zvm_after_init_commands+=('source <(fzf --zsh) ')
-
-# kube-ps1 Configs
-# Enable kube-ps1 prompt if kube config exists and set color defaults
-KUBE_PS1_SYMBOL_COLOR="${KUBE_PS1_SYMBOL_COLOR-blue}"
-KUBE_PS1_CTX_COLOR="${KUBE_PS1_CTX_COLOR-green}"
-KUBE_PS1_NS_COLOR="${KUBE_PS1_NS_COLOR-green}"
-KUBE_PS1_BG_COLOR="${KUBE_PS1_BG_COLOR}"
-
-if [ -f "$HOME/.kube/config" ]; then
-  source "$(brew --prefix)/share/kube-ps1.sh" && PROMPT='$(kube_ps1) '$PROMPT || echo "Failed to source kube_ps1 plugin"
-fi
-
-# ZSH Autosuggestions Configs
-zsh_autosuggestions_path="$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
-[ -f "$zsh_autosuggestions_path" ] && source "$zsh_autosuggestions_path"
-
 # Enable bat
 [ -x "$(command -v bat)" ] && alias cat='bat --paging=never'
+
+##### Source additional plugin configurations #####
+source "$HOME/.dotfiles/zsh/plugins.zsh"
+
+##### Work Specific Configs #####
+[ -f "$HOME/.zshrc_work.zsh" ] && source "$HOME/.zshrc_work.zsh"
