@@ -13,6 +13,9 @@
       "args": [],
       "env": {}
     }
+    "gemini": {
+      "ignore_system_version": false
+    }
   },
   "vim_mode": true,
   "vim": {
