@@ -55,5 +55,14 @@
   },
   "format_on_save": "off",
   "buffer_font_family": "JetBrains Mono",
-  "buffer_font_fallbacks": [".ZedMono"]
+  "buffer_font_fallbacks": [".ZedMono"],
+  "title_bar": {
+    "show_sign_in": false
+  },
+  "project_panel": {
+    "auto_fold_dirs": false
+  },
+  "collaboration_panel": {
+    "button": false
+  }
 }
