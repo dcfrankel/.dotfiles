@@ -12,8 +12,16 @@ export PATH="/usr/local/bin:$PATH"
 export PATH="$PATH:$HOME/go/bin"
 
 ##### ZSH Configs #####
+# Make vim bindings work for completions selection
+zmodload zsh/complist
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
 # Case insensitive path-completion
 zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*'
+# List file details
+zstyle ':completion:*' file-list all
 DISABLE_MAGIC_FUNCTIONS=true
 
 # Partial completion suggestions
