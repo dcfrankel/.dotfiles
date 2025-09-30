@@ -45,7 +45,7 @@ source "$HOME/.dotfiles/zsh/plugins.zsh"
 
 ##### Source useful custom AWS CLI commands #####
 AWS_COMMANDS_FILE="$HOME/.dotfiles/zsh/aws_commands.zsh"
-[ -f "$AWS_COMMANDS_FILE"] source "$AWS_COMMANDS_FILE"
+[ -f "$AWS_COMMANDS_FILE" ] && source "$AWS_COMMANDS_FILE"
 
 ##### Work Specific Configs #####
 WORK_CONFIGS_FILE="$HOME/.zshrc_work.zsh"
