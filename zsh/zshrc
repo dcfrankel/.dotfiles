@@ -43,5 +43,10 @@ alias ls='ls -lah --color'
 ##### Source additional plugin configurations #####
 source "$HOME/.dotfiles/zsh/plugins.zsh"
 
+##### Source useful custom AWS CLI commands #####
+AWS_COMMANDS_FILE="$HOME/.dotfiles/zsh/aws_commands.zsh"
+[ -f "$AWS_COMMANDS_FILE"] source "$AWS_COMMANDS_FILE"
+
 ##### Work Specific Configs #####
-[ -f "$HOME/.zshrc_work.zsh" ] && source "$HOME/.zshrc_work.zsh"
+WORK_CONFIGS_FILE="$HOME/.zshrc_work.zsh"
+[ -f "$WORK_CONFIGS_FILE" ] && source "$WORK_CONFIGS_FILE"
