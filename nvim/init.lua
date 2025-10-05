@@ -19,6 +19,11 @@ vim.o.winborder = 'rounded'
 -- Show white space
 vim.o.list = true
 vim.o.listchars = 'tab:» ,lead:•,trail:•'
+-- Better autocommplete settings
+vim.o.complete = ".,o" -- use buffer and omnifunc
+vim.o.completeopt = "fuzzy,preview,menu,menuone,noselect,popup"
+vim.o.autocomplete = true
+vim.o.pumheight = 10
 
 -- Enable native LSP configurations (you still need to install the servers separately)
 -- Lua language server configurations for neovim dev
