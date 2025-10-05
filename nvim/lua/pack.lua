@@ -18,6 +18,7 @@ function pack.load()
         { src = "https://github.com/nvim-lua/plenary.nvim", name = "plenary" },
         { src = "https://github.com/nvim-telescope/telescope.nvim", version = "0.1.8", name = "telescope" },
         { src = "https://github.com/rose-pine/neovim", name = "rose-pine" },
+        { src = 'https://github.com/neovim/nvim-lspconfig', name = "nvim-lspconfig" },
     })
     -- Load various plugin configurations
     configure()
