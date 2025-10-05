@@ -44,3 +44,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
   end,
 })
+
+-- neovim .12 vim.pack() plugins
+-- This is mostly for testing/experimientation at this point
+if  vim.version().minor >= 12 then
+    local pack = require("pack")
+    pack.load()
+end
