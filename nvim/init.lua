@@ -16,6 +16,9 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.smartindent = true
 vim.o.winborder = 'rounded'
+-- Show white space
+vim.o.list = true
+vim.o.listchars = 'tab:» ,lead:•,trail:•'
 
 -- Enable native LSP configurations (you still need to install the servers separately)
 vim.lsp.config['luals'] = {
@@ -45,7 +48,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
--- neovim .12 vim.pack() plugins
+-- neovim .12 vim.pack plugins
 -- This is mostly for testing/experimientation at this point
 if  vim.version().minor >= 12 then
     local pack = require("pack")
