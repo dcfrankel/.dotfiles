@@ -1,14 +1,14 @@
 {
   "plugins": {
-    "neovim": {
-      "rev": "72a04c4",
-      "src": "https://github.com/rose-pine/neovim"
-    },
-    "plenary.nvim": {
+    "plenary": {
       "rev": "b9fd522",
       "src": "https://github.com/nvim-lua/plenary.nvim"
     },
-    "telescope.nvim": {
+    "rose-pine": {
+      "rev": "72a04c4",
+      "src": "https://github.com/rose-pine/neovim"
+    },
+    "telescope": {
       "rev": "a0bbec2",
       "src": "https://github.com/nvim-telescope/telescope.nvim",
       "version": "'0.1.8'"
