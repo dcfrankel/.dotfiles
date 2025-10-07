@@ -72,16 +72,23 @@ vim.lsp.config('luals', {
   end
 })
 
+-- Enable LSP servers
 vim.lsp.enable({'luals', 'gopls'})
 
+-- Enable virtual lines for diagnostics
 vim.diagnostic.config({virtual_lines = true})
 
--- Enable native completions using LSP
+-- Specific setup actions for LSP buffers
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(ev)
-    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+    local bufnr = ev.buf -- Get the buffer
+    local client = vim.lsp.get_client_by_id(ev.data.client_id) -- Get the LSP client
     if client:supports_method('textDocument/completion') then
-      vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+      -- Enable native completion using LSP
+      vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
+    -- Configure gd and gD to act as you'd expect
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, silent = true })
+    vim.keymap.set("n", "gD", vim.lsp.buf.definition, { buffer = bufnr, silent = true })
     end
   end,
 })
