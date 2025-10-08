@@ -1,4 +1,4 @@
-local pack = {}
+local M = {}
 
 local function configure()
     -- Telescope keymaps
@@ -23,7 +23,7 @@ local function configure()
     vim.cmd("colorscheme rose-pine")
 end
 
-function pack.load()
+function M.load()
     vim.pack.add({
         -- Required by telescope
         { src = "https://github.com/nvim-lua/plenary.nvim", name = "plenary" },
@@ -37,4 +37,4 @@ function pack.load()
     vim.print("Done loading vim.pack plugin configurations.")
 end
 
-return pack
+return M
