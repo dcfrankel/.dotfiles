@@ -93,9 +93,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
--- neovim .12 vim.pack plugins
+-- neovim .12 configs
 -- This is mostly for testing/experimientation at this point
 if  vim.version().minor >= 12 then
+    -- Use rounded completion windows
+    vim.o.pumborder = 'rounded'
+    -- Load vim.pack plugins
     local pack = require("pack")
     pack.load()
 end
