@@ -89,6 +89,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- Configure gd and gD to act as you'd expect
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, silent = true })
     vim.keymap.set("n", "gD", vim.lsp.buf.definition, { buffer = bufnr, silent = true })
+    -- Use the same code action binding as Zed
+    vim.keymap.set("n", "g.", vim.lsp.buf.code_action, { buffer = bufnr, silent = true })
     end
   end,
 })
