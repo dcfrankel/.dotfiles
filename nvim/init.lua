@@ -42,8 +42,8 @@ vim.lsp.config('luals', {
     if client.workspace_folders then
       local path = client.workspace_folders[1].name
       if
-        path ~= vim.fn.stdpath('config')
-        and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc'))
+          path ~= vim.fn.stdpath('config')
+          and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc'))
       then
         return
       end
@@ -73,34 +73,37 @@ vim.lsp.config('luals', {
 })
 
 -- Enable LSP servers
-vim.lsp.enable({'luals', 'gopls'})
+vim.lsp.enable({ 'luals', 'gopls' })
 
 -- Enable virtual lines for diagnostics
-vim.diagnostic.config({virtual_lines = true})
+vim.diagnostic.config({ virtual_lines = true })
 
 -- Specific setup actions for LSP buffers
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(ev)
-    local bufnr = ev.buf -- Get the buffer local
+    local bufnr = ev.buf                                 -- Get the buffer local
     client = vim.lsp.get_client_by_id(ev.data.client_id) -- Get the LSP client
     if client:supports_method('textDocument/completion') then
-        -- Enable native completion using LSP
-        vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
-    -- Configure gd and gD to act as you'd expect
-    vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, silent = true, desc = "Go to definition" })
-    vim.keymap.set("n", "gD", vim.lsp.buf.definition, { buffer = bufnr, silent = true, desc = "Go to definition" })
-    -- Use the same code action binding as Zed
-    vim.keymap.set("n", "g.", vim.lsp.buf.code_action, { buffer = bufnr, silent = true, desc = "Open code action menu" })
+      -- Enable native completion using LSP
+      vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
+      -- Configure gd and gD to act as you'd expect
+      vim.keymap.set("n", "gd", vim.lsp.buf.definition,
+        { buffer = bufnr, silent = true, desc = "Go to definition" })
+      vim.keymap.set("n", "gD", vim.lsp.buf.definition,
+        { buffer = bufnr, silent = true, desc = "Go to definition" })
+      -- Use the same code action binding as Zed
+      vim.keymap.set("n", "g.", vim.lsp.buf.code_action,
+        { buffer = bufnr, silent = true, desc = "Open code action menu" })
     end
   end,
 })
 
 -- neovim .12 configs
 -- This is mostly for testing/experimientation at this point
-if  vim.version().minor >= 12 then
-    -- Use rounded completion windows
-    vim.o.pumborder = 'rounded'
-    -- Load vim.pack plugins
-    local pack = require("pack")
-    pack.load()
+if vim.version().minor >= 12 then
+  -- Use rounded completion windows
+  vim.o.pumborder = 'rounded'
+  -- Load vim.pack plugins
+  local pack = require("pack")
+  pack.load()
 end
