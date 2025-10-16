@@ -7,6 +7,14 @@
 // custom settings, run `zed: open default settings` from the
 // command palette
 {
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": true
+  },
+  "confirm_quit": true,
+  "cursor_blink": true,
+  "cursor_shape": "bar",
+  "bottom_dock_layout": "full",
   "icon_theme": "Material Icon Theme",
   "agent_servers": {
     "your_agent": {
@@ -57,6 +65,8 @@
   "buffer_font_family": "Hack",
   "buffer_font_fallbacks": ["JetBrains Mono", ".ZedMono"],
   "title_bar": {
+    "show_menus": false,
+    "show_branch_icon": true,
     "show_sign_in": false
   },
   "project_panel": {
