@@ -16,5 +16,13 @@
     "bindings": {
       "cmd-shift-g": ["agent::NewExternalAgentThread", { "agent": "gemini" }]
     }
+  },
+  // vim-sneak plugin motion support
+  {
+    "context": "vim_mode == normal || vim_mode == visual",
+    "bindings": {
+      "s": "vim::PushSneak",
+      "shift-s": "vim::PushSneakBackward"
+    }
   }
 ]
