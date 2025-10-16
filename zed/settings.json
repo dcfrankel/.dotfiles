@@ -53,6 +53,9 @@
   "languages": {
     "Shell Script": {
       "tab_size": 2
+    },
+    "Lua": {
+      "tab_size": 2
     }
   },
   "indent_guides": {
