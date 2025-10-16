@@ -12,6 +12,7 @@
       // "j k": "vim::NormalBefore"
     }
   },
+  // Open gemini CLI agent panel
   {
     "bindings": {
       "cmd-shift-g": ["agent::NewExternalAgentThread", { "agent": "gemini" }]
