@@ -105,5 +105,5 @@ if vim.version().minor >= 12 then
   vim.o.pumborder = 'rounded'
   -- Load vim.pack plugins
   local pack = require("pack")
-  pack.load()
+  pack.load_all()
 end
