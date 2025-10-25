@@ -6,15 +6,10 @@
 // To see the default key bindings run `zed: open default keymap`
 // from the command palette.
 [
-  {
-    "context": "Editor && vim_mode == insert",
-    "bindings": {
-      // "j k": "vim::NormalBefore"
-    }
-  },
   // Open gemini CLI agent panel
   {
     "bindings": {
+      // Open Gemini CLI
       "cmd-shift-g": ["agent::NewExternalAgentThread", { "agent": "gemini" }]
     }
   },
@@ -23,7 +18,12 @@
     "context": "vim_mode == normal || vim_mode == visual",
     "bindings": {
       "s": "vim::PushSneak",
-      "shift-s": "vim::PushSneakBackward"
+      "shift-s": "vim::PushSneakBackward",
+      // Open lazygit from task
+      "space l": [
+        "task::Spawn",
+        { "task_name": "LazyGit", "reveal_target": "center" }
+      ]
     }
   }
 ]
