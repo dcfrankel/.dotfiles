@@ -1,6 +1,8 @@
+-- Globals
 -- Set leader to space-bar
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+vim.g.netrw_liststyle = 3
 
 -- General settings
 vim.opt.guicursor = ""
