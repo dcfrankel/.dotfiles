@@ -3,9 +3,9 @@ local M = {}
 function M.setup()
   -- Fuzzy searching
   vim.pack.add({
-    -- Required by telescope
-    { src = "https://github.com/nvim-lua/plenary.nvim",         name = "plenary" },
     { src = "https://github.com/nvim-telescope/telescope.nvim", version = "0.1.8", name = "telescope" },
+    -- Telescope dependency
+    { src = "https://github.com/nvim-lua/plenary.nvim", name = "plenary" },
   })
 
   -- Telescope keymaps
