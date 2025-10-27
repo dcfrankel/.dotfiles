@@ -3,7 +3,11 @@ export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="eastwood"
 source "$ZSH/oh-my-zsh.sh"
 
-##### PATH Changes #####
+##### Env vars #####
+# Set the default configuration file location used by many programs
+export XDG_CONFIG_HOME="$HOME/.config"
+
+# PATH Changes
 # User binaries
 export PATH="$HOME/bin:$PATH"
 # System wide binaries
