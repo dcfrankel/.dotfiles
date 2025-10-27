@@ -20,7 +20,7 @@
       "s": "vim::PushSneak",
       "shift-s": "vim::PushSneakBackward",
       // Open lazygit from task
-      "space l": [
+      "space l g": [
         "task::Spawn",
         { "task_name": "LazyGit", "reveal_target": "center" }
       ]
