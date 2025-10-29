@@ -77,5 +77,15 @@
   },
   "collaboration_panel": {
     "button": false
+  },
+  "theme_overrides": {
+    "Rosé Pine Moon": {
+      "vim.mode.text": "#232136",
+      "vim.normal.background": "#f6c177",
+      "vim.insert.background": "#ea9a97",
+      "vim.visual.background": "#9ccfd8",
+      "vim.visual_line.background": "#9ccfd8",
+      "vim.visual_block.background": "#9ccfd8"
+    }
   }
 }
