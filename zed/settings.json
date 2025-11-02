@@ -43,6 +43,7 @@
       "milliseconds": 1000
     }
   },
+  "max_tabs": 10,
   "tabs": {
     "file_icons": true,
     "git_status": true
