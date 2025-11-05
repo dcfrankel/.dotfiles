@@ -4,6 +4,10 @@
       "rev": "234fc04",
       "src": "https://github.com/catppuccin/nvim"
     },
+    "flash": {
+      "rev": "fcea7ff",
+      "src": "https://github.com/folke/flash.nvim"
+    },
     "kanagawa": {
       "rev": "aef7f5c",
       "src": "https://github.com/rebelot/kanagawa.nvim"

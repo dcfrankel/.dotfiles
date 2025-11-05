@@ -14,6 +14,7 @@ function M.load_all()
   require('plugin_configs.miniclue').setup()
   require('plugin_configs.telescope').setup()
   require('plugin_configs.treesitter').setup()
+  require('plugin_configs.flash').setup()
 end
 
 return M
