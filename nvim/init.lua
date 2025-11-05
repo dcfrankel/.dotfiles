@@ -18,6 +18,8 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.smartindent = true
 vim.o.winborder = 'rounded'
+-- Reduce how long to wait for diagnostics window
+vim.opt.updatetime = 250
 -- Show white space
 vim.o.list = true
 vim.o.listchars = 'tab:» ,lead:•,trail:•'
@@ -32,8 +34,13 @@ vim.o.pumheight = 10
 vim.lsp.enable('lua_ls')
 vim.lsp.enable('gopls' )
 
--- Enable virtual lines for diagnostics
-vim.diagnostic.config({ virtual_lines = true })
+-- Diagnostics configurations
+-- Bring diagnostics popup on cursor hover, similar to other editors
+vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+  callback = function(_)
+    vim.diagnostic.open_float(nil, { focusable = false })
+  end
+})
 
 -- Specific setup actions for LSP buffers
 vim.api.nvim_create_autocmd('LspAttach', {
