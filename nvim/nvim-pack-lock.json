@@ -1,5 +1,13 @@
 {
   "plugins": {
+    "catppuccin": {
+      "rev": "234fc04",
+      "src": "https://github.com/catppuccin/nvim"
+    },
+    "kanagawa": {
+      "rev": "aef7f5c",
+      "src": "https://github.com/rebelot/kanagawa.nvim"
+    },
     "mini.clue": {
       "rev": "8b8598a",
       "src": "https://github.com/nvim-mini/mini.clue",
