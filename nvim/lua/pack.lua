@@ -10,7 +10,6 @@ function M.load_all()
   -- Load various plugin configurations
   require('plugin_configs.miniclue').setup()
   require('plugin_configs.telescope').setup()
-  require('plugin_configs.lspconfig').setup()
   require('plugin_configs.treesitter').setup()
 end
 
