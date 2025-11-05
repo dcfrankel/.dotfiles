@@ -39,7 +39,7 @@ vim.diagnostic.config({ virtual_lines = true })
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(ev)
     local bufnr = ev.buf                                 -- Get the buffer local
-    client = vim.lsp.get_client_by_id(ev.data.client_id) -- Get the LSP client
+    local client = vim.lsp.get_client_by_id(ev.data.client_id) -- Get the LSP client
     if client:supports_method('textDocument/completion') then
       -- Enable native completion using LSP
       vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
