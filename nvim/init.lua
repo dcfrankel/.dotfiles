@@ -1,7 +1,6 @@
 -- Globals
 -- Set leader to space-bar
 vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.g.netrw_liststyle = 3
 
 -- General settings
@@ -28,6 +27,13 @@ vim.o.complete = ".,o" -- use buffer and omnifunc
 vim.o.completeopt = "fuzzy,preview,menu,menuone,noselect,popup"
 vim.o.autocomplete = true
 vim.o.pumheight = 10
+
+-- Basic keymaps
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+-- Make tab go down and up for completion dropdown
+-- Attempted to do this using the lua API but I couldn't get it to work
+vim.cmd([[inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"]])
+vim.cmd([[inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"]])
 
 -- LSP configurations should go in lua/lsp/*.lua files
 -- Enable native language servers (you still need to install the servers separately)
