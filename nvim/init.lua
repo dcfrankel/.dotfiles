@@ -30,6 +30,8 @@ vim.o.pumheight = 10
 
 -- Basic keymaps
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+-- Format a file using lsp
+vim.keymap.set("n", "<leader>ff", function() vim.lsp.buf.format() end)
 -- Make tab go down and up for completion dropdown
 -- Attempted to do this using the lua API but I couldn't get it to work
 vim.cmd([[inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"]])
@@ -38,7 +40,7 @@ vim.cmd([[inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"]])
 -- LSP configurations should go in lua/lsp/*.lua files
 -- Enable native language servers (you still need to install the servers separately)
 vim.lsp.enable('lua_ls')
-vim.lsp.enable('gopls' )
+vim.lsp.enable('gopls')
 
 -- Diagnostics configurations
 -- Bring diagnostics popup on cursor hover, similar to other editors
@@ -51,16 +53,14 @@ vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
 -- Specific setup actions for LSP buffers
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(ev)
-    local bufnr = ev.buf                                 -- Get the buffer local
+    local bufnr = ev.buf                                       -- Get the buffer local
     local client = vim.lsp.get_client_by_id(ev.data.client_id) -- Get the LSP client
     if client:supports_method('textDocument/completion') then
       -- Enable native completion using LSP
       vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
       -- Configure gd and gD to act as you'd expect
-      vim.keymap.set("n", "gd", vim.lsp.buf.definition,
-        { buffer = bufnr, silent = true, desc = "Go to definition" })
-      vim.keymap.set("n", "gD", vim.lsp.buf.definition,
-        { buffer = bufnr, silent = true, desc = "Go to definition" })
+      vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, silent = true, desc = "Go to definition" })
+      vim.keymap.set("n", "gD", vim.lsp.buf.definition, { buffer = bufnr, silent = true, desc = "Go to definition" })
       -- Use the same code action binding as Zed
       vim.keymap.set("n", "g.", vim.lsp.buf.code_action,
         { buffer = bufnr, silent = true, desc = "Open code action menu" })
