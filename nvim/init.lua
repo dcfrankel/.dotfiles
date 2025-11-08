@@ -17,12 +17,12 @@ vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.smartindent = true
-vim.o.winborder = 'rounded'
+vim.o.winborder = "rounded"
 -- Reduce how long to wait for diagnostics window
 vim.opt.updatetime = 250
 -- Show white space
 vim.o.list = true
-vim.o.listchars = 'tab:» ,lead:•,trail:•'
+vim.o.listchars = "tab:» ,lead:•,trail:•"
 -- Better autocomplete settings
 vim.o.complete = ".,o" -- use buffer and omnifunc
 vim.o.completeopt = "fuzzy,preview,menu,menuone,noselect,popup"
@@ -38,27 +38,27 @@ vim.keymap.set("n", "<leader>ff", function() vim.lsp.buf.format() end)
 vim.cmd([[inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"]])
 vim.cmd([[inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"]])
 -- Clear search highlight using escape (for some reason this isn't a default)
-vim.keymap.set('n', '<Esc>', function() vim.cmd('noh') end)
+vim.keymap.set("n", "<Esc>", function() vim.cmd("noh") end)
 
 -- LSP configurations should go in lua/lsp/*.lua files
 -- Enable native language servers (you still need to install the servers separately)
-vim.lsp.enable('lua_ls')
-vim.lsp.enable('gopls')
+vim.lsp.enable("lua_ls")
+vim.lsp.enable("gopls")
 
 -- Diagnostics configurations
 -- Bring diagnostics popup on cursor hover, similar to other editors
-vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
   callback = function(_)
     vim.diagnostic.open_float(nil, { focusable = false })
   end
 })
 
 -- Specific setup actions for LSP buffers
-vim.api.nvim_create_autocmd('LspAttach', {
+vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(ev)
     local bufnr = ev.buf                                       -- Get the buffer local
     local client = vim.lsp.get_client_by_id(ev.data.client_id) -- Get the LSP client
-    if client:supports_method('textDocument/completion') then
+    if client:supports_method("textDocument/completion") then
       -- Enable native completion using LSP
       vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
       -- Configure gd and gD to act as you'd expect
@@ -75,7 +75,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 -- This is mostly for testing/experimientation at this point
 if vim.version().minor >= 12 then
   -- Use rounded completion windows
-  vim.o.pumborder = 'rounded'
+  vim.o.pumborder = "rounded"
   -- Load vim.pack plugins
   local pack = require("pack")
   pack.load_all()

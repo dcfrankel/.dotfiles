@@ -11,10 +11,10 @@ function M.load_all()
   vim.cmd("colorscheme catppuccin")
 
   -- Load various plugin configurations
-  require('plugin_configs.miniclue').setup()
-  require('plugin_configs.telescope').setup()
-  require('plugin_configs.treesitter').setup()
-  require('plugin_configs.leap').setup()
+  require("plugin_configs.miniclue").setup()
+  require("plugin_configs.telescope").setup()
+  require("plugin_configs.treesitter").setup()
+  require("plugin_configs.leap").setup()
 end
 
 return M
