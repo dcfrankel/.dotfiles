@@ -7,7 +7,8 @@ vim.g.netrw_liststyle = 3
 vim.opt.guicursor = ""
 vim.opt.nu = true
 vim.opt.relativenumber = true
-vim.opt.hlsearch = false
+-- Enable search highlights
+vim.opt.hlsearch = true
 vim.opt.incsearch = true
 vim.opt.termguicolors = true
 vim.opt.scrolloff = 8
@@ -36,6 +37,8 @@ vim.keymap.set("n", "<leader>ff", function() vim.lsp.buf.format() end)
 -- Attempted to do this using the lua API but I couldn't get it to work
 vim.cmd([[inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"]])
 vim.cmd([[inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"]])
+-- Clear search highlight using escape (for some reason this isn't a default)
+vim.keymap.set('n', '<Esc>', function() vim.cmd('noh') end)
 
 -- LSP configurations should go in lua/lsp/*.lua files
 -- Enable native language servers (you still need to install the servers separately)
