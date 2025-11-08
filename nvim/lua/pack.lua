@@ -15,6 +15,7 @@ function M.load_all()
   require("plugin_configs.telescope").setup()
   require("plugin_configs.treesitter").setup()
   require("plugin_configs.leap").setup()
+  require("plugin_configs.nvim-autopairs").setup()
 end
 
 return M
