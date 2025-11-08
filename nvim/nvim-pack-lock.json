@@ -4,13 +4,13 @@
       "rev": "234fc04",
       "src": "https://github.com/catppuccin/nvim"
     },
-    "flash": {
-      "rev": "fcea7ff",
-      "src": "https://github.com/folke/flash.nvim"
-    },
     "kanagawa": {
       "rev": "aef7f5c",
       "src": "https://github.com/rebelot/kanagawa.nvim"
+    },
+    "leap": {
+      "rev": "614481b",
+      "src": "https://github.com/ggandor/leap.nvim"
     },
     "mini.clue": {
       "rev": "8b8598a",
