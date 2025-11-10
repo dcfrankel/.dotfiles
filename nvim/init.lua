@@ -71,6 +71,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
+-- Open help in vertical split rather the the default horizontal
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "help",
+  command = "wincmd L",
+})
+
 -- neovim .12 configs
 -- This is mostly for testing/experimientation at this point
 if vim.version().minor >= 12 then
