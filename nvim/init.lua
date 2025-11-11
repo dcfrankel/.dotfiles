@@ -77,6 +77,15 @@ vim.api.nvim_create_autocmd("FileType", {
   command = "wincmd L",
 })
 
+-- Auto open quickfix for certain actions
+vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+  pattern = "[^l]*",
+  callback = function()
+    vim.cmd("cwindow")
+  end,
+  desc = "Open quickfix window after cgetexpr, vimgrep, make, etc.",
+})
+
 -- neovim .12 configs
 -- This is mostly for testing/experimientation at this point
 if vim.version().minor >= 12 then
