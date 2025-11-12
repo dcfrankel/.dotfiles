@@ -33,6 +33,9 @@ vim.o.pumheight = 10
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 -- Format a file using lsp
 vim.keymap.set("n", "<leader>ff", function() vim.lsp.buf.format() end)
+-- Add shortcuts for moving through quickfix (based off of vim-unimpaired)
+vim.keymap.set("n", "]q", ":cnext<CR>")
+vim.keymap.set("n", "[q", ":cprevious<CR>")
 -- Make tab go down and up for completion dropdown
 -- Attempted to do this using the lua API but I couldn't get it to work
 vim.cmd([[inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"]])
