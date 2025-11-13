@@ -17,6 +17,8 @@ vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.smartindent = true
+-- Force yank to copy to the OS clipboard
+vim.opt.clipboard = "unnamedplus"
 vim.o.winborder = "rounded"
 -- Reduce how long to wait for diagnostics window
 vim.opt.updatetime = 250
