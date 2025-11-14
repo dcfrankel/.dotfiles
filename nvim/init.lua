@@ -6,6 +6,7 @@ vim.g.netrw_liststyle = 3
 -- General settings
 vim.opt.guicursor = ""
 vim.opt.nu = true
+-- Set or disable relative line numbers
 vim.opt.relativenumber = true
 -- Enable search highlights
 vim.opt.hlsearch = true
