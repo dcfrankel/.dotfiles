@@ -16,6 +16,7 @@ function M.load_all()
   require("plugin_configs.treesitter").setup()
   require("plugin_configs.leap").setup()
   require("plugin_configs.nvim-autopairs").setup()
+  require("plugin_configs.gitsigns").setup()
 end
 
 return M

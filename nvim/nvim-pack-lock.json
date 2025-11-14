@@ -4,6 +4,10 @@
       "rev": "234fc04",
       "src": "https://github.com/catppuccin/nvim"
     },
+    "gitsigns": {
+      "rev": "20ad441",
+      "src": "https://github.com/lewis6991/gitsigns.nvim"
+    },
     "kanagawa": {
       "rev": "aef7f5c",
       "src": "https://github.com/rebelot/kanagawa.nvim"
