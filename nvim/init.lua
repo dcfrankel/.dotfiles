@@ -45,6 +45,8 @@ vim.cmd([[inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"]])
 vim.cmd([[inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"]])
 -- Clear search highlight using escape (for some reason this isn't a default)
 vim.keymap.set("n", "<Esc>", function() vim.cmd("noh") end)
+-- Make escape work in terminal mode, otherwise it won't return to normal mode
+vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]])
 
 -- LSP configurations should go in lua/lsp/*.lua files
 -- Enable native language servers (you still need to install the servers separately)
