@@ -8,14 +8,14 @@ function fzf_init() {
 }
 
 ##### Vi Mode Configs #####
-zsh_vi_mode_path="$(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
-if [ -f "$zsh_vi_mode_path" ]; then
-  source "$zsh_vi_mode_path"
-  # zsh vi mode breaks CTRL+R search with fzf unless added here
-  zvm_after_init_commands+=(fzf_init)
-else
-  fzf_init
-fi
+# zsh_vi_mode_path="$(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
+# if [ -f "$zsh_vi_mode_path" ]; then
+#   source "$zsh_vi_mode_path"
+#   # zsh vi mode breaks CTRL+R search with fzf unless added here
+#   zvm_after_init_commands+=(fzf_init)
+# else
+#   fzf_init
+# fi
 
 ##### kube-ps1 Configs #####
 # Enable kube-ps1 prompt if kube config exists and set color defaults
