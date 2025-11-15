@@ -4,6 +4,10 @@
       "rev": "234fc04",
       "src": "https://github.com/catppuccin/nvim"
     },
+    "fugitive": {
+      "rev": "61b51c0",
+      "src": "https://github.com/tpope/vim-fugitive"
+    },
     "gitsigns": {
       "rev": "20ad441",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
