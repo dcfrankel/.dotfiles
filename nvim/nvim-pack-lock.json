@@ -4,6 +4,10 @@
       "rev": "234fc04",
       "src": "https://github.com/catppuccin/nvim"
     },
+    "commentary": {
+      "rev": "64a654e",
+      "src": "https://github.com/tpope/vim-commentary"
+    },
     "fugitive": {
       "rev": "61b51c0",
       "src": "https://github.com/tpope/vim-fugitive"

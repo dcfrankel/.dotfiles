@@ -18,6 +18,7 @@ function M.load_all()
   require("plugin_configs.nvim-autopairs").setup()
   require("plugin_configs.gitsigns").setup()
   require("plugin_configs.fugitive").setup()
+  require("plugin_configs.commentary").setup()
 end
 
 return M
