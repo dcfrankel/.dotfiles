@@ -100,5 +100,6 @@
       "**/helmfile.d/**/*.yml",
       "**/values*.yaml"
     ]
-  }
+  },
+  "sticky_scroll": { "enabled": true }
 }
