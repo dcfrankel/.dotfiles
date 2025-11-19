@@ -89,5 +89,16 @@
       "vim.visual_line.background": "#9ccfd8",
       "vim.visual_block.background": "#9ccfd8"
     }
+  },
+  "file_types": {
+    // Get helm files to match correctly
+    "Helm": [
+      "**/templates/**/*.tpl",
+      "**/templates/**/*.yaml",
+      "**/templates/**/*.yml",
+      "**/helmfile.d/**/*.yaml",
+      "**/helmfile.d/**/*.yml",
+      "**/values*.yaml"
+    ]
   }
 }
