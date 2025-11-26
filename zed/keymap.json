@@ -6,11 +6,16 @@
 // To see the default key bindings run `zed: open default keymap`
 // from the command palette.
 [
-  // Open gemini CLI agent panel
+  // Global bindings
   {
     "bindings": {
       // Open Gemini CLI
-      "cmd-shift-g": ["agent::NewExternalAgentThread", { "agent": "gemini" }]
+      "cmd-shift-g": ["agent::NewExternalAgentThread", { "agent": "gemini" }],
+      // Open lazygit from task
+      "space l g": [
+        "task::Spawn",
+        { "task_name": "LazyGit", "reveal_target": "center" }
+      ]
     }
   },
   // vim-sneak plugin motion support
@@ -18,12 +23,7 @@
     "context": "vim_mode == normal || vim_mode == visual",
     "bindings": {
       "s": "vim::PushSneak",
-      "shift-s": "vim::PushSneakBackward",
-      // Open lazygit from task
-      "space l g": [
-        "task::Spawn",
-        { "task_name": "LazyGit", "reveal_target": "center" }
-      ]
+      "shift-s": "vim::PushSneakBackward"
     }
   },
   {
