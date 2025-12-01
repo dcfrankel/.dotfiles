@@ -52,9 +52,9 @@ source "$HOME/.dotfiles/zsh/plugins.zsh"
 AWS_COMMANDS_FILE="$HOME/.dotfiles/zsh/aws_commands.zsh"
 [ -f "$AWS_COMMANDS_FILE" ] && source "$AWS_COMMANDS_FILE"
 
-##### Source useful custom AWS CLI commands #####
-KUBERNETES_COMMANDS_FILE="$HOME/.dotfiles/zsh/aws_commands.zsh"
-[ -f "$KUBERNETES_COMMANDS_FILE" ] && source "$AWS_COMMANDS_FILE"
+##### Source useful custom kubectl CLI commands #####
+KUBECTL_COMMANDS_FILE="$HOME/.dotfiles/zsh/kubectl_commands.zsh"
+[ -f "$KUBECTL_COMMANDS_FILE" ] && source "$KUBECTL_COMMANDS_FILE"
 
 ##### Work Specific Configs #####
 WORK_CONFIGS_FILE="$HOME/.zshrc_work.zsh"
