@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 ##### fzf related Configs #####
 export FZF_DEFAULT_OPTS='--style full'
 # Use fd if it's present on the system

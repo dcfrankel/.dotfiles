@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 ##### oh-my-zsh setup #####
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="eastwood"
@@ -50,6 +51,10 @@ source "$HOME/.dotfiles/zsh/plugins.zsh"
 ##### Source useful custom AWS CLI commands #####
 AWS_COMMANDS_FILE="$HOME/.dotfiles/zsh/aws_commands.zsh"
 [ -f "$AWS_COMMANDS_FILE" ] && source "$AWS_COMMANDS_FILE"
+
+##### Source useful custom AWS CLI commands #####
+KUBERNETES_COMMANDS_FILE="$HOME/.dotfiles/zsh/aws_commands.zsh"
+[ -f "$KUBERNETES_COMMANDS_FILE" ] && source "$AWS_COMMANDS_FILE"
 
 ##### Work Specific Configs #####
 WORK_CONFIGS_FILE="$HOME/.zshrc_work.zsh"

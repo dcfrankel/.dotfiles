@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 ## A sane set of default overrides and customizations for the AWS CLI
 ## Designed to be easily piped to downstream processes
 
