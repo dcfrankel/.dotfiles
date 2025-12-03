@@ -18,6 +18,7 @@
   "icon_theme": "Material Icon Theme",
   "agent_servers": {
     "your_agent": {
+      "type": "custom",
       "command": "path_to_executable",
       "args": [],
       "env": {}
@@ -114,5 +115,6 @@
       "**/values*.yaml"
     ]
   },
-  "sticky_scroll": { "enabled": true }
+  "sticky_scroll": { "enabled": true },
+  "colorize_brackets": true
 }
