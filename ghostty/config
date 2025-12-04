@@ -1,0 +1,10 @@
+# Note: Empty values reset the configuration to the default value
+font-family = Hack
+font-size = 14
+font-feature =-liga
+font-thicken = true
+
+theme = "Catppuccin Frappe"
+
+window-height=30
+window-width=110
