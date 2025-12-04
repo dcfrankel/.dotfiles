@@ -10,12 +10,7 @@
   {
     "bindings": {
       // Open Gemini CLI
-      "cmd-shift-g": ["agent::NewExternalAgentThread", { "agent": "gemini" }],
-      // Open lazygit from task
-      "space l g": [
-        "task::Spawn",
-        { "task_name": "LazyGit", "reveal_target": "center" }
-      ]
+      "cmd-shift-g": ["agent::NewExternalAgentThread", { "agent": "gemini" }]
     }
   },
   // vim-sneak plugin motion support
@@ -23,7 +18,13 @@
     "context": "vim_mode == normal || vim_mode == visual",
     "bindings": {
       "s": "vim::PushSneak",
-      "shift-s": "vim::PushSneakBackward"
+      "shift-s": "vim::PushSneakBackward",
+      // Open lazygit from task
+      // Note: This needs to stay under the vim context otherwise it causes odd input delays follow space press
+      "space l g": [
+        "task::Spawn",
+        { "task_name": "LazyGit", "reveal_target": "center" }
+      ]
     }
   },
   {
