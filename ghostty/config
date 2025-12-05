@@ -1,6 +1,6 @@
 # Note: Empty values reset the configuration to the default value
 # Built in theme and related visual tweaks
-theme = "Catppuccin Frappe"
+theme = "Catppuccin Macchiato"
 
 # Font related settings
 font-family = Hack
