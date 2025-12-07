@@ -32,3 +32,7 @@ fi
 ##### ZSH Autosuggestions Configs #####
 zsh_autosuggestions_path="$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 [ -f "$zsh_autosuggestions_path" ] && source "$zsh_autosuggestions_path"
+
+#### Jujutsu Configs ####
+# Use dynamic completions even though they are unstable
+[ -x "$(command -v jj)" ] && source <(COMPLETE=zsh jj) 
