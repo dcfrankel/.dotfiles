@@ -11,3 +11,7 @@ adjust-cell-height = 1
 
 window-height = 30
 window-width = 110
+
+working-directory = home
+# Don't inherit another tabs directory
+window-inherit-working-directory = false
