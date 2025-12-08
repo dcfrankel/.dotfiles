@@ -15,3 +15,7 @@ window-width = 110
 working-directory = home
 # Don't inherit another tabs directory
 window-inherit-working-directory = false
+
+# SSH related configs
+# Fixes issues with the terminfo xterm-ghostty value not existing on older systems
+shell-integration-features = ssh-env
