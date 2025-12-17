@@ -1,2 +1,18 @@
 # dotfiles
 A collection of `.file` "dotfile" configurations for vim, zsh, emacs, etc...
+
+The following documentation assumes that this directory should be located in a users "$HOME" directory.
+
+Symbolic links should be created for the following files and directories:
+| Link Target | Source |
+| --- | --- |
+| `$HOME/.zshrc.pre-oh-my-zsh` | `$HOME/.dotfiles/zsh/zshrc` |
+| `$HOME/.zshrc` | `$HOME/.dotfiles/zsh/zshrc` |
+| `$HOME/.editorconfig` | `$HOME/.dotfiles/.editorconfig` |
+| `$HOME/.gitconfig` | `$HOME/.dotfiles/git/gitconfig` |
+| `$HOME/.config/zed/keymap.json` | `$HOME/.dotfiles/zed/keymap.json` |
+| `$HOME/.config/zed/settings.json` | `$HOME/.dotfiles/zed/settings.json` |
+| `$HOME/.config/zed/tasks.json` | `$HOME/.dotfiles/zed/tasks.json` |
+| `$HOME/.config/nvim` | `$HOME/.dotfiles/nvim` |
+| `$HOME/.config/lazygit/config.yaml` | `$HOME/.dotfiles/lazygit/config.yaml` |
+| `$HOME/.config/ghostty/config` | `$HOME/.dotfiles/ghostty/config` |
