@@ -10,8 +10,9 @@
   {
     "bindings": {
       // Open Gemini CLI
-      "cmd-shift-g": ["agent::NewExternalAgentThread", { "agent": "gemini" }]
-    }
+      "cmd-shift-g": ["agent::NewExternalAgentThread", { "agent": "gemini" }],
+      "cmd-shift-c": ["agent::NewExternalAgentThread", { "agent": "codex" }],
+    },
   },
   // vim-sneak plugin motion support
   {
@@ -23,9 +24,9 @@
       // Note: This needs to stay under the vim context otherwise it causes odd input delays follow space press
       "space l g": [
         "task::Spawn",
-        { "task_name": "LazyGit", "reveal_target": "center" }
-      ]
-    }
+        { "task_name": "LazyGit", "reveal_target": "center" },
+      ],
+    },
   },
   {
     "context": "Dock",
@@ -33,9 +34,9 @@
       "ctrl-w h": "workspace::ActivatePaneLeft",
       "ctrl-w l": "workspace::ActivatePaneRight",
       "ctrl-w k": "workspace::ActivatePaneUp",
-      "ctrl-w j": "workspace::ActivatePaneDown"
+      "ctrl-w j": "workspace::ActivatePaneDown",
       // ... or other keybindings
-    }
+    },
   },
   // Add normal tab switching bindings for mac
   {
@@ -49,7 +50,7 @@
       "cmd-6": ["pane::ActivateItem", 5],
       "cmd-7": ["pane::ActivateItem", 6],
       "cmd-8": ["pane::ActivateItem", 7],
-      "cmd-9": ["pane::ActivateItem", 8]
-    }
-  }
+      "cmd-9": ["pane::ActivateItem", 8],
+    },
+  },
 ]
