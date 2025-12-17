@@ -16,3 +16,14 @@ Symbolic links should be created for the following files and directories:
 | `$HOME/.config/nvim` | `$HOME/.dotfiles/nvim` |
 | `$HOME/.config/lazygit/config.yaml` | `$HOME/.dotfiles/lazygit/config.yaml` |
 | `$HOME/.config/ghostty/config` | `$HOME/.dotfiles/ghostty/config` |
+
+## Bootstrapping
+Use the helper script to create the symlinks safely (skips existing destinations):
+
+```bash
+# from the repo
+./bootstrap.sh
+
+# or if the repo lives somewhere else
+DOTFILES=/custom/path/to/.dotfiles ./bootstrap.sh
+```
