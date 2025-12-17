@@ -10,7 +10,8 @@
   {
     "bindings": {
       // Open Gemini CLI
-      "cmd-shift-g": ["agent::NewExternalAgentThread", { "agent": "gemini" }]
+      "cmd-shift-g": ["agent::NewExternalAgentThread", { "agent": "gemini" }],
+      "cmd-shift-c": ["agent::NewExternalAgentThread", { "agent": "codex" }]
     }
   },
   // vim-sneak plugin motion support
