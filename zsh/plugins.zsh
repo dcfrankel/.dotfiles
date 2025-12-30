@@ -24,6 +24,8 @@ KUBE_PS1_SYMBOL_COLOR="${KUBE_PS1_SYMBOL_COLOR-blue}"
 KUBE_PS1_CTX_COLOR="${KUBE_PS1_CTX_COLOR-green}"
 KUBE_PS1_NS_COLOR="${KUBE_PS1_NS_COLOR-green}"
 KUBE_PS1_BG_COLOR="${KUBE_PS1_BG_COLOR}"
+KUBE_PS1_PREFIX="["
+KUBE_PS1_SUFFIX="]"
 
 if [ -f "$HOME/.kube/config" ]; then
   source "$(brew --prefix)/share/kube-ps1.sh" && PROMPT='$(kube_ps1) '$PROMPT || echo "Failed to source kube_ps1 plugin"
@@ -35,4 +37,4 @@ zsh_autosuggestions_path="$(brew --prefix)/share/zsh-autosuggestions/zsh-autosug
 
 #### Jujutsu Configs ####
 # Use dynamic completions even though they are unstable
-[ -x "$(command -v jj)" ] && source <(COMPLETE=zsh jj) 
+[ -x "$(command -v jj)" ] && source <(COMPLETE=zsh jj)
