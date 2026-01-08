@@ -116,5 +116,6 @@
     ]
   },
   "sticky_scroll": { "enabled": true },
-  "colorize_brackets": true
+  "colorize_brackets": true,
+  "which_key": { "enabled": true }
 }
