@@ -81,7 +81,7 @@
     "background_coloring": "indent_aware"
   },
   "format_on_save": "off",
-  "buffer_font_family": "Hack",
+  "buffer_font_family": "Hack Nerd Font",
   "buffer_font_fallbacks": ["JetBrains Mono", ".ZedMono"],
   "title_bar": {
     "show_menus": false,
