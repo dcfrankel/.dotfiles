@@ -14,10 +14,7 @@ export PATH="/usr/local/bin:$PATH"
 # Go binaries
 export PATH="$PATH:$HOME/go/bin"
 # Set starship config path
-export STARSHIP_CONFIG="$HOME/.config/starship/config.toml"
-
-#### Set up ohmyzsh ####
-source "$HOME/.dotfiles/zsh/ohmyzsh/oh-my-zsh.zsh"
+export STARSHIP_CONFIG="$HOME/.dotfiles/starship/starship.toml"
 
 #### ZSH Configs ####
 # Make vim bindings work for completions selection
@@ -59,3 +56,10 @@ KUBECTL_COMMANDS_FILE="$HOME/.dotfiles/zsh/kubectl_commands.zsh"
 #### Work Specific Configs ####
 WORK_CONFIGS_FILE="$HOME/.zshrc_work.zsh"
 [ -f "$WORK_CONFIGS_FILE" ] && source "$WORK_CONFIGS_FILE"
+
+#### Shell Frameworks ####
+# Set up ohmyzsh
+# source "$HOME/.dotfiles/zsh/ohmyzsh/oh-my-zsh.zsh"
+
+# Set up Starship
+[ -x "$(command -v starship)" ] && eval "$(starship init zsh)"
