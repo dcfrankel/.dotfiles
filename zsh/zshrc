@@ -1,10 +1,6 @@
 #!/usr/bin/env zsh
-##### oh-my-zsh setup #####
-export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME="kphoen"
-source "$ZSH/oh-my-zsh.sh"
 
-##### Env vars #####
+#### Env vars ####
 # Set the default configuration file location used by many programs
 export XDG_CONFIG_HOME="$HOME/.config"
 # Set lazygit config path
@@ -17,8 +13,10 @@ export PATH="$HOME/bin:$PATH"
 export PATH="/usr/local/bin:$PATH"
 # Go binaries
 export PATH="$PATH:$HOME/go/bin"
+# Set starship config path
+export STARSHIP_CONFIG="$HOME/.dotfiles/starship/starship.toml"
 
-##### ZSH Configs #####
+#### ZSH Configs ####
 # Make vim bindings work for completions selection
 zmodload zsh/complist
 bindkey -M menuselect 'h' vi-backward-char
@@ -41,23 +39,27 @@ setopt auto_remove_slash # automatically remove slash from completions
 setopt inc_append_history # save commands in history immediately
 setopt share_history # share history between shells
 
-##### Aliases #####
+#### Aliases ####
 alias ls='ls -lah --color'
 
-# Enable bat
-[ -x "$(command -v bat)" ] && alias cat='bat --paging=never'
-
-##### Source additional plugin configurations #####
+#### Source additional plugin configurations ####
 source "$HOME/.dotfiles/zsh/plugins.zsh"
 
-##### Source useful custom AWS CLI commands #####
+#### Source useful custom AWS CLI commands ####
 AWS_COMMANDS_FILE="$HOME/.dotfiles/zsh/aws_commands.zsh"
 [ -f "$AWS_COMMANDS_FILE" ] && source "$AWS_COMMANDS_FILE"
 
-##### Source useful custom kubectl CLI commands #####
+#### Source useful custom kubectl CLI commands ####
 KUBECTL_COMMANDS_FILE="$HOME/.dotfiles/zsh/kubectl_commands.zsh"
 [ -f "$KUBECTL_COMMANDS_FILE" ] && source "$KUBECTL_COMMANDS_FILE"
 
-##### Work Specific Configs #####
+#### Work Specific Configs ####
 WORK_CONFIGS_FILE="$HOME/.zshrc_work.zsh"
 [ -f "$WORK_CONFIGS_FILE" ] && source "$WORK_CONFIGS_FILE"
+
+#### Shell Frameworks ####
+# Set up ohmyzsh
+# source "$HOME/.dotfiles/zsh/ohmyzsh/oh-my-zsh.zsh"
+
+# Set up Starship
+[ -x "$(command -v starship)" ] && eval "$(starship init zsh)"
