@@ -19,6 +19,7 @@ $haskell\
 $python\
 [](fg:green bg:sapphire)\
 $conda\
+$kubernetes\
 [](fg:sapphire bg:lavender)\
 $time\
 [ ](fg:lavender)\
@@ -137,6 +138,12 @@ symbol = "  "
 style = "fg:crust bg:sapphire"
 format = '[$symbol$environment ]($style)'
 ignore_base = false
+
+[kubernetes]
+disabled = false
+symbol = '☸'
+format = '[ $symbol$context(\($namespace\)) ]($style)'
+style = "fg:crust bg:sapphire"
 
 [time]
 disabled = false
