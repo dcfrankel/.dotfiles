@@ -3,7 +3,7 @@
 theme = "Catppuccin Macchiato"
 
 # Font related settings
-font-family = Hack
+font-family = "Hack Nerd Font"
 font-size = 14
 font-feature = -liga
 font-thicken = true
