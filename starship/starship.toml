@@ -18,7 +18,6 @@ $kotlin\
 $haskell\
 $python\
 [](fg:green bg:sapphire)\
-$conda\
 $kubernetes\
 [](fg:sapphire bg:lavender)\
 $time\
@@ -103,11 +102,6 @@ symbol = ""
 style = "bg:green"
 format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
 
-[php]
-symbol = ""
-style = "bg:green"
-format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
-
 [java]
 symbol = " "
 style = "bg:green"
@@ -133,12 +127,6 @@ symbol = ""
 style = "bg:sapphire"
 format = '[[ $symbol( $context) ](fg:crust bg:sapphire)]($style)'
 
-[conda]
-symbol = "  "
-style = "fg:crust bg:sapphire"
-format = '[$symbol$environment ]($style)'
-ignore_base = false
-
 [kubernetes]
 disabled = false
 symbol = '☸'
@@ -150,9 +138,6 @@ disabled = false
 time_format = "%R"
 style = "bg:lavender"
 format = '[[  $time ](fg:crust bg:lavender)]($style)'
-
-# [line_break]
-# disabled = true
 
 [character]
 disabled = false
