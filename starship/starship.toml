@@ -135,9 +135,9 @@ format = '[[ $symbol( $context) ](fg:crust bg:sapphire)]($style)'
 
 [kubernetes]
 disabled = false
-symbol = '☸'
-format = '[ $symbol$context(\($namespace\)) ]($style)'
-style = "fg:crust bg:sapphire"
+symbol = "☸"
+style = "bg:sapphire"
+format = '[[ $symbol $context(\($namespace\)) ](fg:crust bg:sapphire)]($style)'
 
 [time]
 disabled = false
