@@ -4,6 +4,7 @@ $os\
 $username\
 [](bg:peach fg:red)\
 $directory\
+$aws\
 [](bg:yellow fg:peach)\
 $git_branch\
 $git_status\
@@ -81,6 +82,11 @@ format = '[[ $symbol $branch ](fg:crust bg:yellow)]($style)'
 [git_status]
 style = "bg:yellow"
 format = '[[($all_status$ahead_behind )](fg:crust bg:yellow)]($style)'
+
+[aws]
+symbol = ""
+format = '[[ $symbol( $profile)( \($region\) )(\[$duration\])](fg:crust bg:peach)]($style)'
+style = "bg:peach"
 
 [nodejs]
 symbol = ""
