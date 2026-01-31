@@ -4,6 +4,7 @@ $os\
 $username\
 [](bg:peach fg:red)\
 $directory\
+$aws\
 [](bg:yellow fg:peach)\
 $git_branch\
 $git_status\
@@ -18,7 +19,6 @@ $kotlin\
 $haskell\
 $python\
 [](fg:green bg:sapphire)\
-$conda\
 $kubernetes\
 [](fg:sapphire bg:lavender)\
 $time\
@@ -83,6 +83,11 @@ format = '[[ $symbol $branch ](fg:crust bg:yellow)]($style)'
 style = "bg:yellow"
 format = '[[($all_status$ahead_behind )](fg:crust bg:yellow)]($style)'
 
+[aws]
+symbol = ""
+format = '[[ $symbol( $profile)( \($region\) )(\[$duration\])](fg:crust bg:peach)]($style)'
+style = "bg:peach"
+
 [nodejs]
 symbol = ""
 style = "bg:green"
@@ -100,11 +105,6 @@ format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
 
 [golang]
 symbol = ""
-style = "bg:green"
-format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
-
-[php]
-symbol = ""
 style = "bg:green"
 format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
 
@@ -133,26 +133,17 @@ symbol = ""
 style = "bg:sapphire"
 format = '[[ $symbol( $context) ](fg:crust bg:sapphire)]($style)'
 
-[conda]
-symbol = "  "
-style = "fg:crust bg:sapphire"
-format = '[$symbol$environment ]($style)'
-ignore_base = false
-
 [kubernetes]
 disabled = false
-symbol = '☸'
-format = '[ $symbol$context(\($namespace\)) ]($style)'
-style = "fg:crust bg:sapphire"
+symbol = "☸"
+style = "bg:sapphire"
+format = '[[ $symbol $context(\($namespace\)) ](fg:crust bg:sapphire)]($style)'
 
 [time]
 disabled = false
 time_format = "%R"
 style = "bg:lavender"
 format = '[[  $time ](fg:crust bg:lavender)]($style)'
-
-# [line_break]
-# disabled = true
 
 [character]
 disabled = false

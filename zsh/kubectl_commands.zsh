@@ -5,15 +5,17 @@
 SHARED_KUBECTL_CLI_SUFFIX=(--all-namespaces -o=wide)
 
 # List pods with specific label
-function k-pod-labels() {
-  kubectl get pods -l $1 ${SHARED_KUBECTL_CLI_SUFFIX[@]}
+function k-get-pod-labels() {
+  local labels=$1
+  kubectl get pods -l "$labels" ${SHARED_KUBECTL_CLI_SUFFIX[@]}
 }
 
 # List pods with a given name
-function k-find-pods() {
+function k-get-pods() {
   # Makes sure to keeper table header in output
-  TABLE_HEADER="NAME"
-  kubectl get pods ${SHARED_KUBECTL_CLI_SUFFIX[@]} | grep --color=never -e "$TABLE_HEADER" -e $1
+  local TABLE_HEADER="NAME"
+  local pod_name=$1
+  kubectl get pods ${SHARED_KUBECTL_CLI_SUFFIX[@]} | grep --color=never -e "$TABLE_HEADER" -e "$pod_name"
 }
 
 # Get an objects fields
