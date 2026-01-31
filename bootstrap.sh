@@ -9,7 +9,6 @@ if [ ! -d "$DOTFILES" ]; then
 fi
 
 links=(
-  "$HOME/.zshrc.pre-oh-my-zsh:$DOTFILES/zsh/zshrc"
   "$HOME/.zshrc:$DOTFILES/zsh/zshrc"
   "$HOME/.editorconfig:$DOTFILES/.editorconfig"
   "$HOME/.gitconfig:$DOTFILES/git/gitconfig"
@@ -17,7 +16,6 @@ links=(
   "$HOME/.config/zed/settings.json:$DOTFILES/zed/settings.json"
   "$HOME/.config/zed/tasks.json:$DOTFILES/zed/tasks.json"
   "$HOME/.config/nvim:$DOTFILES/nvim"
-  "$HOME/.config/lazygit/config.yaml:$DOTFILES/lazygit/config.yaml"
   "$HOME/.config/ghostty/config:$DOTFILES/ghostty/config"
 )
 
