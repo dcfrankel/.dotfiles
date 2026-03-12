@@ -2,8 +2,16 @@
 
 #### fzf related Configs ####
 export FZF_DEFAULT_OPTS='--style full'
-# Use fd if it's present on the system
-[ -x "$(command -v fd)" ] && export FZF_DEFAULT_COMMAND='fd --type file --hidden --exclude .git'
+
+# Use fd for completions if it's present on the system
+if [ -x "$(command -v fd)" ]; then
+  export FZF_DEFAULT_COMMAND='fd --type file --hidden --exclude .git'
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+  # Override default completions for 'cd foo**<tab>'
+  _fzf_compgen_dir() {
+    fd --type d --hidden --follow --exclude ".git" . "$1"
+  }
+fi
 
 function fzf_init() {
   [ -x "$(command -v fzf)" ] && source <(fzf --zsh)
