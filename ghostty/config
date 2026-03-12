@@ -10,8 +10,9 @@ font-thicken = true
 adjust-cell-height = 1
 
 working-directory = home
-# Don't inherit another tabs directory
+# Don't inherit another tab or windows directory
 window-inherit-working-directory = false
+tab-inherit-working-directory = false
 
 # SSH related configs
 # Fixes issues with the terminfo xterm-ghostty value not existing on older systems
