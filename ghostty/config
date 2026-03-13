@@ -13,6 +13,7 @@ working-directory = home
 # Don't inherit another tab or windows directory
 window-inherit-working-directory = false
 tab-inherit-working-directory = false
+split-inherit-working-directory = true
 
 # SSH related configs
 # Fixes issues with the terminfo xterm-ghostty value not existing on older systems
