@@ -3,10 +3,16 @@
 #### Env vars ####
 # Set the default configuration file location used by many programs
 export XDG_CONFIG_HOME="$HOME/.config"
+
 # Set lazygit config path
 export LG_CONFIG_FILE="$HOME/.dotfiles/lazygit/config.yaml"
+
 # Set starship config path
 export STARSHIP_CONFIG="$HOME/.dotfiles/starship/starship.toml"
+
+# Set Zed as the default editor
+export EDITOR="zed --wait"
+export VISUAL="zed --wait"
 
 # PATH Changes
 # User binaries
@@ -23,6 +29,7 @@ bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
+
 # Case insensitive path-completion
 zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*'
 # List file details
