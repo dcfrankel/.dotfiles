@@ -7,13 +7,6 @@
 // from the command palette.
 [
   // Global bindings
-  {
-    "bindings": {
-      // Open Gemini CLI
-      "cmd-shift-g": ["agent::NewExternalAgentThread", { "agent": "gemini" }],
-      "cmd-shift-c": ["agent::NewExternalAgentThread", { "agent": "codex" }],
-    },
-  },
   // vim-sneak plugin motion support
   {
     "context": "vim_mode == normal || vim_mode == visual",
