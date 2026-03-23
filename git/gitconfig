@@ -77,3 +77,6 @@
   # Use short git status for my own sanity
   short = true
   branch = true
+
+[merge]
+  conflictStyle = zdiff3
