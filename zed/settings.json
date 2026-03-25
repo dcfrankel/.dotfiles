@@ -22,9 +22,6 @@
       "command": "path_to_executable",
       "args": [],
       "env": {}
-    },
-    "gemini": {
-      "ignore_system_version": false
     }
   },
   "vim_mode": true,
