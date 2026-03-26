@@ -9,7 +9,7 @@
 {
   "telemetry": {
     "diagnostics": false,
-    "metrics": false
+    "metrics": false,
   },
   "confirm_quit": true,
   "cursor_blink": true,
@@ -21,13 +21,13 @@
       "type": "custom",
       "command": "path_to_executable",
       "args": [],
-      "env": {}
-    }
+      "env": {},
+    },
   },
   "vim_mode": true,
   "vim": {
     "toggle_relative_line_numbers": true,
-    "use_smartcase_find": true
+    "use_smartcase_find": true,
   },
   "ui_font_size": 17,
   "buffer_font_size": 14,
@@ -35,47 +35,47 @@
   "theme": {
     "mode": "system",
     "light": "Rosé Pine Moon",
-    "dark": "Catppuccin Macchiato"
+    "dark": "Catppuccin Macchiato",
   },
   "autosave": {
     "after_delay": {
-      "milliseconds": 1000
-    }
+      "milliseconds": 1000,
+    },
   },
   "max_tabs": 10,
   "tabs": {
     "file_icons": true,
-    "git_status": true
+    "git_status": true,
   },
   "minimap": {
-    "show": "always"
+    "show": "always",
   },
   "languages": {
     "Shell Script": {
-      "tab_size": 2
+      "tab_size": 2,
     },
     "Lua": {
-      "tab_size": 2
+      "tab_size": 2,
     },
     "Ruby": {
-      "language_servers": ["ruby-lsp", "!solargraph", "!rubocop"]
+      "language_servers": ["ruby-lsp", "!solargraph", "!rubocop"],
     },
     // Enable herb and ruby-lsp for *.html.erb files
     "HTML+ERB": {
-      "language_servers": ["herb", "ruby-lsp"]
+      "language_servers": ["herb", "ruby-lsp"],
     },
     // Enable ruby-lsp for *.js.erb files
     "JS+ERB": {
-      "language_servers": ["ruby-lsp"]
+      "language_servers": ["ruby-lsp"],
     },
     // Enable ruby-lsp for *.yaml.erb files
     "YAML+ERB": {
-      "language_servers": ["ruby-lsp"]
-    }
+      "language_servers": ["ruby-lsp"],
+    },
   },
   "indent_guides": {
     "coloring": "indent_aware",
-    "background_coloring": "indent_aware"
+    "background_coloring": "indent_aware",
   },
   "format_on_save": "off",
   "buffer_font_family": "Hack Nerd Font",
@@ -83,13 +83,13 @@
   "title_bar": {
     "show_menus": false,
     "show_branch_icon": true,
-    "show_sign_in": false
+    "show_sign_in": false,
   },
   "project_panel": {
-    "auto_fold_dirs": false
+    "auto_fold_dirs": false,
   },
   "collaboration_panel": {
-    "button": false
+    "button": false,
   },
   "theme_overrides": {
     "Rosé Pine Moon": {
@@ -98,8 +98,8 @@
       "vim.insert.background": "#ea9a97",
       "vim.visual.background": "#9ccfd8",
       "vim.visual_line.background": "#9ccfd8",
-      "vim.visual_block.background": "#9ccfd8"
-    }
+      "vim.visual_block.background": "#9ccfd8",
+    },
   },
   "file_types": {
     // Get helm files to match correctly
@@ -109,13 +109,20 @@
       "**/templates/**/*.yml",
       "**/helmfile.d/**/*.yaml",
       "**/helmfile.d/**/*.yml",
-      "**/values*.yaml"
-    ]
+      "**/values*.yaml",
+    ],
   },
   "sticky_scroll": { "enabled": true },
   "colorize_brackets": true,
   "git_panel": {
     "show_count_badge": true,
-    "file_icons": true
+    "file_icons": true,
   },
+  "git_hosting_providers": [
+    {
+      "provider": "github",
+      "name": "CarGurus GitHub",
+      "base_url": "https://code.cargurus.com/",
+    },
+  ],
 }
