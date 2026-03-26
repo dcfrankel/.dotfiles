@@ -9,7 +9,7 @@
 {
   "telemetry": {
     "diagnostics": false,
-    "metrics": true
+    "metrics": false
   },
   "confirm_quit": true,
   "cursor_blink": true,
