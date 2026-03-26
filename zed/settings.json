@@ -114,4 +114,8 @@
   },
   "sticky_scroll": { "enabled": true },
   "colorize_brackets": true,
+  "git_panel": {
+    "show_count_badge": true,
+    "file_icons": true
+  },
 }
