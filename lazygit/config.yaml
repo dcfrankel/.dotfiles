@@ -3,6 +3,7 @@ gui:
   animateExplosion: false
   filterMode: fuzzy
   statusPanelView: allBranchesLog
+  mouseEvents: false
 git:
   allBranchesLogCmds:
     - git log --graph --all --color=always --pretty=format:'%C(magenta)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
