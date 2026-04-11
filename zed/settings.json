@@ -125,4 +125,9 @@
       "base_url": "https://code.cargurus.com/",
     },
   ],
+  "git": {
+    "inline_blame": {
+      "show_commit_summary": true,
+    },
+  },
 }
