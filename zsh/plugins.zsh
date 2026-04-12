@@ -24,6 +24,10 @@ function fzf_init() {
 # Use dynamic completions even though they are unstable
 [ -x "$(command -v jj)" ] && source <(COMPLETE=zsh jj)
 
+#### Zoxide Configs ####
+[ -x "$(command -v zoxide)" ] && eval "$(zoxide init zsh)"
+
+#### ZSH Pugins Configs ####
 # Check if brew is installed to manage brew insalled zsh plugins
 if [ -x "$(command -v brew)" ]; then
   brew_prefix="$(brew --prefix)"
