@@ -17,11 +17,8 @@
   "bottom_dock_layout": "full",
   "icon_theme": "Material Icon Theme",
   "agent_servers": {
-    "your_agent": {
-      "type": "custom",
-      "command": "path_to_executable",
-      "args": [],
-      "env": {},
+    "claude-acp": {
+      "type": "registry"
     },
   },
   "vim_mode": true,
