@@ -5,7 +5,8 @@ gui:
   statusPanelView: allBranchesLog
   mouseEvents: false
   commandLogSize: 1
-  showDivergenceFromBaseBranch: arrowAndNumber
+  # Disable this for now as it creates performance issues on larger repos
+  # showDivergenceFromBaseBranch: arrowAndNumber
 git:
   allBranchesLogCmds:
     - git log --graph --all --color=always --pretty=format:'%C(magenta)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
