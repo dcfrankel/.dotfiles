@@ -8,10 +8,6 @@
       "rev": "64a654e",
       "src": "https://github.com/tpope/vim-commentary"
     },
-    "fugitive": {
-      "rev": "61b51c0",
-      "src": "https://github.com/tpope/vim-fugitive"
-    },
     "gitsigns": {
       "rev": "20ad441",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
