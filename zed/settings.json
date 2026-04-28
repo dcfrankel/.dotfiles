@@ -7,6 +7,16 @@
 // custom settings, run `zed: open default settings` from the
 // command palette
 {
+  "debugger": {
+    "dock": "left",
+  },
+  "terminal": {
+    "dock": "left",
+  },
+  "ui_font_family": ".ZedSans",
+  "outline_panel": {
+    "dock": "left",
+  },
   "cli_default_open_behavior": "new_window",
   "telemetry": {
     "diagnostics": false,
@@ -84,9 +94,11 @@
     "show_sign_in": false,
   },
   "project_panel": {
+    "dock": "left",
     "auto_fold_dirs": false,
   },
   "collaboration_panel": {
+    "dock": "left",
     "button": false,
   },
   "theme_overrides": {
@@ -113,6 +125,7 @@
   "sticky_scroll": { "enabled": true },
   "colorize_brackets": true,
   "git_panel": {
+    "dock": "left",
     "show_count_badge": true,
     "file_icons": true,
   },
