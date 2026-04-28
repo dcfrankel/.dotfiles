@@ -12,7 +12,8 @@
     "dock": "left",
   },
   "terminal": {
-    "dock": "left",
+    "show_count_badge": true,
+    "dock": "bottom",
   },
   "ui_font_family": ".ZedSans",
   "outline_panel": {
