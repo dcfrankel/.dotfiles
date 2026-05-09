@@ -57,6 +57,7 @@
   create-remote = "!git push -u origin $(git branch --show-current)"
   patch = "!git add --patch"
   root = "!git rev-parse --show-toplevel"
+  nuke = "!git reset HEAD --hard && git clean -fdx"
 
 [color "status"]
   added = green bold
