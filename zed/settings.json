@@ -146,4 +146,5 @@
       "show_commit_summary": true,
     },
   },
+  "completion_menu_item_kind": "symbol"
 }
