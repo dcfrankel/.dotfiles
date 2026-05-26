@@ -47,7 +47,7 @@ setopt inc_append_history # save commands in history immediately
 setopt share_history # share history between shells
 
 #### Aliases ####
-alias ls='ls -lah --color'
+alias ls='ls -ltah --color'
 
 #### Source additional plugin configurations ####
 source "$HOME/.dotfiles/zsh/plugins.zsh"
