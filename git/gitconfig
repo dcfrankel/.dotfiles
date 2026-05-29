@@ -58,6 +58,8 @@
   patch = "!git add --patch"
   root = "!git rev-parse --show-toplevel"
   nuke = "!git reset HEAD --hard && git clean -fdx"
+  # Move commits from a feature branch onto main (useful if the feature branch was based off of another feature branch)
+  transplant = "!git rebase --onto main $(git merge-base main HEAD) $(git rev-parse --abbrev-ref HEAD)"
 
 [color "status"]
   added = green bold
