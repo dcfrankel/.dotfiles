@@ -62,7 +62,7 @@
   default-branch = "!git remote show origin | sed -n '/HEAD branch/s/.*: //p'"
   # Move commits from a feature branch onto main (useful if the feature branch was based off of another feature branch)
   # Args: 1) get the default remote branch to use as the new base, 2) find the last common ancestor commit ie original base, 3) find current branch to move
-  transplant = "!DEFAULT_BRANCH=$(git default-branch) && git rebase --onto \"$DEFAULT_BRANCH\" $(git merge-base \"$DEFAULT_BRANCH\" HEAD) $(git branch --show-current)"
+  transplant = "!DEFAULT_BRANCH=$(git default-branch) && git rebase -i --onto \"$DEFAULT_BRANCH\" $(git merge-base \"$DEFAULT_BRANCH\" HEAD) $(git branch --show-current)"
 
 [color "status"]
   added = green bold
