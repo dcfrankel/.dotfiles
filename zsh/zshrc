@@ -48,6 +48,8 @@ setopt share_history # share history between shells
 
 #### Aliases ####
 alias ls='ls -ltah --color'
+# Force claude to use bash as the shell
+alias claude="SHELL=/bin/bash claude"
 
 #### Source additional plugin configurations ####
 source "$HOME/.dotfiles/zsh/plugins.zsh"
