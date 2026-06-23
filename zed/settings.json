@@ -13,7 +13,7 @@
   },
   "terminal": {
     "show_count_badge": true,
-    "dock": "left",
+    "dock": "bottom",
   },
   "ui_font_family": ".ZedSans",
   "outline_panel": {
