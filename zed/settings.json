@@ -146,5 +146,10 @@
       "show_commit_summary": true,
     },
   },
-  "completion_menu_item_kind": "symbol"
+  "completion_menu_item_kind": "symbol",
+  "command_aliases": {
+   // Center the screen for wide displays
+    "wcl": "workspace::ToggleCenteredLayout",
+    "op":  "projects::OpenRecent"
+  }
 }
