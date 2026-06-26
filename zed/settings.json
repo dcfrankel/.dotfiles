@@ -150,7 +150,7 @@
   "command_aliases": {
    // Center the screen for wide displays
     "wcl": "workspace::ToggleCenteredLayout",
-    "por":  "projects::OpenRecent",
-    "otf": "outline_panel::ToggleFocus"
+    "or":  "projects::OpenRecent",
+    "tf": "outline_panel::ToggleFocus"
   }
 }
