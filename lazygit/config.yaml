@@ -1,5 +1,5 @@
 gui:
-  border: bold
+  border: rounded
   animateExplosion: false
   filterMode: fuzzy
   statusPanelView: allBranchesLog
