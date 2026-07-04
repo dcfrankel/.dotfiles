@@ -7,6 +7,7 @@ gui:
   commandLogSize: 15
   # Disable this for now as it creates performance issues on larger repos
   # showDivergenceFromBaseBranch: arrowAndNumber
+  expandFocusedSidePanel: true
 git:
   allBranchesLogCmds:
     - git log --graph --all --color=always --pretty=format:'%C(magenta)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
