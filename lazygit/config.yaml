@@ -11,7 +11,7 @@ gui:
   commitHashLength: 4
   # Requires nerd fonts to be installed
   showIcons: true
-  sidePanelWidth: 0.20
+  sidePanelWidth: 0.25
 git:
   allBranchesLogCmds:
     - git log --graph --all --color=always --pretty=format:'%C(magenta)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
