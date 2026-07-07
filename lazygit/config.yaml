@@ -17,4 +17,6 @@ git:
     - git log --graph --all --color=always --pretty=format:'%C(magenta)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
   # Might need to disable this again if it causes performance issues
   autoFetch: true
+  mainBranches: [main, master]
+# Disable annoying startup popups
 disableStartupPopups: true
