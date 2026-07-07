@@ -8,6 +8,10 @@ gui:
   # Disable this for now as it creates performance issues on larger repos
   # showDivergenceFromBaseBranch: arrowAndNumber
   expandFocusedSidePanel: true
+  commitHashLength: 4
+  # Requires nerd fonts to be installed
+  showIcons: true
+  sidePanelWidth: 0.20
 git:
   allBranchesLogCmds:
     - git log --graph --all --color=always --pretty=format:'%C(magenta)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
