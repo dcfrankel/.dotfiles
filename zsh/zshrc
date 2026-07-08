@@ -14,13 +14,9 @@ export STARSHIP_CONFIG="$HOME/.dotfiles/starship/starship.toml"
 export EDITOR="zed --wait"
 export VISUAL="zed --wait"
 
-# PATH Changes
-# User binaries
-export PATH="$HOME/bin:$PATH"
-# System wide binaries
-export PATH="/usr/local/bin:$PATH"
-# Go binaries
-export PATH="$PATH:$HOME/go/bin"
+# PATH
+PATH_FILE="$HOME/.dotfiles/zsh/path.sh"
+[ -f "$PATH_FILE" ] && source "$PATH_FILE"
 
 #### ZSH Configs ####
 # Make vim bindings work for completions selection
