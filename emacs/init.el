@@ -2,10 +2,10 @@
 ;; Basic Customization
 ;; =======================
 ;; Better buffer list
-(defalias 'list-buffers 'ibuffer) 
+(defalias 'list-buffers 'ibuffer)
 
 ;; Automatically add closing delimiters
-(electric-pair-mode 1) 
+(electric-pair-mode 1)
 (setq show-trailing-whitespace t)
 
 ;; Better completions
@@ -16,20 +16,20 @@
 (global-display-line-numbers-mode t)
 
 ;; Disable splash screen and startup message
-(setq inhibit-startup-message t) 
+(setq inhibit-startup-message t)
 (setq initial-scratch-message nil)
 
 ;; Disable all the ugly menu bars
-(menu-bar-mode -1) 
-(scroll-bar-mode -1) 
-(tool-bar-mode -1) 
+(menu-bar-mode -1)
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
 
 
 ;; =========================
 ;; Package Support
 ;; =========================
 ;; Theme
-(use-package modus-themes 
+(use-package modus-themes
   :ensure t
   :config (load-theme 'modus-vivendi-tinted t))
 
@@ -48,7 +48,7 @@
   :config (which-key-mode))
 
 ;; Evil config
-(use-package evil 
+(use-package evil
   :ensure t
   :config
   (evil-mode 1))
