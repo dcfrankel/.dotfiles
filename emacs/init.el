@@ -30,11 +30,6 @@
 ;; =========================
 ;; Package Support
 ;; =========================
-;; Theme
-(use-package modus-themes
-  :ensure t
-  :config (load-theme 'modus-vivendi-tinted t))
-
 ;; Add package archives
 (require 'package)
 (add-to-list 'package-archives '("gnu"   . "https://elpa.gnu.org/packages/"))
@@ -43,6 +38,13 @@
 ;; Make sure all packages are installed on the system
 (require 'use-package)
 (setq use-package-always-ensure t)
+
+;; Theme
+(use-package catppuccin-theme
+  :config
+  (setq catppuccin-flavor 'mocha) ;; Options are 'latte, 'frappe, 'macchiato, or 'mocha
+  (catppuccin-reload))
+
 
 ;; Which key config
 (use-package which-key
