@@ -33,16 +33,14 @@
   :ensure t
   :config (load-theme 'modus-vivendi-tinted t))
 
-;; Add package repos
+;; Add package archives
 (require 'package)
 (add-to-list 'package-archives '("gnu"   . "https://elpa.gnu.org/packages/"))
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-(package-initialize)
 
-;; Install use-package automatically
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
+;; Make sure all packages are installed on the system
+(require 'use-package)
+(setq use-package-always-ensure t)
 
 ;; Which key config
 (use-package which-key
