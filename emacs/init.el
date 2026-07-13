@@ -3,6 +3,14 @@
 ;; =======================
 ;; Basic Customization
 ;; =======================
+
+;; Redirect the package-managed custom variables to a separate file
+(setq custom-file (locate-user-emacs-file "custom-vars.el"))
+
+;; Load that file if it exists, ignoring errors if it doesn't yet
+(when (file-exists-p custom-file)
+  (load custom-file))
+
 ;; Better buffer list
 (defalias 'list-buffers 'ibuffer)
 
