@@ -16,7 +16,10 @@
 
 ;; Automatically add closing delimiters
 (electric-pair-mode 1)
-(setq show-trailing-whitespace t)
+
+;; Show whitespace
+(setq whitespace-style '(face spaces space-mark tabs tab-mark trailing))
+(global-whitespace-mode 1)
 
 ;; Better completions
 (require 'ido)
@@ -33,7 +36,6 @@
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
-
 
 ;; =========================
 ;; Package Support
