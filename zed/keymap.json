@@ -6,16 +6,21 @@
 // To see the default key bindings run `zed: open default keymap`
 // from the command palette.
 [
-  // Global bindings
-  // vim-sneak plugin motion support
   {
-    "context": "vim_mode == normal || vim_mode == visual || Dock",
+    // We need to exlude the terminal otherwise it causes input delay
+    "context": "(Dock || EmptyPane || vim_mode == normal || vim_mode == visual) && !Terminal",
     "bindings": {
+      // Additional pane jumping motions
       "space h": "workspace::ActivatePaneLeft",
-      // This needs to come before the 'space l g' binding due to a Zed bug
       "space l": "workspace::ActivatePaneRight",
       "space k": "workspace::ActivatePaneUp",
       "space j": "workspace::ActivatePaneDown",
+    },
+  },
+  {
+    "context": "vim_mode == normal || vim_mode == visual",
+    "bindings": {
+      // Add support for helix word jumping
       "g w": "vim::HelixJumpToWord",
       // Open lazygit from task
       // Note: This needs to stay under the vim context otherwise it causes odd input delays follow space press
