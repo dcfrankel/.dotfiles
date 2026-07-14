@@ -9,8 +9,13 @@
   // Global bindings
   // vim-sneak plugin motion support
   {
-    "context": "vim_mode == normal || vim_mode == visual",
+    "context": "vim_mode == normal || vim_mode == visual || Dock",
     "bindings": {
+      "space h": "workspace::ActivatePaneLeft",
+      // This needs to come before the 'space l g' binding due to a Zed bug
+      "space l": "workspace::ActivatePaneRight",
+      "space k": "workspace::ActivatePaneUp",
+      "space j": "workspace::ActivatePaneDown",
       "g w": "vim::HelixJumpToWord",
       // Open lazygit from task
       // Note: This needs to stay under the vim context otherwise it causes odd input delays follow space press
@@ -18,16 +23,6 @@
         "task::Spawn",
         { "task_name": "LazyGit", "reveal_target": "center" },
       ],
-    },
-  },
-  {
-    "context": "Dock",
-    "bindings": {
-      "ctrl-w h": "workspace::ActivatePaneLeft",
-      "ctrl-w l": "workspace::ActivatePaneRight",
-      "ctrl-w k": "workspace::ActivatePaneUp",
-      "ctrl-w j": "workspace::ActivatePaneDown",
-      // ... or other keybindings
     },
   },
   // Add normal tab switching bindings for mac
