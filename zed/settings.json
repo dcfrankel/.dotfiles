@@ -27,6 +27,7 @@
   "confirm_quit": true,
   "cursor_blink": true,
   "cursor_shape": "bar",
+  "scroll_beyond_last_line": "off",
   "bottom_dock_layout": "full",
   "icon_theme": "Material Icon Theme",
   "vim_mode": true,
