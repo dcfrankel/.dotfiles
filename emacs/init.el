@@ -62,7 +62,9 @@
 ;; Evil config
 (use-package evil
   :config
-  (evil-mode 1))
+  (evil-mode 1)
+  ;; Set the leader key
+  (evil-set-leader '(normal motion visual) (kbd "SPC")))
 
 ;; Yaml mode config
 (use-package yaml-mode
