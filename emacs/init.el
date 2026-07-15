@@ -64,7 +64,12 @@
   :config
   (evil-mode 1)
   ;; Set the leader key
-  (evil-set-leader '(normal motion visual) (kbd "SPC")))
+  (evil-set-leader '(normal motion visual) (kbd "SPC"))
+  ;; Window navigation
+  (evil-define-key '(normal motion visual) 'global (kbd "<leader>h") 'evil-window-left)
+  (evil-define-key '(normal motion visual) 'global (kbd "<leader>j") 'evil-window-down)
+  (evil-define-key '(normal motion visual) 'global (kbd "<leader>k") 'evil-window-up)
+  (evil-define-key '(normal motion visual) 'global (kbd "<leader>l") 'evil-window-right))
 
 ;; Yaml mode config
 (use-package yaml-mode
