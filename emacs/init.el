@@ -58,16 +58,13 @@
 
 ;; Which key config
 (use-package which-key
-  :ensure t
   :config (which-key-mode))
 
 ;; Evil config
 (use-package evil
-  :ensure t
   :config
   (evil-mode 1))
 
 ;; Yaml mode config
 (use-package yaml-mode
-  :ensure t
   :mode ("\\.yml\\" . yaml-mode))
