@@ -87,9 +87,8 @@
 (use-package eglot
   :ensure nil
   :config
-  ;; Python: use basedpyright instead of the default pyright
-  (add-to-list 'eglot-server-programs
-               '(python-mode . ("basedpyright-langserver" "--stdio")))
+  ;; Python: use ty as the python language server
+  (add-to-list 'eglot-server-programs '(python-mode . ("uvx" "ty" "server")))
 
   ;; Helm charts: dedicated major mode derived from yaml-mode so helm-ls is
   ;; only invoked for Helm templates, not ordinary YAML files.
