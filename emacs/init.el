@@ -21,10 +21,6 @@
 (setq whitespace-style '(face spaces space-mark tabs tab-mark trailing))
 (global-whitespace-mode 1)
 
-;; Better completions
-(require 'ido)
-(ido-mode t)
-
 ;; Use relative line numbers
 (global-display-line-numbers-mode t)
 
@@ -51,8 +47,9 @@
 ;; Theme
 (use-package catppuccin-theme
   :config
-  (setq catppuccin-flavor 'mocha) ;; Options are 'latte, 'frappe, 'macchiato, or 'mocha
+  (setq catppuccin-flavor 'mocha) ; Options are 'latte, 'frappe, 'macchiato, or 'mocha
   (catppuccin-reload))
+
 
 ;; Which key config
 (use-package which-key
@@ -102,3 +99,20 @@
    (go-mode . eglot-ensure)
    (yaml-mode . eglot-ensure)
    (helm-mode . eglot-ensure)))
+
+;; TAB key: fix indentation if needed, otherwise perform completion
+(setq tab-always-indent 'complete)
+
+;; Use corfu for at-point compltion within buffers
+(use-package corfu
+  :custom
+  (corfu-auto t) ; Auto completions
+  (corfu-on-exact-match 'insert) ; Complete if there is only a single candidate
+  (corfu-quit-no-match t)
+
+  :init
+  (global-corfu-mode 1)
+
+  :config
+  (setq corfu-popupinfo-delay '(1.25 . 0.5))
+  (corfu-popupinfo-mode 1)) ; Show documentation next to completions
