@@ -72,11 +72,11 @@
 ;; =========================
 ;; Yaml mode config
 (use-package yaml-mode
-  :mode ("\\.yml\\" . yaml-mode))
+  :mode ("\\.ya?ml\\'" . yaml-mode))
 
 ;; Go mode config
 (use-package go-mode
-  :mode ("\\.go\\" . go-mode))
+  :mode ("\\.go\\'" . go-mode))
 
 ;; ============================
 ;; Built in LSP (eglot) Configs
