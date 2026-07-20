@@ -11,6 +11,9 @@
 (when (file-exists-p custom-file)
   (load custom-file))
 
+;; Open with full sized window
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
 ;; Better buffer list
 (defalias 'list-buffers 'ibuffer)
 
