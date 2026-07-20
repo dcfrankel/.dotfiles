@@ -24,6 +24,11 @@
 ;; Use relative line numbers
 (global-display-line-numbers-mode t)
 
+;; Scrolling behavior
+(setq scroll-conservatively most-positive-fixnum) ; Scroll line-by-line, no recentering jumps
+(setq scroll-margin 0)                            ; Allow last line to sit at window bottom
+(setq scroll-error-top-bottom t)                  ; Page-scroll stops at buffer boundary, not past it
+
 ;; Disable splash screen and startup message
 (setq inhibit-startup-message t)
 (setq initial-scratch-message nil)
