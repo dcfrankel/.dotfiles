@@ -49,7 +49,7 @@
 (setq-default line-spacing 1)
 
 ;; =========================
-;; Package Support
+;; Packages
 ;; =========================
 ;; Add package archives
 (require 'package)
@@ -59,12 +59,47 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
+;; -------------------------
+;; Internal Packages
+;; -------------------------
+;; Eglot LSP configurations
+(use-package eglot
+  :ensure nil
+  :config
+  ;; Python: use ty as the python language server
+  (add-to-list 'eglot-server-programs '(python-mode . ("uvx" "ty" "server")))
+  ;; Helm charts: dedicated major mode derived from yaml-mode so helm-ls is
+  ;; only invoked for Helm templates, not ordinary YAML files.
+  ;; Activate with M-x helm-mode or a file-local -*- mode: helm -*- header.
+  (define-derived-mode helm-mode yaml-mode "Helm"
+    "Major mode for editing Kubernetes Helm templates.")
+  (add-to-list 'eglot-server-programs '(helm-mode . ("helm_ls" "serve")))
+
+  :hook
+  ((python-mode . eglot-ensure)
+   (go-mode . eglot-ensure)
+   (yaml-mode . eglot-ensure)
+   (helm-mode . eglot-ensure)))
+
+;; -------------------------
+;; Mode Configs
+;; -------------------------
+;; Yaml mode config
+(use-package yaml-mode
+  :mode ("\\.ya?ml\\'" . yaml-mode))
+
+;; Go mode config
+(use-package go-mode
+  :mode ("\\.go\\'" . go-mode))
+
+;; -------------------------
+;; External Packages
+;; -------------------------
 ;; Theme
 (use-package catppuccin-theme
   :config
   (setq catppuccin-flavor 'mocha) ; Options are 'latte, 'frappe, 'macchiato, or 'mocha
   (catppuccin-reload))
-
 
 ;; Which key config
 (use-package which-key
@@ -86,38 +121,6 @@
   (evil-define-key '(normal motion visual) 'global (kbd "<leader>j") 'evil-window-down)
   (evil-define-key '(normal motion visual) 'global (kbd "<leader>k") 'evil-window-up)
   (evil-define-key '(normal motion visual) 'global (kbd "<leader>l") 'evil-window-right))
-
-;; =========================
-;; Mode Configs
-;; =========================
-;; Yaml mode config
-(use-package yaml-mode
-  :mode ("\\.ya?ml\\'" . yaml-mode))
-
-;; Go mode config
-(use-package go-mode
-  :mode ("\\.go\\'" . go-mode))
-
-;; ============================
-;; Built in LSP (eglot) Configs
-;; ============================
-(use-package eglot
-  :ensure nil
-  :config
-  ;; Python: use ty as the python language server
-  (add-to-list 'eglot-server-programs '(python-mode . ("uvx" "ty" "server")))
-  ;; Helm charts: dedicated major mode derived from yaml-mode so helm-ls is
-  ;; only invoked for Helm templates, not ordinary YAML files.
-  ;; Activate with M-x helm-mode or a file-local -*- mode: helm -*- header.
-  (define-derived-mode helm-mode yaml-mode "Helm"
-    "Major mode for editing Kubernetes Helm templates.")
-  (add-to-list 'eglot-server-programs '(helm-mode . ("helm_ls" "serve")))
-
-  :hook
-  ((python-mode . eglot-ensure)
-   (go-mode . eglot-ensure)
-   (yaml-mode . eglot-ensure)
-   (helm-mode . eglot-ensure)))
 
 ;; TAB key: fix indentation if needed, otherwise perform completion
 (setq tab-always-indent 'complete)
