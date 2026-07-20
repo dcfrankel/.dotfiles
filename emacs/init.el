@@ -57,6 +57,11 @@
 
 ;; Evil config
 (use-package evil
+  :init
+  ;; Fixes control based navigation
+  (setq evil-disable-insert-state-bindings t)
+  (setq evil-want-C-u-scroll t)
+
   :config
   (evil-mode 1)
   ;; Set the leader key
@@ -86,7 +91,6 @@
   :config
   ;; Python: use ty as the python language server
   (add-to-list 'eglot-server-programs '(python-mode . ("uvx" "ty" "server")))
-
   ;; Helm charts: dedicated major mode derived from yaml-mode so helm-ls is
   ;; only invoked for Helm templates, not ordinary YAML files.
   ;; Activate with M-x helm-mode or a file-local -*- mode: helm -*- header.
@@ -110,8 +114,7 @@
   (corfu-on-exact-match 'insert) ; Complete if there is only a single candidate
   (corfu-quit-no-match t)
 
-  :init
-  (global-corfu-mode 1)
+  :init (global-corfu-mode 1)
 
   :config
   (setq corfu-popupinfo-delay '(1.25 . 0.5))
