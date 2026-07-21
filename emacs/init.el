@@ -55,6 +55,9 @@
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 
+;; Prefer GNU (official) over MELPA
+(setq package-archive-priorities '(("gnu" . 20)("melpa" . 10)))
+
 ;; Make sure all packages are installed on the system
 (require 'use-package)
 (setq use-package-always-ensure t)
