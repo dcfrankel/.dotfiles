@@ -123,6 +123,7 @@
   ;; Fixes control based navigation
   (setq evil-disable-insert-state-bindings t)
   (setq evil-want-C-u-scroll t)
+  (setq evil-want-keybinding nil)
 
   :config
   (evil-mode 1)
@@ -133,6 +134,11 @@
   (evil-define-key '(normal motion visual) 'global (kbd "<leader>j") 'evil-window-down)
   (evil-define-key '(normal motion visual) 'global (kbd "<leader>k") 'evil-window-up)
   (evil-define-key '(normal motion visual) 'global (kbd "<leader>l") 'evil-window-right))
+
+(use-package evil-collection
+  :after evil
+  :ensure t
+  :config (evil-collection-init))
 
 ;; TAB key: fix indentation if needed, otherwise perform completion
 (setq tab-always-indent 'complete)
