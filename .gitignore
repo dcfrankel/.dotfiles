@@ -3,7 +3,7 @@
 *~
 
 # Emacs things to ignore
-auto-save-list
+/emacs/**
 .*~
 init.el~
 eshell
