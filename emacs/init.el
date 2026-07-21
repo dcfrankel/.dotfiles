@@ -5,7 +5,7 @@
 ;; =======================
 
 ;; Redirect the package-managed custom variables to a separate file
-(setq custom-file (locate-user-emacs-file "custom-vars.el"))
+(setq custom-file (locate-user-emacs-file "custom.el"))
 
 ;; Load that file if it exists, ignoring errors if it doesn't yet
 (when (file-exists-p custom-file)
