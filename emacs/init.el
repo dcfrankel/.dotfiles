@@ -84,6 +84,15 @@
    (yaml-mode . eglot-ensure)
    (helm-mode . eglot-ensure)))
 
+;; Project management
+(use-package project
+  :ensure nil
+  :config
+  (when (file-directory-p "~/work")
+    (project-remember-projects-under "~/work"))
+  :bind
+  ("S-M-p" . project-switch-project))
+
 ;; -------------------------
 ;; Mode Configs
 ;; -------------------------
