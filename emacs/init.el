@@ -156,7 +156,18 @@
   (setq corfu-popupinfo-delay '(1.25 . 0.5))
   (corfu-popupinfo-mode 1)) ; Show documentation next to completions
 
+;; Vertico: vertical completion UI in the minibuffer
+(use-package vertico
+  :custom
+  (vertico-cycle t)
+  :init
+  (vertico-mode 1)
+  :bind (:map vertico-map
+              ("TAB"       . vertico-next)
+              ("<tab>"     . vertico-next)
+              ("S-TAB"     . vertico-previous)
+              ("<backtab>" . vertico-previous)))
+
 ;; Add support for rainbow brackets and other delimiters
 (use-package rainbow-delimiters
-  :ensure t
   :hook (prog-mode . rainbow-delimiters-mode))
