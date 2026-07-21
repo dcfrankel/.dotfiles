@@ -140,3 +140,8 @@
   :config
   (setq corfu-popupinfo-delay '(1.25 . 0.5))
   (corfu-popupinfo-mode 1)) ; Show documentation next to completions
+
+;; Add support for rainbow brackets and other delimiters
+(use-package rainbow-delimiters
+  :ensure t
+  :hook (prog-mode . rainbow-delimiters-mode))
