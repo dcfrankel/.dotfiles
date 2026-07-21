@@ -1,55 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
-;; =======================
-;; Basic Customization
-;; =======================
-
-;; Redirect the package-managed custom variables to a separate file
-(setq custom-file (locate-user-emacs-file "custom.el"))
-
-;; Load that file if it exists, ignoring errors if it doesn't yet
-(when (file-exists-p custom-file)
-  (load custom-file))
-
-;; Open with full sized window
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
-
-;; Better buffer list
-(defalias 'list-buffers 'ibuffer)
-
-;; Automatically add closing delimiters
-(electric-pair-mode 1)
-
-;; Show whitespace
-(setq whitespace-style '(face spaces space-mark tabs tab-mark trailing))
-(global-whitespace-mode 1)
-
-;; Use relative line numbers
-(global-display-line-numbers-mode t)
-
-;; Scrolling behavior
-(setq scroll-conservatively most-positive-fixnum) ; Scroll line-by-line, no recentering jumps
-(setq scroll-margin 0)                            ; Allow last line to sit at window bottom
-(setq scroll-error-top-bottom t)                  ; Page-scroll stops at buffer boundary, not past it
-
-;; Disable splash screen and startup message
-(setq inhibit-startup-message t)
-(setq initial-scratch-message nil)
-
-;; Disable all the ugly menu bars
-(menu-bar-mode -1)
-(scroll-bar-mode -1)
-(tool-bar-mode -1)
-
-;; =======================
-;; Font Configuration
-;; =======================
-;; Font size 14 (Emacs :height is in 1/10 pt)
-(set-face-attribute 'default nil :family "Hack Nerd Font" :height 140)
-(setq-default line-spacing 1)
-
 ;; =========================
-;; Packages
+;; Package Configurations
 ;; =========================
 ;; Add package archives
 (require 'package)
@@ -65,6 +17,48 @@
 ;; -------------------------
 ;; Internal Packages
 ;; -------------------------
+;; Basic customization and global settings
+(use-package emacs
+  :ensure nil
+  :init
+  ;; Redirect the package-managed custom variables to a separate file
+  (setq custom-file (locate-user-emacs-file "custom.el"))
+  ;; Load that file if it exists, ignoring errors if it doesn't yet
+  (when (file-exists-p custom-file)
+    (load custom-file))
+
+  :custom
+  ;; Show whitespace
+  (whitespace-style '(face spaces space-mark tabs tab-mark trailing))
+  ;; Scrolling behavior
+  (scroll-conservatively most-positive-fixnum) ; Scroll line-by-line, no recentering jumps
+  (scroll-margin 0)                            ; Allow last line to sit at window bottom
+  (scroll-error-top-bottom t)                  ; Page-scroll stops at buffer boundary, not past it
+  ;; Disable splash screen and startup message
+  (inhibit-startup-message t)
+  (initial-scratch-message nil)
+  ;; TAB key: fix indentation if needed, otherwise perform completion
+  (tab-always-indent 'complete)
+
+  :config
+  ;; Open with full sized window
+  (add-to-list 'default-frame-alist '(fullscreen . maximized))
+  ;; Better buffer list
+  (defalias 'list-buffers 'ibuffer)
+  ;; Automatically add closing delimiters
+  (electric-pair-mode 1)
+  ;; Show whitespace
+  (global-whitespace-mode 1)
+  ;; Use relative line numbers
+  (global-display-line-numbers-mode t)
+  ;; Disable all the ugly menu bars
+  (menu-bar-mode -1)
+  (scroll-bar-mode -1)
+  (tool-bar-mode -1)
+  ;; Font size 14 (Emacs :height is in 1/10 pt)
+  (set-face-attribute 'default nil :family "Hack Nerd Font" :height 140)
+  (setq-default line-spacing 1))
+
 ;; Eglot LSP configurations
 (use-package eglot
   :ensure nil
@@ -139,9 +133,6 @@
   :after evil
   :ensure t
   :config (evil-collection-init))
-
-;; TAB key: fix indentation if needed, otherwise perform completion
-(setq tab-always-indent 'complete)
 
 ;; Use corfu for at-point compltion within buffers
 (use-package corfu
