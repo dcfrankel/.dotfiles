@@ -133,7 +133,11 @@
   :ensure t
   :config (evil-collection-init))
 
-;; Use corfu for at-point compltion within buffers
+;; Add support for rainbow brackets and other delimiters
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
+
+;; At-point completion within buffers
 (use-package corfu
   :custom
   (corfu-auto t) ; Auto completions
@@ -146,7 +150,7 @@
   (setq corfu-popupinfo-delay '(1.25 . 0.5))
   (corfu-popupinfo-mode 1)) ; Show documentation next to completions
 
-;; Vertico: vertical completion UI in the minibuffer
+;; Vertical completion UI in the minibuffer
 (use-package vertico
   :custom
   (vertico-cycle t)
@@ -158,6 +162,22 @@
               ("S-TAB"     . vertico-previous)
               ("<backtab>" . vertico-previous)))
 
-;; Add support for rainbow brackets and other delimiters
-(use-package rainbow-delimiters
-  :hook (prog-mode . rainbow-delimiters-mode))
+;; Search and navigation commands
+(use-package consult
+  :bind (("C-x b"   . consult-buffer)          ; orig. switch-to-buffer
+         ("C-x p b" . consult-project-buffer)  ; orig. project-switch-to-buffer
+         ("M-y"     . consult-yank-pop)        ; orig. yank-pop
+         ("M-s l"   . consult-line)
+         ("M-s g"   . consult-grep)
+         ("M-s r"   . consult-ripgrep)         ; project-aware ripgrep
+         ("M-s f"   . consult-find))
+  :custom
+  (consult-project-function #'consult--default-project-function)
+
+  :config
+  (setq project-switch-commands
+        '((consult-project-buffer "Buffer" ?b)
+          (consult-ripgrep        "Ripgrep" ?g)
+          (project-find-file      "Find file" ?f)
+          (project-find-dir       "Find dir" ?d)
+          (project-eshell         "Eshell" ?e))))
