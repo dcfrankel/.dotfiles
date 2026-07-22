@@ -83,9 +83,7 @@
   :ensure nil
   :config
   (when (file-directory-p "~/work")
-    (project-remember-projects-under "~/work"))
-  :bind
-  ("S-M-p" . project-switch-project))
+    (project-remember-projects-under "~/work")))
 
 ;; -------------------------
 ;; Mode Configs
