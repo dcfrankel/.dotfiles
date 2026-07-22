@@ -97,6 +97,10 @@
 (use-package go-mode
   :mode ("\\.go\\'" . go-mode))
 
+;; Markdown mode config
+(use-package markdown-mode
+  :mode ("\\.md\\'" . markdown-mode))
+
 ;; -------------------------
 ;; External Packages
 ;; -------------------------
