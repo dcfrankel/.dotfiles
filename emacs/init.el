@@ -57,7 +57,8 @@
   (tool-bar-mode -1)
   ;; Font size 14 (Emacs :height is in 1/10 pt)
   (set-face-attribute 'default nil :family "Hack Nerd Font" :height 140)
-  (setq-default line-spacing 1))
+  (setq-default line-spacing 1)
+  (setq completion-styles '(flex basic)))
 
 ;; Eglot LSP configurations
 (use-package eglot
