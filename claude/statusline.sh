@@ -19,7 +19,6 @@ readonly C_GREEN=$'\033[32m'       # clean git worktree
 readonly C_YELLOW=$'\033[33m'      # dirty git / aws / mid context / output style
 readonly C_RED=$'\033[31m'         # unpushed commits / high context usage
 readonly C_MAGENTA=$'\033[35m'     # terraform / model / low context usage
-readonly C_BLUE=$'\033[34m'        # session name
 readonly C_DIM_BLUE=$'\033[2;34m'  # session id
 readonly C_WHITE=$'\033[37m'       # current time
 
@@ -197,11 +196,6 @@ main() {
     cost=$(awk "BEGIN { printf \"%.4f\", ${total_cost} }")
     status_line+="  ${C_CYAN}\$${cost}${C_RESET}"
   fi
-
-  # Session name - blue.
-  local session_name
-  session_name=$(json_get '.session_name')
-  [[ -n "${session_name}" ]] && status_line+="  ${C_BLUE}${session_name}${C_RESET}"
 
   # Model name - magenta.
   local model_name
