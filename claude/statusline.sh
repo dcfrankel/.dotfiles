@@ -209,11 +209,21 @@ main() {
   # Kubernetes context - blue.
   status_line+=$(k8s_segment)
 
-  # Claude session signals consolidated into one "[claude:...]" tag: context
-  # usage, cost, model, and session id, joined with "|" and all colored orange.
+  # Claude session signals consolidated into one "[claude:...]" tag: model,
+  # session id, context usage, and cost, joined with "|" and all colored orange.
   # Each sub-field is included only when present, so absent fields are omitted
   # (no empty "||").
   local claude_fields=()
+
+  # Model name.
+  local model_name
+  model_name=$(resolve_model_name)
+  [[ -n "${model_name}" ]] && claude_fields+=("${model_name}")
+
+  # Session id (short prefix).
+  local session_id
+  session_id=$(json_get '.session_id')
+  [[ -n "${session_id}" ]] && claude_fields+=("${session_id:0:8}")
 
   # Context-window usage bar.
   local used context_field
@@ -228,16 +238,6 @@ main() {
     cost=$(awk "BEGIN { printf \"%.4f\", ${total_cost} }")
     claude_fields+=("\$${cost}")
   fi
-
-  # Model name.
-  local model_name
-  model_name=$(resolve_model_name)
-  [[ -n "${model_name}" ]] && claude_fields+=("${model_name}")
-
-  # Session id (short prefix).
-  local session_id
-  session_id=$(json_get '.session_id')
-  [[ -n "${session_id}" ]] && claude_fields+=("${session_id:0:8}")
 
   # Emit the segment only when at least one sub-field exists.
   [[ "${#claude_fields[@]}" -gt 0 ]] && status_line+="  $(render_tag claude "${C_LIGHT_ORANGE}" "${claude_fields[@]}")"
