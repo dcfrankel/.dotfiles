@@ -13,14 +13,38 @@ set -o pipefail
 
 # ANSI SGR escape sequences. Using $'...' embeds a literal ESC so segments can
 # be concatenated directly instead of interpolated through printf.
+#
+# Coloring is legible by group: every tag's structural literals ("[tag:", "|",
+# "]") render in gray, and all information within a group shares one color. No
+# two groups share an info color.
 readonly C_RESET=$'\033[0m'
-readonly C_CYAN=$'\033[36m'        # directory / kubernetes
-readonly C_GREEN=$'\033[32m'       # clean git worktree
-readonly C_YELLOW=$'\033[33m'      # dirty git / aws / mid context / output style
-readonly C_RED=$'\033[31m'         # unpushed commits / high context usage
-readonly C_MAGENTA=$'\033[35m'     # terraform / model / low context usage
-readonly C_DIM_BLUE=$'\033[2;34m'  # session id
-readonly C_WHITE=$'\033[37m'       # current time
+readonly C_GRAY=$'\033[90m'           # tag labels / brackets / separators
+readonly C_CYAN=$'\033[36m'           # dir
+readonly C_GREEN=$'\033[32m'          # git
+readonly C_MAGENTA=$'\033[35m'        # terraform
+readonly C_YELLOW=$'\033[33m'         # aws
+readonly C_BLUE=$'\033[34m'           # kubernetes
+readonly C_LIGHT_ORANGE=$'\033[38;5;215m' # claude session (context / cost / model / id)
+readonly C_BRIGHT_MAGENTA=$'\033[95m' # output style
+readonly C_BRIGHT_WHITE=$'\033[97m'   # time
+
+# Render a "[tag:v1|v2|...]" segment: the "[tag:", "|" separators, and closing
+# "]" are gray; each value is wrapped in the group color. Values are taken as
+# positional args after the tag and color, so empty fields should be filtered
+# out by the caller before invoking. Usage: render_tag <tag> <color> <value>...
+render_tag() {
+  local tag="$1" color="$2"
+  shift 2
+
+  local out="${C_GRAY}[${tag}:${C_RESET}" first=1 value
+  for value in "$@"; do
+    [[ "${first}" -eq 1 ]] || out+="${C_GRAY}|${C_RESET}"
+    out+="${color}${value}${C_RESET}"
+    first=0
+  done
+  out+="${C_GRAY}]${C_RESET}"
+  printf '%s' "${out}"
+}
 
 # Extract a value from the JSON on stdin, returning "" when absent/null.
 # Usage: json_get '<jq filter>'
@@ -81,36 +105,42 @@ resolve_model_name() {
   printf '%s' "${model_name}"
 }
 
-# Git segment: "<branch> <shorthash>" with a trailing "*" when dirty, plus an
-# unpushed-commit count. Green when clean, yellow when dirty; count in red.
+# Git segment: "[git:<branch>|<shorthash>]" with a "*" attached to the hash when
+# dirty, plus an optional "|↑N" unpushed-commit field. All values are green; the
+# dirty and unpushed states are conveyed structurally (the "*" marker and "↑N"
+# field), not by color.
 git_segment() {
   git_q rev-parse --is-inside-work-tree >/dev/null || return 0
 
-  local branch short_hash ref
+  local branch short_hash
   branch=$(git_q symbolic-ref --short HEAD || git_q rev-parse --short HEAD)
   [[ -z "${branch}" ]] && return 0
-
-  # Combine branch with short hash, avoiding duplication in detached-HEAD state.
   short_hash=$(git_q rev-parse --short HEAD)
-  ref="${branch}"
-  [[ -n "${short_hash}" && "${short_hash}" != "${branch}" ]] && ref="${branch} ${short_hash}"
 
-  local out
+  # Append "*" to the hash field when the worktree is dirty.
+  local mark=""
   if ! git_q diff --quiet || ! git_q diff --cached --quiet; then
-    out=" ${C_YELLOW} ${ref} *${C_RESET}"
-  else
-    out=" ${C_GREEN} ${ref}${C_RESET}"
+    mark="*"
   fi
 
-  # Append unpushed commit count when an upstream exists and is behind.
+  # Fields: branch first, then hash (skipped when equal to branch in detached
+  # HEAD, so a bare hash renders as "[git:<hash>]").
+  local fields=()
+  if [[ -n "${short_hash}" && "${short_hash}" != "${branch}" ]]; then
+    fields=("${branch}" "${short_hash}${mark}")
+  else
+    fields=("${branch}${mark}")
+  fi
+
+  # Append unpushed commit count when an upstream exists and is ahead.
   local upstream unpushed
   upstream=$(git_q rev-parse --abbrev-ref '@{u}')
   if [[ -n "${upstream}" ]]; then
     unpushed=$(git_q log '@{u}..' --oneline | wc -l | tr -d ' ')
-    [[ "${unpushed}" -gt 0 ]] && out+=" ${C_RED}↑ ${unpushed}${C_RESET}"
+    [[ "${unpushed}" -gt 0 ]] && fields+=("↑${unpushed}")
   fi
 
-  printf '%s' "${out}"
+  printf '  %s' "$(render_tag git "${C_GREEN}" "${fields[@]}")"
 }
 
 # Terraform workspace segment (magenta), shown only in a Terraform project and
@@ -123,19 +153,22 @@ tf_segment() {
 
   local ws
   ws=$(cd "${cwd}" && timeout 2 terraform workspace show 2>/dev/null)
-  [[ -n "${ws}" && "${ws}" != "default" ]] && printf '  %s[tf:%s]%s' "${C_MAGENTA}" "${ws}" "${C_RESET}"
+  [[ -n "${ws}" && "${ws}" != "default" ]] && printf '  %s' "$(render_tag tf "${C_MAGENTA}" "${ws}")"
 }
 
-# Kubernetes context segment (cyan).
+# Kubernetes context segment (blue).
 k8s_segment() {
   command -v kubectl >/dev/null 2>&1 || return 0
   local ctx
   ctx=$(timeout 2 kubectl config current-context 2>/dev/null)
-  [[ -n "${ctx}" ]] && printf '  %s[k8s:%s]%s' "${C_CYAN}" "${ctx}" "${C_RESET}"
+  [[ -n "${ctx}" ]] && printf '  %s' "$(render_tag k8s "${C_BLUE}" "${ctx}")"
 }
 
-# Context-window usage bar: a 10-cell bar plus percentage. Magenta < 60%,
-# yellow 60-79%, red >= 80%.
+# Context-window usage sub-field: a 10-cell bar plus percentage, e.g.
+# "█████░░░░░ 45%". Bar and percent are separated by a space (not "|") so the
+# claude segment's top-level "|" delimiter stays unambiguous. Emitted without
+# color (the claude group color is applied by the caller); usage level is
+# conveyed by the bar fill, not by color. Emits nothing when usage is absent.
 context_bar() {
   local used="$1"
   [[ -n "${used}" ]] || return 0
@@ -148,15 +181,7 @@ context_bar() {
   for ((i = 0; i < filled; i++)); do bar+="█"; done
   for ((i = 0; i < empty; i++)); do bar+="░"; done
 
-  local color
-  if [[ "${used}" -ge 80 ]]; then
-    color="${C_RED}"
-  elif [[ "${used}" -ge 60 ]]; then
-    color="${C_YELLOW}"
-  else
-    color="${C_MAGENTA}"
-  fi
-  printf '  %s%s %s%%%s' "${color}" "${bar}" "${used}" "${C_RESET}"
+  printf '%s %s%%' "${bar}" "${used}"
 }
 
 main() {
@@ -169,7 +194,7 @@ main() {
   local cwd display_dir
   cwd=$(json_get '.workspace.current_dir')
   display_dir="${cwd/#$HOME/~}"
-  status_line="${C_CYAN}${display_dir}${C_RESET}"
+  status_line=$(render_tag dir "${C_CYAN}" "${display_dir}")
 
   # Git branch/hash/dirty + unpushed count.
   status_line+=$(git_segment)
@@ -179,41 +204,51 @@ main() {
 
   # AWS profile (from the environment) - yellow.
   local aws_profile="${AWS_PROFILE:-}"
-  [[ -n "${aws_profile}" ]] && status_line+="  ${C_YELLOW}[aws:${aws_profile}]${C_RESET}"
+  [[ -n "${aws_profile}" ]] && status_line+="  $(render_tag aws "${C_YELLOW}" "${aws_profile}")"
 
-  # Kubernetes context - cyan.
+  # Kubernetes context - blue.
   status_line+=$(k8s_segment)
 
-  # Context-window usage bar - magenta/yellow/red.
-  local used
-  used=$(json_get '.context_window.used_percentage')
-  status_line+=$(context_bar "${used}")
+  # Claude session signals consolidated into one "[claude:...]" tag: context
+  # usage, cost, model, and session id, joined with "|" and all colored orange.
+  # Each sub-field is included only when present, so absent fields are omitted
+  # (no empty "||").
+  local claude_fields=()
 
-  # Session cost in dollars (cumulative) - cyan.
+  # Context-window usage bar.
+  local used context_field
+  used=$(json_get '.context_window.used_percentage')
+  context_field=$(context_bar "${used}")
+  [[ -n "${context_field}" ]] && claude_fields+=("${context_field}")
+
+  # Session cost in dollars (cumulative).
   local total_cost cost
   total_cost=$(json_get '.cost.total_cost_usd')
   if [[ -n "${total_cost}" ]]; then
     cost=$(awk "BEGIN { printf \"%.4f\", ${total_cost} }")
-    status_line+="  ${C_CYAN}\$${cost}${C_RESET}"
+    claude_fields+=("\$${cost}")
   fi
 
-  # Model name - magenta.
+  # Model name.
   local model_name
   model_name=$(resolve_model_name)
-  [[ -n "${model_name}" ]] && status_line+="  ${C_MAGENTA}[${model_name}]${C_RESET}"
+  [[ -n "${model_name}" ]] && claude_fields+=("${model_name}")
 
-  # Session id (short prefix) - dim blue.
+  # Session id (short prefix).
   local session_id
   session_id=$(json_get '.session_id')
-  [[ -n "${session_id}" ]] && status_line+="  ${C_DIM_BLUE}[${session_id:0:8}]${C_RESET}"
+  [[ -n "${session_id}" ]] && claude_fields+=("${session_id:0:8}")
 
-  # Output style, when not the default - yellow.
+  # Emit the segment only when at least one sub-field exists.
+  [[ "${#claude_fields[@]}" -gt 0 ]] && status_line+="  $(render_tag claude "${C_LIGHT_ORANGE}" "${claude_fields[@]}")"
+
+  # Output style, when not the default - bright magenta.
   local output_style
   output_style=$(json_get '.output_style.name')
-  [[ -n "${output_style}" && "${output_style}" != "default" ]] && status_line+="  ${C_YELLOW}${output_style}${C_RESET}"
+  [[ -n "${output_style}" && "${output_style}" != "default" ]] && status_line+="  $(render_tag style "${C_BRIGHT_MAGENTA}" "${output_style}")"
 
-  # Current time (HH:MM:SS) - white.
-  status_line+="  ${C_WHITE}$(date +%H:%M:%S)${C_RESET}"
+  # Current time (HH:MM:SS) - bright white.
+  status_line+="  $(render_tag time "${C_BRIGHT_WHITE}" "$(date +%H:%M:%S)")"
 
   echo "${status_line}"
 }
