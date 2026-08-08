@@ -52,6 +52,41 @@ json_get() {
   printf '%s' "${input}" | jq -r "$1 // empty"
 }
 
+# Collapse a path to its last few components so deep paths don't overflow a
+# narrow line: paths with more than MAX components keep the trailing MAX and
+# gain a leading "…". Any leading "~" or "/" prefix is preserved. Shallow paths
+# are returned unchanged. Usage: truncate_path <path>
+truncate_path() {
+  local path="$1" max=3
+
+  # Detect and strip a leading prefix ("~" or "/") so it isn't counted or lost.
+  local prefix=""
+  case "${path}" in
+    '~'*) prefix="~"; path="${path#\~}" ;;
+    /*)   prefix="/" ;;
+  esac
+  path="${path#/}"
+
+  # Split on "/" into components (empty for a bare prefix like "~" or "/").
+  # Use read -ra so a component containing glob chars isn't expanded.
+  local -a parts=()
+  [[ -n "${path}" ]] && IFS='/' read -ra parts <<< "${path}"
+  local count="${#parts[@]}"
+
+  if [[ "${count}" -le "${max}" ]]; then
+    # Re-join the prefix to the path with a "/" separator when both are present.
+    local sep=""
+    [[ -n "${prefix}" && -n "${path}" && "${prefix}" != "/" ]] && sep="/"
+    printf '%s%s%s' "${prefix}" "${sep}" "${path}"
+    return 0
+  fi
+
+  # Join the trailing "max" components back with "/" (IFS's first char).
+  local IFS='/'
+  local tail="${parts[*]:count-max:max}"
+  printf '…/%s' "${tail}"
+}
+
 # Run git quietly with a timeout, disabling the builtin FS monitor for speed
 # and suppressing stderr so missing upstreams/repos degrade gracefully.
 git_q() {
@@ -188,26 +223,33 @@ main() {
   # Read the JSON payload once into a global consumed by json_get.
   input=$(cat)
 
-  local status_line
+  # Line 1 collects location/environment segments plus the time; line 2 holds
+  # the Claude session signals. Splitting keeps each line short enough to avoid
+  # being truncated on narrow terminals.
+  local line1 line2
 
-  # Directory (home shortened to ~) - cyan.
+  # Directory (home shortened to ~, deep paths collapsed to "…/...") - cyan.
   local cwd display_dir
   cwd=$(json_get '.workspace.current_dir')
   display_dir="${cwd/#$HOME/~}"
-  status_line=$(render_tag dir "${C_CYAN}" "${display_dir}")
+  display_dir=$(truncate_path "${display_dir}")
+  line1=$(render_tag dir "${C_CYAN}" "${display_dir}")
 
   # Git branch/hash/dirty + unpushed count.
-  status_line+=$(git_segment)
+  line1+=$(git_segment)
 
   # Terraform workspace - magenta.
-  status_line+=$(tf_segment "${cwd}")
+  line1+=$(tf_segment "${cwd}")
 
   # AWS profile (from the environment) - yellow.
   local aws_profile="${AWS_PROFILE:-}"
-  [[ -n "${aws_profile}" ]] && status_line+="  $(render_tag aws "${C_YELLOW}" "${aws_profile}")"
+  [[ -n "${aws_profile}" ]] && line1+="  $(render_tag aws "${C_YELLOW}" "${aws_profile}")"
 
   # Kubernetes context - blue.
-  status_line+=$(k8s_segment)
+  line1+=$(k8s_segment)
+
+  # Current time (HH:MM:SS) - bright white. Closes out line 1.
+  line1+="  $(render_tag time "${C_BRIGHT_WHITE}" "$(date +%H:%M:%S)")"
 
   # Claude session signals consolidated into one "[claude:...]" tag: model,
   # session id, context usage, and cost, joined with "|" and all colored orange.
@@ -239,18 +281,33 @@ main() {
     claude_fields+=("\$${cost}")
   fi
 
-  # Emit the segment only when at least one sub-field exists.
-  [[ "${#claude_fields[@]}" -gt 0 ]] && status_line+="  $(render_tag claude "${C_LIGHT_ORANGE}" "${claude_fields[@]}")"
+  # Line 2 segments, appended only when present so absent ones leave no leading
+  # separator. The first segment starts the line bare; subsequent ones prepend
+  # the usual two-space separator.
+  local -a line2_segments=()
+
+  # Emit the claude segment only when at least one sub-field exists.
+  [[ "${#claude_fields[@]}" -gt 0 ]] && \
+    line2_segments+=("$(render_tag claude "${C_LIGHT_ORANGE}" "${claude_fields[@]}")")
 
   # Output style, when not the default - bright magenta.
   local output_style
   output_style=$(json_get '.output_style.name')
-  [[ -n "${output_style}" && "${output_style}" != "default" ]] && status_line+="  $(render_tag style "${C_BRIGHT_MAGENTA}" "${output_style}")"
+  [[ -n "${output_style}" && "${output_style}" != "default" ]] && \
+    line2_segments+=("$(render_tag style "${C_BRIGHT_MAGENTA}" "${output_style}")")
 
-  # Current time (HH:MM:SS) - bright white.
-  status_line+="  $(render_tag time "${C_BRIGHT_WHITE}" "$(date +%H:%M:%S)")"
+  local IFS='' # join with an explicit two-space separator below, not IFS
+  line2=$(printf '%s' "${line2_segments[0]:-}")
+  local i
+  for ((i = 1; i < ${#line2_segments[@]}; i++)); do
+    line2+="  ${line2_segments[i]}"
+  done
 
-  echo "${status_line}"
+  # Always print line 1; print line 2 only when it has content.
+  printf '%s\n' "${line1}"
+  [[ -n "${line2}" ]] && printf '%s\n' "${line2}"
+
+  return 0
 }
 
 # Statusline command: requires jq.
