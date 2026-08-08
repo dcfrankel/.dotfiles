@@ -223,9 +223,9 @@ main() {
   # Read the JSON payload once into a global consumed by json_get.
   input=$(cat)
 
-  # Line 1 collects location/environment segments plus the time; line 2 holds
-  # the Claude session signals. Splitting keeps each line short enough to avoid
-  # being truncated on narrow terminals.
+  # Line 1 collects location/environment segments; line 2 holds the Claude
+  # session signals followed by the time. Splitting keeps each line short enough
+  # to avoid being truncated on narrow terminals.
   local line1 line2
 
   # Directory (home shortened to ~, deep paths collapsed to "…/...") - cyan.
@@ -247,9 +247,6 @@ main() {
 
   # Kubernetes context - blue.
   line1+=$(k8s_segment)
-
-  # Current time (HH:MM:SS) - bright white. Closes out line 1.
-  line1+="  $(render_tag time "${C_BRIGHT_WHITE}" "$(date +%H:%M:%S)")"
 
   # Claude session signals consolidated into one "[claude:...]" tag: model,
   # session id, context usage, and cost, joined with "|" and all colored orange.
@@ -289,6 +286,9 @@ main() {
   # Emit the claude segment only when at least one sub-field exists.
   [[ "${#claude_fields[@]}" -gt 0 ]] && \
     line2_segments+=("$(render_tag claude "${C_LIGHT_ORANGE}" "${claude_fields[@]}")")
+
+  # Current time (HH:MM:SS) - bright white.
+  line2_segments+=("$(render_tag time "${C_BRIGHT_WHITE}" "$(date +%H:%M:%S)")")
 
   # Output style, when not the default - bright magenta.
   local output_style
