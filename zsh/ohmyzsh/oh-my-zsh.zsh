@@ -12,6 +12,6 @@ KUBE_PS1_BG_COLOR="${KUBE_PS1_BG_COLOR}"
 KUBE_PS1_PREFIX="["
 KUBE_PS1_SUFFIX="]"
 
-if [ -f "$HOME/.kube/config" ] && [ -x "$(command -v brew)" ]; then
+if [[ -f "$HOME/.kube/config" ]] && [[ -x "$(command -v brew)" ]]; then
   source "$(brew --prefix)/share/kube-ps1.sh" && PROMPT='$(kube_ps1) '$PROMPT || echo "Failed to source kube_ps1 plugin"
 fi

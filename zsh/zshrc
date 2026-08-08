@@ -16,7 +16,7 @@ export VISUAL="zed --wait"
 
 # PATH
 PATH_FILE="$HOME/.dotfiles/zsh/path.sh"
-[ -f "$PATH_FILE" ] && source "$PATH_FILE"
+[[ -f "$PATH_FILE" ]] && source "$PATH_FILE"
 
 #### ZSH Configs ####
 # Make vim bindings work for completions selection
@@ -52,19 +52,19 @@ source "$HOME/.dotfiles/zsh/plugins.zsh"
 
 #### Source useful custom AWS CLI commands ####
 AWS_COMMANDS_FILE="$HOME/.dotfiles/zsh/aws_commands.zsh"
-[ -f "$AWS_COMMANDS_FILE" ] && source "$AWS_COMMANDS_FILE"
+[[ -f "$AWS_COMMANDS_FILE" ]] && source "$AWS_COMMANDS_FILE"
 
 #### Source useful custom kubectl CLI commands ####
 KUBECTL_COMMANDS_FILE="$HOME/.dotfiles/zsh/kubectl_commands.zsh"
-[ -f "$KUBECTL_COMMANDS_FILE" ] && source "$KUBECTL_COMMANDS_FILE"
+[[ -f "$KUBECTL_COMMANDS_FILE" ]] && source "$KUBECTL_COMMANDS_FILE"
 
 #### Work Specific Configs ####
 WORK_CONFIGS_FILE="$HOME/.zshrc_work.zsh"
-[ -f "$WORK_CONFIGS_FILE" ] && source "$WORK_CONFIGS_FILE"
+[[ -f "$WORK_CONFIGS_FILE" ]] && source "$WORK_CONFIGS_FILE"
 
 #### Shell Frameworks ####
 # Set up ohmyzsh
 # source "$HOME/.dotfiles/zsh/ohmyzsh/oh-my-zsh.zsh"
 
 # Set up Starship
-[ -x "$(command -v starship)" ] && eval "$(starship init zsh)"
+[[ -x "$(command -v starship)" ]] && eval "$(starship init zsh)"

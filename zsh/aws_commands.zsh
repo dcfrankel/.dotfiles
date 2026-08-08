@@ -3,7 +3,10 @@
 ## Designed to be easily piped to downstream processes
 
 # Add shared commands defaults to the list
-SHARED_AWS_CLI_SUFFIX=(--no-cli-pager --output text)
+if [[ -z "${SHARED_AWS_CLI_SUFFIX+x}" ]]; then
+  SHARED_AWS_CLI_SUFFIX=(--no-cli-pager --output text)
+  readonly SHARED_AWS_CLI_SUFFIX
+fi
 
 # Get AWS instances with:
 # InstanceID
@@ -11,7 +14,7 @@ SHARED_AWS_CLI_SUFFIX=(--no-cli-pager --output text)
 # PrivateIpAddress
 # State
 # SubnetId
-function aws-instances() {
+function aws_instances() {
   aws ec2 describe-instances --query 'Reservations[*].Instances[*].{instance_id: InstanceId, name: Tags[?Key==`Name`] | [0].Value, ip_address: PrivateIpAddress, state: State.Name, sub_net: SubnetId}' "${SHARED_AWS_CLI_SUFFIX[@]}" "$@"
 }
 
@@ -20,7 +23,7 @@ function aws-instances() {
 # Name
 # CidrBlock
 # AvailabilityZone
-function aws-subnets() {
+function aws_subnets() {
   aws ec2 describe-subnets --query 'Subnets[*].{subnet: SubnetId, name: Tags[?Key==`Name`]  | [0].Value, cidr: CidrBlock, az: AvailabilityZone}' "${SHARED_AWS_CLI_SUFFIX[@]}" "$@"
 }
 
@@ -28,7 +31,7 @@ function aws-subnets() {
 # VolumeID
 # InstanceID
 # State
-function aws-ebs-volumes() {
+function aws_ebs_volumes() {
   aws ec2 describe-volumes --query "Volumes[*].{volume_id:Attachments[0].VolumeId,instance_id:Attachments[0].InstanceId,state:Attachments[0].State}" "${SHARED_AWS_CLI_SUFFIX[@]}" "$@"
 }
 
@@ -36,6 +39,6 @@ function aws-ebs-volumes() {
 # Name
 # Type
 # DataType
-function aws-store-parameters() {
+function aws_store_parameters() {
   aws ssm describe-parameters --query "Parameters[*].{name:Name,type:Type,data_type:DataType}" "${SHARED_AWS_CLI_SUFFIX[@]}" "$@"
 }

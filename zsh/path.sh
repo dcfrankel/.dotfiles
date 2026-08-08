@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env zsh
 
 # User binaries
 export PATH="$HOME/bin:$PATH"
