@@ -223,20 +223,18 @@ main() {
   # Read the JSON payload once into a global consumed by json_get.
   input=$(cat)
 
-  # Line 1 collects location/environment segments; line 2 holds the Claude
-  # session signals followed by the time. Splitting keeps each line short enough
-  # to avoid being truncated on narrow terminals.
+  # Line 1 collects environment segments (git + cloud context); line 2 holds the
+  # working directory, the Claude session signals, and the time. Splitting keeps
+  # each line short enough to avoid being truncated on narrow terminals.
   local line1 line2
 
-  # Directory (home shortened to ~, deep paths collapsed to "…/...") - cyan.
-  local cwd display_dir
+  # Resolve the current directory up front; it is rendered on line 2 below.
+  local cwd
   cwd=$(json_get '.workspace.current_dir')
-  display_dir="${cwd/#$HOME/~}"
-  display_dir=$(truncate_path "${display_dir}")
-  line1=$(render_tag dir "${C_CYAN}" "${display_dir}")
 
-  # Git branch/hash/dirty + unpushed count.
-  line1+=$(git_segment)
+  # Git branch/hash/dirty + unpushed count. Seeds line 1; git_segment already
+  # emits a leading two-space separator, trimmed later if line 1 stays empty.
+  line1=$(git_segment)
 
   # Terraform workspace - magenta.
   line1+=$(tf_segment "${cwd}")
@@ -283,6 +281,12 @@ main() {
   # the usual two-space separator.
   local -a line2_segments=()
 
+  # Directory (home shortened to ~, deep paths collapsed to "…/...") - cyan.
+  local display_dir
+  display_dir="${cwd/#$HOME/~}"
+  display_dir=$(truncate_path "${display_dir}")
+  line2_segments+=("$(render_tag dir "${C_CYAN}" "${display_dir}")")
+
   # Emit the claude segment only when at least one sub-field exists.
   [[ "${#claude_fields[@]}" -gt 0 ]] && \
     line2_segments+=("$(render_tag claude "${C_LIGHT_ORANGE}" "${claude_fields[@]}")")
@@ -303,8 +307,11 @@ main() {
     line2+="  ${line2_segments[i]}"
   done
 
-  # Always print line 1; print line 2 only when it has content.
-  printf '%s\n' "${line1}"
+  # Trim the leading two-space separator the first line-1 segment carries, then
+  # print each line only when it has content (line 1 is empty outside a git repo
+  # with no cloud context).
+  line1="${line1#  }"
+  [[ -n "${line1}" ]] && printf '%s\n' "${line1}"
   [[ -n "${line2}" ]] && printf '%s\n' "${line2}"
 
   return 0
