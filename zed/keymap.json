@@ -28,6 +28,12 @@
         "task::Spawn",
         { "task_name": "LazyGit", "reveal_target": "center" },
       ],
+      // Open lazygit from task
+      // Note: This needs to stay under the vim context otherwise it causes odd input delays follow space press
+      "space c c": [
+        "task::Spawn",
+        { "task_name": "ClaudeCode", "reveal_target": "center" },
+      ],
     },
   },
   // Add normal tab switching bindings for mac

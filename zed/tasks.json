@@ -14,5 +14,19 @@
     "show_command": false,
     "allow_concurrent_runs": true,
     "use_new_terminal": true
+  },
+  // Spin up Claude Code
+  {
+    "label": "ClaudeCode",
+    "command": "SHELL=/bin/bash claude --permission-mode plan",
+    "shell": {
+      "program": "sh"
+    },
+    "hide": "on_success",
+    "reveal_target": "center",
+    "show_summary": false,
+    "show_command": false,
+    "allow_concurrent_runs": true,
+    "use_new_terminal": true
   }
 ]
