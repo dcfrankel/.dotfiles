@@ -20,3 +20,5 @@ git:
   mainBranches: [main, master]
 # Disable annoying startup popups
 disableStartupPopups: true
+worktree:
+  defaultPath: "../"
