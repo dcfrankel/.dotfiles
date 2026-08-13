@@ -1,7 +1,7 @@
 local M = {}
 
 function M.setup()
-  -- Default LSP configurations
+  -- Treesitter parser support
   vim.pack.add({
     { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "master", name = "nvim-treesitter" },
   })

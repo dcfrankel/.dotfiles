@@ -8,7 +8,7 @@ function M.setup()
 
   -- Set up mini.clue
   local miniclue = require("mini.clue")
-  require("mini.clue").setup({
+  miniclue.setup({
     triggers = {
       -- Leader triggers
       { mode = "n", keys = "<Leader>" },
