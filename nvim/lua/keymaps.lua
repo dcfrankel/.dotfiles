@@ -1,5 +1,6 @@
 -- Open the file explorer
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "Open file explorer" })
+-- Toggle netrw like a sidebar
+vim.keymap.set("n", "<leader>pv", vim.cmd.Lexplore, { desc = "Open file explorer"})
 -- Format the current buffer using the LSP
 vim.keymap.set("n", "<leader>ff", vim.lsp.buf.format, { desc = "Format buffer" })
 -- Move through the quickfix list (based off of vim-unimpaired)

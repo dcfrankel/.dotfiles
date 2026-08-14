@@ -1,7 +1,16 @@
 -- Globals
 -- Set leader to space-bar
 vim.g.mapleader = " "
+
+-- netrw configurations
+-- Hide the top banner (removes help text and clutter)
+vim.g.netrw_banner = 0
+-- Set the tree view as default
 vim.g.netrw_liststyle = 3
+-- Open files in the previous window (keeps the tree sidebar open)
+vim.g.netrw_browse_split = 4
+-- Set the width of the sidebar (percentage of screen)
+vim.g.netrw_winsize = 20
 
 -- General settings
 vim.o.guicursor = ""
