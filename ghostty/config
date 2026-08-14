@@ -21,3 +21,13 @@ shell-integration-features = ssh-env,no-cursor
 
 cursor-style-blink = true
 cursor-style = block
+
+# Use native tabs and splits seamlessly
+keybind = super+d=new_split:right
+keybind = super+shift+d=new_split:down
+
+# Quick pane navigation (simulating tmux vim-bindings)
+keybind = ctrl+h=goto_split:left
+keybind = ctrl+j=goto_split:bottom
+keybind = ctrl+k=goto_split:top
+keybind = ctrl+l=goto_split:right
