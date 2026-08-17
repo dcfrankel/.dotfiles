@@ -86,6 +86,13 @@
   (when (file-directory-p "~/work")
     (project-remember-projects-under "~/work")))
 
+;; Error diagnostics and syntax checks
+(use-package flymake
+  :ensure nil
+  :hook (prog-mode . flymake-mode)
+  :custom
+  (flymake-show-diagnostics-at-end-of-line t))
+
 ;; -------------------------
 ;; Mode Configs
 ;; -------------------------
