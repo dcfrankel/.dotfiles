@@ -95,7 +95,14 @@
   :ensure nil
   :config
   (when (file-directory-p "~/work")
-    (project-remember-projects-under "~/work")))
+    (project-remember-projects-under "~/work"))
+  ;; Override the default projectg commands to use consult
+  (setq project-switch-commands
+        '((consult-project-buffer "Buffer" ?b)
+          (consult-ripgrep        "Ripgrep" ?g)
+          (consult-fd             "Find file" ?f)
+          (project-find-dir       "Find dir" ?d)
+          (project-eshell         "Eshell" ?e))))
 
 ;; Error diagnostics and syntax checks
 (use-package flymake
@@ -207,12 +214,4 @@
          ("M-s r"   . consult-ripgrep)         ; project-aware ripgrep
          ("M-s f"   . consult-find))
   :custom
-  (consult-project-function #'consult--default-project-function)
-
-  :config
-  (setq project-switch-commands
-        '((consult-project-buffer "Buffer" ?b)
-          (consult-ripgrep        "Ripgrep" ?g)
-          (project-find-file      "Find file" ?f)
-          (project-find-dir       "Find dir" ?d)
-          (project-eshell         "Eshell" ?e))))
+  (consult-project-function #'consult--default-project-function))
