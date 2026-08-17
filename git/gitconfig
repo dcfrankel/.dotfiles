@@ -36,9 +36,13 @@
  # Prevents the need for using --autosquash when rebasing
   autosquash = true
 
-# Work specific configs
-[includeIf "gitdir:~/work/"]
-  path = ~/work/.gitconfig
+# Work specific GHES configs
+[includeIf "gitdir:~/work/ghes"]
+  path = ~/work/ghes/.gitconfig
+
+# Work specific GHEC configs
+[includeIf "gitdir:~/work/ghec"]
+  path = ~/work/ghec/.gitconfig
 
 # Personal configs
 [includeIf "gitdir:~/Projects/"]
