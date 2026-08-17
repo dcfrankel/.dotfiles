@@ -223,3 +223,13 @@
          ("M-s f"   . consult-find))
   :custom
   (consult-project-function #'consult--default-project-function))
+
+;; Git gutter / VCS change indicators in the fringe
+(use-package diff-hl
+  :hook (dired-mode . diff-hl-dired-mode)
+  :init
+  (global-diff-hl-mode 1)
+  :config
+  ;; Terminals have no fringe — fall back to margin indicators
+  (unless (display-graphic-p)
+    (diff-hl-margin-mode 1)))
