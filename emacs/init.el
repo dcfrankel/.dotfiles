@@ -83,12 +83,15 @@
   (define-derived-mode helm-mode yaml-mode "Helm"
     "Major mode for editing Kubernetes Helm templates.")
   (add-to-list 'eglot-server-programs '(helm-mode . ("helm_ls" "serve")))
+  ;; Terraform: use terraform-ls as the language server
+  (add-to-list 'eglot-server-programs '(terraform-mode . ("terraform-ls" "serve")))
 
   :hook
   ((python-mode . eglot-ensure)
    (go-mode . eglot-ensure)
    (yaml-mode . eglot-ensure)
-   (helm-mode . eglot-ensure)))
+   (helm-mode . eglot-ensure)
+   (terraform-mode . eglot-ensure)))
 
 ;; Project management
 (use-package project
@@ -134,6 +137,11 @@
 ;; Markdown mode config
 (use-package markdown-mode
   :mode ("\\.md\\'" . markdown-mode))
+
+;; Terraform mode config
+(use-package terraform-mode
+  :mode (("\\.tf\\'" . terraform-mode)
+         ("\\.tfvars\\'" . terraform-mode)))
 
 ;; -------------------------
 ;; External Packages
