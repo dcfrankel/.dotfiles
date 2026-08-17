@@ -10,6 +10,7 @@ font-thicken = true
 adjust-cell-height = 1
 
 working-directory = home
+
 # Don't inherit another tab or windows directory
 window-inherit-working-directory = false
 tab-inherit-working-directory = false
@@ -19,6 +20,7 @@ split-inherit-working-directory = true
 # Fixes issues with the terminfo xterm-ghostty value not existing on older systems
 shell-integration-features = ssh-env,no-cursor
 
+# Cursor sytling
 cursor-style-blink = true
 cursor-style = block
 
@@ -31,3 +33,6 @@ keybind = super+h=goto_split:left
 keybind = super+j=goto_split:bottom
 keybind = super+k=goto_split:top
 keybind = super+l=goto_split:right
+
+# Always require confirmation before closing splits/tabs
+confirm-close-surface = always
