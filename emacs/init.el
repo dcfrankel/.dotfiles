@@ -58,7 +58,18 @@
   ;; Font size 14 (Emacs :height is in 1/10 pt)
   (set-face-attribute 'default nil :family "Hack Nerd Font" :height 140)
   (setq-default line-spacing 1)
-  (setq completion-styles '(flex basic)))
+  (setq completion-styles '(flex basic))
+  ;; Terminal Emacs: send kills (incl. evil yanks) to the macOS clipboard.
+  ;; GUI Emacs already handles this via gui-select-text, so only override -nw.
+  (when (and (not (display-graphic-p)) (executable-find "pbcopy"))
+    (setq interprogram-cut-function
+          (lambda (text)
+            (let ((proc (make-process :name "pbcopy"
+                                      :command '("pbcopy")
+                                      :connection-type 'pipe
+                                      :noquery t)))
+              (process-send-string proc text)
+              (process-send-eof proc))))))
 
 ;; Eglot LSP configurations
 (use-package eglot
