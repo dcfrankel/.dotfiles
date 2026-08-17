@@ -91,7 +91,7 @@
   :ensure nil
   :hook (prog-mode . flymake-mode)
   :custom
-  (flymake-show-diagnostics-at-end-of-line t))
+  (flymake-show-diagnostics-at-end-of-line 'short))
 
 ;; -------------------------
 ;; Mode Configs
