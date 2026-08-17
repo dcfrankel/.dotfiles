@@ -36,25 +36,6 @@
  # Prevents the need for using --autosquash when rebasing
   autosquash = true
 
-# Work specific GHES configs
-[includeIf "gitdir:~/work/ghes"]
-  path = ~/work/ghes/.gitconfig
-
-# Work specific GHEC configs
-[includeIf "gitdir:~/work/ghec"]
-  path = ~/work/ghec/.gitconfig
-
-# Personal configs
-[includeIf "gitdir:~/Projects/"]
-  path = ~/Projects/.gitconfig
-
-# If in .dotfiles use project config
-[includeIf "gitdir:~/.dotfiles/"]
-  path = ~/Projects/.gitconfig
-
-# If in .dotfiles use project config
-[includeIf "gitdir:~/setup/"]
-  path = ~/Projects/.gitconfig
 
 [alias]
   plog = "!git log --graph --all --color=always --pretty=format:'%C(magenta)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"
@@ -90,3 +71,22 @@
 
 [merge]
   conflictStyle = zdiff3
+# Work specific GHES configs
+[includeIf "gitdir:~/work/ghes/"]
+  path = ~/work/ghes/.gitconfig
+
+# Work specific GHEC configs
+[includeIf "gitdir:~/work/ghec/"]
+  path = ~/work/ghec/.gitconfig
+
+# Personal configs
+[includeIf "gitdir:~/Projects/"]
+  path = ~/Projects/.gitconfig
+
+# If in .dotfiles use project config
+[includeIf "gitdir:~/.dotfiles/"]
+  path = ~/Projects/.gitconfig
+
+# If in .dotfiles use project config
+[includeIf "gitdir:~/setup/"]
+  path = ~/Projects/.gitconfig
