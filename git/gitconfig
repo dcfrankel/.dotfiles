@@ -71,6 +71,11 @@
 
 [merge]
   conflictStyle = zdiff3
+
+# Explicitly set where to store credentials
+[credential]
+	helper = osxkeychain
+
 # Work specific GHES configs
 [includeIf "gitdir:~/work/ghes/"]
   path = ~/work/ghes/.gitconfig
