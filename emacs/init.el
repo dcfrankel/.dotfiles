@@ -137,7 +137,11 @@
   (evil-define-key '(normal motion visual) 'global (kbd "<leader>h") 'evil-window-left)
   (evil-define-key '(normal motion visual) 'global (kbd "<leader>j") 'evil-window-down)
   (evil-define-key '(normal motion visual) 'global (kbd "<leader>k") 'evil-window-up)
-  (evil-define-key '(normal motion visual) 'global (kbd "<leader>l") 'evil-window-right))
+  (evil-define-key '(normal motion visual) 'global (kbd "<leader>l") 'evil-window-right)
+  ;; VSCode-style quick open: find file in project
+  (evil-define-key '(normal insert visual motion) 'global (kbd "C-p") 'consult-fd)
+  ;; VSCode-style project-wide search
+  (evil-define-key '(normal insert visual motion) 'global (kbd "M-F") 'consult-ripgrep))
 
 (use-package evil-collection
   :after evil
