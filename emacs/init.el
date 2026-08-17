@@ -93,6 +93,15 @@
   :custom
   (flymake-show-diagnostics-at-end-of-line 'short))
 
+;; Reload buffers when their underlying files change on disk
+(use-package autorevert
+  :ensure nil
+  :custom
+  (auto-revert-verbose nil)                 ; No "Reverting buffer" chatter
+  (global-auto-revert-non-file-buffers t)   ; Also refresh Dired/ibuffer
+  :config
+  (global-auto-revert-mode 1))
+
 ;; -------------------------
 ;; Mode Configs
 ;; -------------------------
