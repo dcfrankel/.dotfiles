@@ -230,6 +230,8 @@
   :init
   (global-diff-hl-mode 1)
   :config
+  ;; Update indicators live as you edit, not just on save
+  (diff-hl-flydiff-mode 1)
   ;; Terminals have no fringe — fall back to margin indicators
   (unless (display-graphic-p)
     (diff-hl-margin-mode 1)))
