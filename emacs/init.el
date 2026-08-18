@@ -176,12 +176,39 @@
   ;; VSCode-style quick open: find file in project
   (evil-define-key '(normal insert visual motion) 'global (kbd "C-p") 'consult-fd)
   ;; VSCode-style project-wide search
-  (evil-define-key '(normal insert visual motion) 'global (kbd "M-F") 'consult-ripgrep))
+  (evil-define-key '(normal insert visual motion) 'global (kbd "M-F") 'consult-ripgrep)
+  ;; Toggle the directory-tree sidebar
+  (evil-define-key '(normal motion visual) 'global (kbd "<leader>t") 'treemacs))
 
 (use-package evil-collection
   :after evil
   :ensure t
   :config (evil-collection-init))
+
+;; Directory tree sidebar (VSCode/Zed-style)
+(use-package treemacs
+  :defer t
+  :custom
+  (treemacs-width 32)
+  (treemacs-follow-after-init t)   ; keep tree in sync with active file
+  :config
+  ;; No line numbers in the sidebar (global-display-line-numbers-mode is on)
+  (add-hook 'treemacs-mode-hook (lambda () (display-line-numbers-mode -1)))
+  ;; Root the tree at the current project and follow across projects
+  (treemacs-project-follow-mode 1))
+
+;; Evil keybindings inside the treemacs buffer
+;; (evil-collection has no treemacs module, so this is required and non-conflicting)
+(use-package treemacs-evil
+  :after (treemacs evil))
+
+;; Use nerd font icons
+(use-package nerd-icons)
+
+(use-package treemacs-nerd-icons
+  :after (treemacs nerd-icons)
+  :config
+  (treemacs-load-theme "nerd-icons"))
 
 ;; Add support for rainbow brackets and other delimiters
 (use-package rainbow-delimiters
