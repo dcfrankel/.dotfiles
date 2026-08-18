@@ -222,7 +222,12 @@
          ("M-s r"   . consult-ripgrep)         ; project-aware ripgrep
          ("M-s f"   . consult-find))
   :custom
-  (consult-project-function #'consult--default-project-function))
+  (consult-project-function #'consult--default-project-function)
+  ;; Include hidden dotfiles (e.g. .github) in searches, but skip .git/
+  (consult-ripgrep-args
+   "rg --null --line-buffered --color=never --max-columns=1000 --path-separator /\
+   --smart-case --no-heading --with-filename --line-number --search-zip --hidden --glob=!.git/")
+  (consult-find-args "find . -not ( -path */.git* -prune )"))
 
 ;; Git gutter / VCS change indicators in the fringe
 (use-package diff-hl
