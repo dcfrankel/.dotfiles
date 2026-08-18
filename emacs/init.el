@@ -97,8 +97,10 @@
 (use-package project
   :ensure nil
   :config
-  (when (file-directory-p "~/work")
-    (project-remember-projects-under "~/work"))
+  (when (file-directory-p "~/work/ghec")
+    (project-remember-projects-under "~/work/ghec"))
+  (when (file-directory-p "~/work/ghes")
+    (project-remember-projects-under "~/work/ghes"))
   ;; Override the default projectg commands to use consult
   (setq project-switch-commands
         '((consult-project-buffer "Buffer" ?b)
