@@ -135,6 +135,16 @@
   :config
   (global-auto-revert-mode 1))
 
+;; Auto-save file-visiting buffers to their real files after a short idle
+(use-package files
+  :ensure nil
+  :custom
+  (auto-save-visited-interval 5)             ; Save 5s after edits stop
+  (auto-save-visited-predicate               ; Skip remote/TRAMP files
+   (lambda () (not (file-remote-p buffer-file-name))))
+  :config
+  (auto-save-visited-mode 1))
+
 ;; -------------------------
 ;; Mode Configs
 ;; -------------------------
