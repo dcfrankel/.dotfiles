@@ -43,6 +43,10 @@
   :config
   ;; Open with full sized window
   (add-to-list 'default-frame-alist '(fullscreen . maximized))
+  ;; Disable the menu/tool/scroll bars for all frames
+  (add-to-list 'default-frame-alist '(menu-bar-lines . 0))
+  (add-to-list 'default-frame-alist '(tool-bar-lines . 0))
+  (add-to-list 'default-frame-alist '(vertical-scroll-bars))
   ;; Better buffer list
   (defalias 'list-buffers 'ibuffer)
   ;; Automatically add closing delimiters
@@ -51,10 +55,6 @@
   (global-whitespace-mode 1)
   ;; Use relative line numbers
   (global-display-line-numbers-mode t)
-  ;; Disable all the ugly menu bars
-  (menu-bar-mode -1)
-  (scroll-bar-mode -1)
-  (tool-bar-mode -1)
   ;; Font size 14 (Emacs :height is in 1/10 pt)
   (set-face-attribute 'default nil :family "Hack Nerd Font" :height 140)
   (setq-default line-spacing 1)
