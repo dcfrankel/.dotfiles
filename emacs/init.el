@@ -43,10 +43,19 @@
   :config
   ;; Open with full sized window
   (add-to-list 'default-frame-alist '(fullscreen . maximized))
-  ;; Disable the menu/tool/scroll bars for all frames
+  ;; Disable the menu/tool/scroll bars. The default-frame-alist entries give
+  ;; the initial frame a clean start, but under the daemon a one-time
+  ;; (menu-bar-mode -1) doesn't stick: the modes stay on and re-apply the menu
+  ;; bar to each new emacsclient frame. Force them off on every client frame
+  ;; too. -1 is a no-op for the GUI-only bars in a tty.
   (add-to-list 'default-frame-alist '(menu-bar-lines . 0))
   (add-to-list 'default-frame-alist '(tool-bar-lines . 0))
   (add-to-list 'default-frame-alist '(vertical-scroll-bars))
+  (defun my/disable-frame-chrome (&optional _frame)
+    (menu-bar-mode -1)
+    (tool-bar-mode -1)
+    (scroll-bar-mode -1))
+  (add-hook 'server-after-make-frame-hook #'my/disable-frame-chrome)
   ;; Better buffer list
   (defalias 'list-buffers 'ibuffer)
   ;; Automatically add closing delimiters
