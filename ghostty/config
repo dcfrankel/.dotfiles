@@ -36,3 +36,5 @@ keybind = super+l=goto_split:right
 
 # Always require confirmation before closing splits/tabs
 confirm-close-surface = always
+
+unfocused-split-opacity = 0.35
