@@ -200,6 +200,9 @@
 ;; Directory tree sidebar (VSCode/Zed-style)
 (use-package treemacs
   :defer t
+  :init
+  ;; Daemon workflow: open the sidebar in each new emacsclient frame without stealing focus from the editing window
+  (add-hook 'server-after-make-frame-hook #'treemacs-start-on-boot)
   :custom
   (treemacs-width 32)
   (treemacs-follow-after-init t)   ; keep tree in sync with active file
