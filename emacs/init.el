@@ -71,6 +71,16 @@
               (process-send-string proc text)
               (process-send-eof proc))))))
 
+;; Tree-sitter switch modes with a ts variant to *-ts-mode and auto-fetch/compile grammars on demand
+(use-package treesit
+  :ensure nil
+  :if (>= emacs-major-version 31)
+  :config
+  ;; Silently fetch + compile a missing grammar the first time a file needs it.
+  (setopt treesit-auto-install-grammar 'always)
+  ;; Enable every built-in major mode that has a tree-sitter variant.
+  (setopt treesit-enabled-modes t))
+
 ;; Eglot LSP configurations
 (use-package eglot
   :ensure nil
