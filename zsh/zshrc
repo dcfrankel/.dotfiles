@@ -49,6 +49,7 @@ alias claude="SHELL=/bin/bash claude --permission-mode plan"
 # Launch emacs in headless mode (no window) and spawn a daemon if one doesn't exist
 # Set the default project directory to the current working directory
 alias e='emacsclient --tty --alternate-editor=""'
+alias lg='lazygit'
 
 #### Source additional plugin configurations ####
 source "$HOME/.dotfiles/zsh/plugins.zsh"
