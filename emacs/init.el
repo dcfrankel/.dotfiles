@@ -148,11 +148,20 @@
 (use-package files
   :ensure nil
   :custom
-  (auto-save-visited-interval 5)             ; Save 5s after edits stop
+  (auto-save-visited-interval 1)             ; Save 1s after edits stop
   (auto-save-visited-predicate               ; Skip remote/TRAMP files
    (lambda () (not (file-remote-p buffer-file-name))))
   :config
-  (auto-save-visited-mode 1))
+  (auto-save-visited-mode 1)
+  ;; Silently save modified, local file-visiting buffers on demand
+  (defun my/save-visited-buffers (&rest _)
+    (save-some-buffers
+     t
+     (lambda () (and buffer-file-name
+                     (not (file-remote-p buffer-file-name))))))
+  ;; Save when switching windows/buffers and when the frame loses focus
+  (add-hook 'window-selection-change-functions #'my/save-visited-buffers)
+  (add-function :after after-focus-change-function #'my/save-visited-buffers))
 
 ;; -------------------------
 ;; Mode Configs
