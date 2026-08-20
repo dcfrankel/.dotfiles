@@ -194,6 +194,11 @@
   (setq evil-disable-insert-state-bindings t)
   (setq evil-want-C-u-scroll t)
   (setq evil-want-keybinding nil)
+  ;; The custom mode-line renders its own state segment (see "Custom Mode Line"),
+  ;; so silence evil's built-in indicators: the echo-area "-- INSERT --" message
+  ;; below the mode-line and the state tag it splices into the mode-line front.
+  (setq evil-echo-state nil)
+  (setq evil-mode-line-format nil)
 
   :config
   (evil-mode 1)
@@ -301,3 +306,8 @@
   ;; Terminals have no fringe — fall back to margin indicators
   (unless (display-graphic-p)
     (diff-hl-margin-mode 1)))
+
+;; -------------------------
+;; Custom Mode Line
+;; -------------------------
+(load (locate-user-emacs-file "mode-line.el"))
