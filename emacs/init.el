@@ -29,7 +29,7 @@
 
   :custom
   ;; Show whitespace
-  (whitespace-style '(face spaces space-mark tabs tab-mark trailing))
+  (whitespace-style '(face tabs tab-mark trailing))
   ;; Scrolling behavior
   (scroll-conservatively most-positive-fixnum) ; Scroll line-by-line, no recentering jumps
   (scroll-margin 0)                            ; Allow last line to sit at window bottom
@@ -317,6 +317,19 @@
   ;; Terminals have no fringe — fall back to margin indicators
   (unless (display-graphic-p)
     (diff-hl-margin-mode 1)))
+
+;; Show indentation with faint vertical guide bars
+(use-package indent-bars
+  :hook ((prog-mode yaml-mode) . indent-bars-mode)
+  :custom
+  ;; macOS (NS) builds lack stipple support, so render bars with characters
+  ;; instead of stipple bitmaps — otherwise the bars won't appear.
+  (indent-bars-prefer-character t)
+  ;; Draw a bar every 2 columns instead of guessing from the major mode's
+  ;; indent offset.
+  (indent-bars-spacing-override 2)
+  ;; Highlight the bar at the cursor's current indentation depth.
+  (indent-bars-highlight-current-depth '(:blend 0.8)))
 
 ;; -------------------------
 ;; Custom Mode Line
