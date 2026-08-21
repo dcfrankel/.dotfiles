@@ -223,7 +223,9 @@
   ;; VSCode-style project-wide search
   (evil-define-key '(normal insert visual motion) 'global (kbd "M-F") 'consult-ripgrep)
   ;; Toggle the directory-tree sidebar
-  (evil-define-key '(normal motion visual) 'global (kbd "<leader>t") 'treemacs))
+  (evil-define-key '(normal motion visual) 'global (kbd "<leader>t") 'treemacs)
+  ;; Evaluate top level elisp expression surrounding the cursor
+  (evil-define-key '(normal) 'global (kbd "<leader>e") 'eval-defun))
 
 (use-package evil-collection
   :after evil
