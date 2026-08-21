@@ -47,10 +47,8 @@ alias ls='ls -ltah --color'
 # Force claude to use bash as the shell
 alias claude="SHELL=/bin/bash claude --permission-mode plan"
 # Launch emacs in headless mode (no window)
-# Set the default project directory to the current working directory
-alias e='emacsclient --tty --alternate-editor=""'
+alias e="emacs -nw"
 alias lg='lazygit'
-alias e='emacs -nw --eval "(let ((default-directory \"$PWD\")) (project-switch-project default-directory))"'
 
 #### Source additional plugin configurations ####
 source "$HOME/.dotfiles/zsh/plugins.zsh"
