@@ -11,8 +11,8 @@ export LG_CONFIG_FILE="$HOME/.dotfiles/lazygit/config.yaml"
 export STARSHIP_CONFIG="$HOME/.dotfiles/starship/starship.toml"
 
 # Set emacs (terminal mode) as the default editor
-export EDITOR="emacsclient --tty"
-export VISUAL="emacsclient --create-frame"
+export EDITOR="emacs -nw"
+export VISUAL="emacs"
 
 # PATH
 PATH_FILE="$HOME/.dotfiles/sh/path.sh"
@@ -46,10 +46,11 @@ setopt share_history # share history between shells
 alias ls='ls -ltah --color'
 # Force claude to use bash as the shell
 alias claude="SHELL=/bin/bash claude --permission-mode plan"
-# Launch emacs in headless mode (no window) and spawn a daemon if one doesn't exist
+# Launch emacs in headless mode (no window)
 # Set the default project directory to the current working directory
 alias e='emacsclient --tty --alternate-editor=""'
 alias lg='lazygit'
+alias e='emacs -nw --eval "(let ((default-directory \"$PWD\")) (project-switch-project default-directory))"'
 
 #### Source additional plugin configurations ####
 source "$HOME/.dotfiles/zsh/plugins.zsh"
