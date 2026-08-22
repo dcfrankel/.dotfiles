@@ -340,9 +340,6 @@
   ;; macOS (NS) builds lack stipple support, so render bars with characters
   ;; instead of stipple bitmaps — otherwise the bars won't appear.
   (indent-bars-prefer-character t)
-  ;; Draw a bar every 2 columns instead of guessing from the major mode's
-  ;; indent offset.
-  (indent-bars-spacing-override 2)
   ;; Highlight the bar at the cursor's current indentation depth.
   (indent-bars-highlight-current-depth '(:blend 0.8)))
 
