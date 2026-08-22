@@ -220,6 +220,7 @@
   ;; below the mode-line and the state tag it splices into the mode-line front.
   (setq evil-echo-state nil)
   (setq evil-mode-line-format nil)
+  (setq evil-undo-system 'undo-redo)
 
   :config
   (evil-mode 1)
