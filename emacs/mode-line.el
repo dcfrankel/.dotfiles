@@ -10,7 +10,7 @@
 (require 'cl-lib)
 
 ;; The white-circle segment separator, dimmed.
-(defvar my/ml-separator
+(defvar-local my/ml-separator
   (propertize " ○ " 'face `(:foreground ,(catppuccin-color 'overlay0)))
   "Separator string placed between mode-line segments.")
 
@@ -25,16 +25,16 @@
   "Evil state tag (e.g. <N>), colored per state. Empty if evil is absent."
   (if (and (bound-and-true-p evil-mode) (boundp 'evil-state) evil-state)
       (let* ((color (pcase evil-state
-                     ('normal   (catppuccin-color 'green))
-                     ('insert   (catppuccin-color 'sky))
-                     ('visual   (catppuccin-color 'mauve))
-                     ('replace  (catppuccin-color 'red))
-                     ('operator (catppuccin-color 'peach))
-                     ('motion   (catppuccin-color 'lavender))
-                     ('emacs    (catppuccin-color 'peach))
-                     (_         (catppuccin-color 'text))))
-            (raw (evil-state-property evil-state :tag t))
-            (tag (string-trim (or (if (functionp raw) (funcall raw) raw) ""))))
+                      ('normal   (catppuccin-color 'green))
+                      ('insert   (catppuccin-color 'sky))
+                      ('visual   (catppuccin-color 'mauve))
+                      ('replace  (catppuccin-color 'red))
+                      ('operator (catppuccin-color 'peach))
+                      ('motion   (catppuccin-color 'lavender))
+                      ('emacs    (catppuccin-color 'peach))
+                      (_         (catppuccin-color 'text))))
+             (raw (evil-state-property evil-state :tag t))
+             (tag (string-trim (or (if (functionp raw) (funcall raw) raw) ""))))
         (propertize tag 'face `(:foreground ,color :weight bold)))
     ""))
 
@@ -51,8 +51,7 @@
   (if (and vc-mode (stringp vc-mode))
       (let ((branch (replace-regexp-in-string
                      "\\`[[:space:]]*\\(Git\\|SVN\\|Hg\\)[-:@]" "" vc-mode)))
-        (propertize (concat " " (string-trim branch))
-                    'face `(:foreground ,(catppuccin-color 'peach))))
+        (propertize (string-trim branch) 'face `(:foreground ,(catppuccin-color 'peach))))
     ""))
 
 (defun my/ml-major-mode ()
@@ -74,24 +73,34 @@
     ""))
 
 ;; --- Assembly ---
-(defun my/ml-left ()
-  "Left-aligned segment group."
-  (my/ml-join (list (my/ml-file-name) (my/ml-git-branch))))
+(defvar-local my/ml-left
+  '(:eval (my/ml-join (list (my/ml-evil-state) (my/ml-file-name) (my/ml-git-branch))))
+  "Left-aligned segment group.")
+
+(put 'my/ml-left' risky-local-variable t)
 
 (defun my/ml-right ()
   "Right-aligned segment group (evil state is the final segment)."
   (my/ml-join (list (my/ml-major-mode) (my/ml-minor-modes)
-                    (my/ml-flymake) (my/ml-evil-state))))
+                    (my/ml-flymake))))
 
+(defvar-local my/ml-right-adjusted
+  '(:eval (let ((r (my/ml-right)))
+            (concat
+             (propertize
+              " "
+              'display `((space :align-to (- right ,(+ 1 (string-width r))))))
+             r " ")))
+  "The right adjusted ml components.")
+
+(put 'my/ml-right-adjusted' risky-local-variable t)
+
+;; Set the custom format of the mode line
 (setq-default mode-line-format
-              '("%e" " "
-                (:eval (my/ml-left))
-                (:eval (let ((r (my/ml-right)))
-                         (concat
-                          (propertize
-                           " "
-                           'display `((space :align-to (- right ,(+ 1 (string-width r))))))
-                          r " ")))))
+      '("%e"
+	" "
+	my/ml-left
+        my/ml-right-adjusted))
 
 (provide 'mode-line)
 ;;; mode-line.el ends here
