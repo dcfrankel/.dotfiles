@@ -196,6 +196,18 @@
 (use-package which-key
   :config (which-key-mode))
 
+;; Show documentation for the symbol at point: LSP docstring when eglot manages
+;; the buffer, otherwise Emacs' own describe-symbol (e.g. in emacs-lisp-mode).
+(defun my/doc-at-point ()
+  "Show documentation for the thing under point, dispatching on major context."
+  (interactive)
+  (cond
+   ((and (fboundp 'eglot-managed-p) (eglot-managed-p))
+    (call-interactively #'eglot-help-at-point))
+   ((symbol-at-point)
+    (describe-symbol (symbol-at-point)))
+   (t (call-interactively #'describe-symbol))))
+
 ;; Evil config
 (use-package evil
   :init
@@ -225,7 +237,9 @@
   ;; Toggle the directory-tree sidebar
   (evil-define-key '(normal motion visual) 'global (kbd "<leader>t") 'treemacs)
   ;; Evaluate top level elisp expression surrounding the cursor
-  (evil-define-key '(normal) 'global (kbd "<leader>e") 'eval-defun))
+  (evil-define-key '(normal) 'global (kbd "<leader>e") 'eval-defun)
+  ;; Show documentation for the symbol under the cursor
+  (evil-define-key '(normal) 'global (kbd "K") 'my/doc-at-point))
 
 (use-package evil-collection
   :after evil
