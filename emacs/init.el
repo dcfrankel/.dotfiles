@@ -222,6 +222,7 @@
 
 ;; Evil config
 (use-package evil
+  :pin "melpa"
   :init
   ;; Fixes control based navigation
   (setq evil-disable-insert-state-bindings t)
