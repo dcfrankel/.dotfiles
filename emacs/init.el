@@ -1,3 +1,4 @@
+
 ;;; -*- lexical-binding: t; -*-
 
 ;; =========================
@@ -133,7 +134,15 @@
   :ensure nil
   :hook (prog-mode . flymake-mode)
   :custom
-  (flymake-show-diagnostics-at-end-of-line 'short))
+  (flymake-show-diagnostics-at-end-of-line 'fancy)
+  :config
+  ;; Emacs core's `flymake--eol-draw-fancy' hardcodes the wrap column so fancy EOL
+  ;; diagnostics wrap even with plenty of screen space. Widen the wrap column to the window width.
+  (define-advice flymake--eol-draw-fancy-1
+      (:filter-args (args) my/flymake-eol-window-width)
+    ;; args = (text face line-beg-col height-to-clear text-beg-col text-end-col)
+    (setf (nth 5 args) (max (nth 5 args) (- (window-width) 2)))
+    args))
 
 ;; Reload buffers when their underlying files change on disk
 (use-package autorevert
