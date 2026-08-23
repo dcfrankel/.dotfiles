@@ -5,8 +5,37 @@
 
 ;;; Code:
 ;; =========================
+;; Functions
+;; =========================
+(defun my/disable-frame-chrome (&optional _frame)
+  "Disable various frame related modes."
+  (menu-bar-mode -1)
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1))
+
+(defun my/save-visited-buffers (&rest _)
+  "Silently save modified, local file-visiting buffers on demand."
+  (save-some-buffers
+   t
+   (lambda () (and buffer-file-name
+		   (not (file-remote-p buffer-file-name))))))
+
+;; Show documentation for the symbol at point: LSP docstring when eglot manages
+;; the buffer, otherwise Emacs' own describe-symbol (e.g. in emacs-lisp-mode).
+(defun my/doc-at-point ()
+  "Show documentation for the thing under point, dispatching on major context."
+  (interactive)
+  (cond
+   ((and (fboundp 'eglot-managed-p) (eglot-managed-p))
+    (call-interactively #'eglot-help-at-point))
+   ((symbol-at-point)
+    (describe-symbol (symbol-at-point)))
+   (t (call-interactively #'describe-symbol))))
+
+;; =========================
 ;; Package Configurations
 ;; =========================
+
 ;; Add package archives
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
@@ -21,6 +50,7 @@
 ;; -------------------------
 ;; Internal Packages
 ;; -------------------------
+
 ;; Basic customization and global settings
 (use-package emacs
   :ensure nil
@@ -55,10 +85,6 @@
   (add-to-list 'default-frame-alist '(menu-bar-lines . 0))
   (add-to-list 'default-frame-alist '(tool-bar-lines . 0))
   (add-to-list 'default-frame-alist '(vertical-scroll-bars))
-  (defun my/disable-frame-chrome (&optional _frame)
-    (menu-bar-mode -1)
-    (tool-bar-mode -1)
-    (scroll-bar-mode -1))
   (add-hook 'server-after-make-frame-hook #'my/disable-frame-chrome)
   ;; Better buffer list
   (defalias 'list-buffers 'ibuffer)
@@ -165,12 +191,6 @@
    (lambda () (not (file-remote-p buffer-file-name))))
   :config
   (auto-save-visited-mode 1)
-  ;; Silently save modified, local file-visiting buffers on demand
-  (defun my/save-visited-buffers (&rest _)
-    (save-some-buffers
-     t
-     (lambda () (and buffer-file-name
-                     (not (file-remote-p buffer-file-name))))))
   ;; Save when switching windows/buffers and when the frame loses focus
   (add-hook 'window-selection-change-functions #'my/save-visited-buffers)
   (add-function :after after-focus-change-function #'my/save-visited-buffers))
@@ -178,6 +198,7 @@
 ;; -------------------------
 ;; Mode Configs
 ;; -------------------------
+
 ;; Yaml mode config
 (use-package yaml-mode
   :mode ("\\.ya?ml\\'" . yaml-mode))
@@ -198,6 +219,7 @@
 ;; -------------------------
 ;; External Packages
 ;; -------------------------
+
 ;; Theme
 (use-package catppuccin-theme
   :config
@@ -207,18 +229,6 @@
 ;; Which key config
 (use-package which-key
   :config (which-key-mode))
-
-;; Show documentation for the symbol at point: LSP docstring when eglot manages
-;; the buffer, otherwise Emacs' own describe-symbol (e.g. in emacs-lisp-mode).
-(defun my/doc-at-point ()
-  "Show documentation for the thing under point, dispatching on major context."
-  (interactive)
-  (cond
-   ((and (fboundp 'eglot-managed-p) (eglot-managed-p))
-    (call-interactively #'eglot-help-at-point))
-   ((symbol-at-point)
-    (describe-symbol (symbol-at-point)))
-   (t (call-interactively #'describe-symbol))))
 
 ;; Evil config
 (use-package evil
@@ -256,6 +266,7 @@
   (evil-define-key '(normal) 'global (kbd "K") 'my/doc-at-point))
 
 (use-package evil-collection
+  :pin "melpa"
   :after evil
   :ensure t
   :config (evil-collection-init))
@@ -359,4 +370,5 @@
 ;; -------------------------
 ;; Custom Mode Line
 ;; -------------------------
+
 (load (locate-user-emacs-file "mode-line.el"))

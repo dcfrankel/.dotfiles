@@ -97,10 +97,10 @@
 
 ;; Set the custom format of the mode line
 (setq-default mode-line-format
-      '("%e"
-	" "
-	my/ml-left
-        my/ml-right-adjusted))
+	      '("%e"
+		" "
+		my/ml-left
+		my/ml-right-adjusted))
 
 (provide 'mode-line)
 ;;; mode-line.el ends here
