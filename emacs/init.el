@@ -1,6 +1,9 @@
+;;; init.el --- Emacs init file -*- lexical-binding: t; -*-
 
-;;; -*- lexical-binding: t; -*-
+;;; Commentary:
+;; My init file with most of my Emacs configurations.
 
+;;; Code:
 ;; =========================
 ;; Package Configurations
 ;; =========================

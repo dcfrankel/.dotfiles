@@ -1,9 +1,9 @@
 ;;; mode-line.el --- Custom mode-line -*- lexical-binding: t; -*-
 
 ;;; Commentary:
-;; A hand-built, color-coded mode-line. Left side: file name and git branch.
+;; A hand-built, color-coded mode-line.  Left side: file name and git branch.
 ;; Right edge: major mode, minor modes, flymake, and the evil state tag as the
-;; final segment. Segments are joined by a white circle separator (○).
+;; final segment.  Segments are joined by a white circle separator (○).
 ;; Colors come from the active catppuccin flavor via `catppuccin-color'.
 
 ;;; Code:
@@ -22,7 +22,7 @@
 
 ;; --- Segments ---
 (defun my/ml-evil-state ()
-  "Evil state tag (e.g. <N>), colored per state. Empty if evil is absent."
+  "Evil state tag (e.g. <N>), colored per state.  Empty if evil is absent."
   (if (and (bound-and-true-p evil-mode) (boundp 'evil-state) evil-state)
       (let* ((color (pcase evil-state
                       ('normal   (catppuccin-color 'green))
@@ -47,7 +47,7 @@
             (propertize marker 'face `(:foreground ,(catppuccin-color 'red))))))
 
 (defun my/ml-git-branch ()
-  "Current VC branch (with a nerd-font git glyph). Empty when not under VC."
+  "Current VC branch (with a nerd-font git glyph).  Empty when not under VC."
   (if (and vc-mode (stringp vc-mode))
       (let ((branch (replace-regexp-in-string
                      "\\`[[:space:]]*\\(Git\\|SVN\\|Hg\\)[-:@]" "" vc-mode)))
@@ -66,7 +66,7 @@
     (seq-remove (lambda (e) (eq (car-safe e) 'flymake-mode)) minor-mode-alist))))
 
 (defun my/ml-flymake ()
-  "Flymake's built-in mode-line construct (title, state, counts). Empty when off."
+  "Flymake's built-in mode-line construct (title, state, counts).  Empty when off."
   (if (and (bound-and-true-p flymake-mode)
            (boundp 'flymake-mode-line-format))
       (string-trim (format-mode-line flymake-mode-line-format))
