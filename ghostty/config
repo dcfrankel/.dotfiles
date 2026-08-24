@@ -37,4 +37,8 @@ keybind = super+l=goto_split:right
 # Always require confirmation before closing splits/tabs
 confirm-close-surface = always
 
+# Make it easier to identify current split
 unfocused-split-opacity = 0.35
+
+# Make tabs insert at the end position (not after the active tab)
+window-new-tab-position = end
