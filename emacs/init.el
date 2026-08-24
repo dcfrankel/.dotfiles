@@ -373,3 +373,4 @@
 ;; -------------------------
 
 (load (locate-user-emacs-file "mode-line.el"))
+;;; init.el ends here
