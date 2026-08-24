@@ -73,6 +73,7 @@
   (initial-scratch-message nil)
   ;; TAB key: fix indentation if needed, otherwise perform completion
   (tab-always-indent 'complete)
+  (require-final-newline 'visit-save)
 
   :config
   ;; Open with full sized window
