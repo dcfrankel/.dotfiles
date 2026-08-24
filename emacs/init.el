@@ -174,6 +174,13 @@
     (setf (nth 5 args) (max (nth 5 args) (- (window-width) 2)))
     args))
 
+;; Enable spell checking of comments
+(use-package flyspell
+  :ensure nil
+  ;; Only load if aspell is available
+  :if (executable-find "aspell")
+  :hook (prog-mode . flyspell-prog-mode))
+
 ;; Reload buffers when their underlying files change on disk
 (use-package autorevert
   :ensure nil
