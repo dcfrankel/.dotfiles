@@ -278,6 +278,11 @@
   :pin "melpa"
   :after evil
   :ensure t
+  :init
+  ;; Use SPC as the evil leader (see the `evil' block above). evil-collection
+  ;; binds SPC directly in many read-only/pager modes (help, Info, etc.), and
+  ;; those buffer-local bindings shadow the global leader.
+  (setq evil-collection-key-blacklist '("SPC"))
   :config (evil-collection-init))
 
 ;; Directory tree sidebar (VSCode/Zed-style)
