@@ -60,6 +60,7 @@
   ;; Load that file if it exists, ignoring errors if it doesn't yet
   (when (file-exists-p custom-file)
     (load custom-file))
+  :hook (prog-mode . delete-trailing-whitespace-mode)
 
   :custom
   ;; Show whitespace
