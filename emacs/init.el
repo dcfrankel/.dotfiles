@@ -20,18 +20,6 @@
    (lambda () (and buffer-file-name
 		   (not (file-remote-p buffer-file-name))))))
 
-;; Show documentation for the symbol at point: LSP docstring when eglot manages
-;; the buffer, otherwise Emacs' own describe-symbol (e.g. in emacs-lisp-mode).
-(defun my/doc-at-point ()
-  "Show documentation for the thing under point, dispatching on major context."
-  (interactive)
-  (cond
-   ((and (fboundp 'eglot-managed-p) (eglot-managed-p))
-    (call-interactively #'eglot-help-at-point))
-   ((symbol-at-point)
-    (describe-symbol (symbol-at-point)))
-   (t (call-interactively #'describe-symbol))))
-
 ;; =========================
 ;; Package Configurations
 ;; =========================
@@ -46,6 +34,9 @@
 ;; Make sure all packages are installed on the system
 (require 'use-package)
 (setq use-package-always-ensure t)
+
+;; Non-built-in package configurations live in their own files under modules/
+(add-to-list 'load-path (locate-user-emacs-file "modules"))
 
 ;; -------------------------
 ;; Internal Packages
@@ -219,177 +210,19 @@
   (add-function :after after-focus-change-function #'my/save-visited-buffers))
 
 ;; -------------------------
-;; Mode Configs
-;; -------------------------
-
-;; Yaml mode config
-(use-package yaml-mode
-  :mode ("\\.ya?ml\\'" . yaml-mode))
-
-;; Go mode config
-(use-package go-mode
-  :mode ("\\.go\\'" . go-mode))
-
-;; Terraform mode config
-(use-package terraform-mode
-  :mode (("\\.tf\\'" . terraform-mode)
-         ("\\.tfvars\\'" . terraform-mode)))
-
-;; -------------------------
 ;; External Packages
 ;; -------------------------
 
-;; Theme
-(use-package catppuccin-theme
-  :config
-  (setq catppuccin-flavor 'mocha) ; Options are 'latte, 'frappe, 'macchiato, or 'mocha
-  (catppuccin-reload))
-
-;; Which key config
-(use-package which-key
-  :config (which-key-mode))
-
-;; Evil config
-(use-package evil
-  :pin "melpa"
-  :init
-  ;; Fixes control based navigation
-  (setq evil-disable-insert-state-bindings t)
-  (setq evil-want-C-u-scroll t)
-  (setq evil-want-keybinding nil)
-  ;; The custom mode-line renders its own state segment (see "Custom Mode Line"),
-  ;; so silence evil's built-in indicators: the echo-area "-- INSERT --" message
-  ;; below the mode-line and the state tag it splices into the mode-line front.
-  (setq evil-echo-state nil)
-  (setq evil-mode-line-format nil)
-  (setq evil-undo-system 'undo-redo)
-
-  :config
-  (evil-mode 1)
-  ;; Set the leader key
-  (evil-set-leader '(normal motion visual) (kbd "SPC"))
-  ;; Window navigation
-  (evil-define-key '(normal motion visual) 'global (kbd "<leader>h") 'evil-window-left)
-  (evil-define-key '(normal motion visual) 'global (kbd "<leader>j") 'evil-window-down)
-  (evil-define-key '(normal motion visual) 'global (kbd "<leader>k") 'evil-window-up)
-  (evil-define-key '(normal motion visual) 'global (kbd "<leader>l") 'evil-window-right)
-  ;; VSCode-style quick open: find file in project
-  (evil-define-key '(normal insert visual motion) 'global (kbd "C-p") 'consult-fd)
-  ;; VSCode-style project-wide search
-  (evil-define-key '(normal insert visual motion) 'global (kbd "M-F") 'consult-ripgrep)
-  ;; Toggle the directory-tree sidebar
-  (evil-define-key '(normal motion visual) 'global (kbd "<leader>t") 'treemacs)
-  ;; Evaluate top level elisp expression surrounding the cursor
-  (evil-define-key '(normal) 'global (kbd "<leader>e") 'eval-defun)
-  ;; Show documentation for the symbol under the cursor
-  (evil-define-key '(normal) 'global (kbd "K") 'my/doc-at-point))
-
-(use-package evil-collection
-  :pin "melpa"
-  :after evil
-  :ensure t
-  :init
-  ;; Use SPC as the evil leader (see the `evil' block above). evil-collection
-  ;; binds SPC directly in many read-only/pager modes (help, Info, etc.), and
-  ;; those buffer-local bindings shadow the global leader.
-  (setq evil-collection-key-blacklist '("SPC"))
-  :config (evil-collection-init))
-
-;; Directory tree sidebar (VSCode/Zed-style)
-(use-package treemacs
-  :defer t
-  :init
-  ;; Daemon workflow: open the sidebar in each new emacsclient frame without stealing focus from the editing window
-  (add-hook 'server-after-make-frame-hook #'treemacs-start-on-boot)
-  :custom
-  (treemacs-width 32)
-  (treemacs-follow-after-init t)   ; keep tree in sync with active file
-  :config
-  ;; No line numbers in the sidebar (global-display-line-numbers-mode is on)
-  (add-hook 'treemacs-mode-hook (lambda () (display-line-numbers-mode -1)))
-  ;; Root the tree at the current project and follow across projects
-  (treemacs-project-follow-mode 1))
-
-;; Evil keybindings inside the treemacs buffer
-;; (evil-collection has no treemacs module, so this is required and non-conflicting)
-(use-package treemacs-evil
-  :after (treemacs evil))
-
-;; Use nerd font icons
-(use-package nerd-icons)
-
-(use-package treemacs-nerd-icons
-  :after (treemacs nerd-icons)
-  :config
-  (treemacs-load-theme "nerd-icons"))
-
-;; Add support for rainbow brackets and other delimiters
-(use-package rainbow-delimiters
-  :hook (prog-mode . rainbow-delimiters-mode))
-
-;; At-point completion within buffers
-(use-package corfu
-  :custom
-  (corfu-auto t) ; Auto completions
-  (corfu-on-exact-match 'insert) ; Complete if there is only a single candidate
-  (corfu-quit-no-match t)
-
-  :init (global-corfu-mode 1)
-
-  :config
-  (setq corfu-popupinfo-delay '(1.25 . 0.5))
-  (corfu-popupinfo-mode 1)) ; Show documentation next to completions
-
-;; Vertical completion UI in the minibuffer
-(use-package vertico
-  :custom
-  (vertico-cycle t)
-  :init
-  (vertico-mode 1)
-  :bind (:map vertico-map
-              ("TAB"       . vertico-next)
-              ("<tab>"     . vertico-next)
-              ("S-TAB"     . vertico-previous)
-              ("<backtab>" . vertico-previous)))
-
-;; Search and navigation commands
-(use-package consult
-  :bind (("C-x b"   . consult-buffer)          ; orig. switch-to-buffer
-         ("C-x p b" . consult-project-buffer)  ; orig. project-switch-to-buffer
-         ("M-y"     . consult-yank-pop)        ; orig. yank-pop
-         ("M-s l"   . consult-line)
-         ("M-s g"   . consult-grep)
-         ("M-s r"   . consult-ripgrep)         ; project-aware ripgrep
-         ("M-s f"   . consult-find))
-  :custom
-  (consult-project-function #'consult--default-project-function)
-  ;; Include hidden dotfiles (e.g. .github) in searches, but skip .git/
-  (consult-ripgrep-args
-   "rg --null --line-buffered --color=never --max-columns=1000 --path-separator /\
-   --smart-case --no-heading --with-filename --line-number --search-zip --hidden --glob=!.git/")
-  (consult-find-args "find . -not ( -path */.git* -prune )"))
-
-;; Git gutter / VCS change indicators in the fringe
-(use-package diff-hl
-  :hook (dired-mode . diff-hl-dired-mode)
-  :init
-  (global-diff-hl-mode 1)
-  :config
-  ;; Update indicators live as you edit, not just on save
-  (diff-hl-flydiff-mode 1)
-  ;; Terminals have no fringe — fall back to margin indicators
-  (unless (display-graphic-p)
-    (diff-hl-margin-mode 1)))
-
-;; Show indentation with faint vertical guide bars
-(use-package indent-bars
-  :hook ((prog-mode yaml-mode) . indent-bars-mode)
-  :custom
-  ;; macOS (NS) builds lack stipple support, so render bars with characters
-  ;; instead of stipple bitmaps — otherwise the bars won't appear.
-  (indent-bars-prefer-character t)
-  ;; Highlight the bar at the cursor's current indentation depth.
-  (indent-bars-highlight-current-depth '(:blend 0.8)))
+(require 'module-theme)
+(require 'module-evil)
+(require 'module-treemacs)
+(require 'module-rainbow-delimiters)
+(require 'module-corfu)
+(require 'module-vertico)
+(require 'module-consult)
+(require 'module-diff-hl)
+(require 'module-indent-bars)
+(require 'module-langs)
 
 ;; -------------------------
 ;; Custom Mode Line
