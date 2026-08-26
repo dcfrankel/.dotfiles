@@ -39,6 +39,9 @@ if [[ -x "$(command -v brew)" ]]; then
     # zsh vi mode breaks CTRL+R search with fzf unless added here
     zvm_after_init_commands+=(fzf_init)
   else
+    # Fall back to zsh's built-in vi keymap when the plugin isn't installed
+    bindkey -v
+    export KEYTIMEOUT=1
     fzf_init
   fi
 
