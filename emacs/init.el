@@ -93,6 +93,8 @@
   (setq completion-styles '(flex basic))
   ;; Store backups in a centralized location
   (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
+  ;; Fix issues with frame locking across multiple buffers when using the daemon
+  (setq multiple-terminals-merge-keyboards t)
   ;; Terminal Emacs: send kills (incl. evil yanks) to the macOS clipboard.
   ;; GUI Emacs already handles this via gui-select-text, so only override -nw.
   (when (and (not (display-graphic-p)) (executable-find "pbcopy"))
