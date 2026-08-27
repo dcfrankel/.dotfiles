@@ -66,6 +66,8 @@
   ;; TAB key: fix indentation if needed, otherwise perform completion
   (tab-always-indent 'complete)
   (require-final-newline 'visit-save)
+  ;; Correctly update cursor shape in TTY
+  (xterm-update-cursor t)
 
   :config
   ;; Open with full sized window
