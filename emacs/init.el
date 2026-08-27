@@ -122,16 +122,9 @@
 (use-package markdown-ts-mode
   :ensure nil
   :if (>= emacs-major-version 31)
-  :mode ("\\.md\\'" . markdown-ts-mode)
-  :init
-  (add-to-list 'major-mode-remap-alist '(markdown-mode . markdown-ts-mode))
+  :mode ("\\.md\\'" "\\.mdx\\'" "\\.markdown\\'")
   :config
-  (add-to-list 'treesit-language-source-alist
-               '(markdown "https://github.com/tree-sitter-grammars/tree-sitter-markdown"
-                          nil "tree-sitter-markdown/src"))
-  (add-to-list 'treesit-language-source-alist
-               '(markdown-inline "https://github.com/tree-sitter-grammars/tree-sitter-markdown"
-                                 nil "tree-sitter-markdown-inline/src")))
+  (require 'markdown-ts-mode-x))
 
 ;; Eglot LSP configurations
 (use-package eglot
