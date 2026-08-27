@@ -91,6 +91,8 @@
   (set-face-attribute 'default nil :family "Hack Nerd Font" :height 140)
   (setq-default line-spacing 1)
   (setq completion-styles '(flex basic))
+  ;; Store backups in a centralized location
+  (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
   ;; Terminal Emacs: send kills (incl. evil yanks) to the macOS clipboard.
   ;; GUI Emacs already handles this via gui-select-text, so only override -nw.
   (when (and (not (display-graphic-p)) (executable-find "pbcopy"))
