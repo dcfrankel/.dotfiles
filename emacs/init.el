@@ -68,6 +68,8 @@
   (require-final-newline 'visit-save)
   ;; Correctly update cursor shape in TTY
   (xterm-update-cursor t)
+  ;; Properly display child frames in TTY
+  (tty-tip-mode 1)
 
   :config
   ;; Open with full sized window
