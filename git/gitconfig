@@ -73,7 +73,7 @@
 
 # Explicitly set where to store credentials
 [credential]
-	helper = osxkeychain
+  helper = osxkeychain
 
 # Work specific GHES configs
 [includeIf "gitdir:~/work/ghes/"]
