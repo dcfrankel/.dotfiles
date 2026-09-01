@@ -100,6 +100,8 @@
   ;; Properly display child frames in TTY
   (setq tty-tip-mode 1)
   (setq editorconfig-mode t)
+  ;; Smoother scrolling for images
+  (setq pixel-scroll-precision-mode 1)
   ;; Terminal Emacs: send kills (incl. evil yanks) to the macOS clipboard.
   ;; GUI Emacs already handles this via gui-select-text, so only override -nw.
   (when (and (not (display-graphic-p)) (executable-find "pbcopy"))
