@@ -68,8 +68,6 @@
   (require-final-newline 'visit-save)
   ;; Correctly update cursor shape in TTY
   (xterm-update-cursor t)
-  ;; Properly display child frames in TTY
-  (tty-tip-mode 1)
 
   :config
   ;; Open with full sized window
@@ -99,6 +97,9 @@
   (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
   ;; Fix issues with frame locking across multiple buffers when using the daemon
   (setq multiple-terminals-merge-keyboards t)
+  ;; Properly display child frames in TTY
+  (setq tty-tip-mode 1)
+  (setq editorconfig-mode t)
   ;; Terminal Emacs: send kills (incl. evil yanks) to the macOS clipboard.
   ;; GUI Emacs already handles this via gui-select-text, so only override -nw.
   (when (and (not (display-graphic-p)) (executable-find "pbcopy"))
