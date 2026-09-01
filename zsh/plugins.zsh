@@ -25,7 +25,11 @@ function fzf_init() {
 [[ -x "$(command -v jj)" ]] && source <(COMPLETE=zsh jj)
 
 #### Zoxide Configs ####
-[[ -x "$(command -v zoxide)" ]] && eval "$(zoxide init --cmd cd zsh)"
+if [[ -x "$(command -v zoxide)" ]]; then
+    eval "$(zoxide init zsh)"
+    alias cd='z'
+    alias cdi='zi'
+fi
 
 #### ZSH Pugins Configs ####
 # Check if brew is installed to manage brew insalled zsh plugins
