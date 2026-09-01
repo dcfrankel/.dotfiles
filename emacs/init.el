@@ -227,6 +227,7 @@
 (require 'module-diff-hl)
 (require 'module-indent-bars)
 (require 'module-langs)
+(require 'module-git-link)
 
 ;; -------------------------
 ;; Custom Mode Line
