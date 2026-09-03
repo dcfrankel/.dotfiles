@@ -6,9 +6,8 @@
 ;;; Code:
 
 (use-package diff-hl
-  :hook (dired-mode . diff-hl-dired-mode)
-  :init
-  (global-diff-hl-mode 1)
+  :hook ((dired-mode . diff-hl-dired-mode)
+         (after-init . global-diff-hl-mode))
   :config
   ;; Update indicators live as you edit, not just on save
   (diff-hl-flydiff-mode 1)

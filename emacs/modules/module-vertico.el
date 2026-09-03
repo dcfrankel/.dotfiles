@@ -8,8 +8,7 @@
 (use-package vertico
   :custom
   (vertico-cycle t)
-  :init
-  (vertico-mode 1)
+  :hook (after-init . vertico-mode)
   :bind (:map vertico-map
               ("TAB"       . vertico-next)
               ("<tab>"     . vertico-next)

@@ -21,20 +21,21 @@
 ;; Evil config
 (use-package evil
   :pin "melpa"
-  :init
+  :custom
   ;; Fixes control based navigation
-  (setq evil-disable-insert-state-bindings t)
-  (setq evil-want-C-u-scroll t)
-  (setq evil-want-keybinding nil)
+  (evil-disable-insert-state-bindings t)
+  (evil-want-C-u-scroll t)
+  (evil-want-keybinding nil)
   ;; The custom mode-line renders its own state segment (see "Custom Mode Line"),
   ;; so silence evil's built-in indicators: the echo-area "-- INSERT --" message
   ;; below the mode-line and the state tag it splices into the mode-line front.
-  (setq evil-echo-state nil)
-  (setq evil-mode-line-format nil)
-  (setq evil-undo-system 'undo-redo)
+  (evil-echo-state nil)
+  (evil-mode-line-format nil)
+  (evil-undo-system 'undo-redo)
+
+  :hook (after-init . evil-mode)
 
   :config
-  (evil-mode 1)
   ;; Set the leader key
   (evil-set-leader '(normal motion visual) (kbd "SPC"))
   ;; Window navigation
@@ -57,11 +58,11 @@
   :pin "melpa"
   :after evil
   :ensure t
-  :init
+  :custom
   ;; Use SPC as the evil leader (see the `evil' block above). evil-collection
   ;; binds SPC directly in many read-only/pager modes (help, Info, etc.), and
   ;; those buffer-local bindings shadow the global leader.
-  (setq evil-collection-key-blacklist '("SPC"))
+  (evil-collection-key-blacklist '("SPC"))
   :config (evil-collection-init))
 
 (provide 'module-evil)

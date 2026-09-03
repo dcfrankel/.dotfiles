@@ -11,12 +11,10 @@
   (corfu-auto t) ; Auto completions
   (corfu-on-exact-match 'insert) ; Complete if there is only a single candidate
   (corfu-quit-no-match t)
+  (corfu-popupinfo-delay '(1.25 . 0.5))
 
-  :init (global-corfu-mode 1)
-
-  :config
-  (setq corfu-popupinfo-delay '(1.25 . 0.5))
-  (corfu-popupinfo-mode 1)) ; Show documentation next to completions
+  :hook ((after-init . global-corfu-mode)
+         (after-init . corfu-popupinfo-mode))) ; Show documentation next to completions
 
 (provide 'module-corfu)
 ;;; module-corfu.el ends here

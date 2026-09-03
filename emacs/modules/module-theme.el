@@ -7,16 +7,19 @@
 
 ;; Theme
 (use-package catppuccin-theme
+  :demand t
+  :custom
+  (catppuccin-flavor 'mocha) ; Options are 'latte, 'frappe, 'macchiato, or 'mocha
   :config
-  (setq catppuccin-flavor 'mocha) ; Options are 'latte, 'frappe, 'macchiato, or 'mocha
   (catppuccin-reload))
 
 ;; Which key config
 (use-package which-key
-  :config (which-key-mode))
+  :hook (after-init . which-key-mode))
 
 ;; Use nerd font icons
-(use-package nerd-icons)
+(use-package nerd-icons
+  :demand t)
 
 (provide 'module-theme)
 ;;; module-theme.el ends here

@@ -68,6 +68,11 @@
   (require-final-newline 'visit-save)
   ;; Correctly update cursor shape in TTY
   (xterm-update-cursor t)
+  (line-spacing 1)
+  ;; Store backups in a centralized location
+  (backup-directory-alist '(("." . "~/.emacs.d/backups")))
+  ;; Fix issues with frame locking across multiple buffers when using the daemon
+  (multiple-terminals-merge-keyboards t)
 
   :config
   ;; Open with full sized window
@@ -91,16 +96,11 @@
   (global-display-line-numbers-mode t)
   ;; Font size 14 (Emacs :height is in 1/10 pt)
   (set-face-attribute 'default nil :family "Hack Nerd Font" :height 140)
-  (setq-default line-spacing 1)
-  ;; Store backups in a centralized location
-  (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
-  ;; Fix issues with frame locking across multiple buffers when using the daemon
-  (setq multiple-terminals-merge-keyboards t)
   ;; Properly display child frames in TTY
-  (setq tty-tip-mode 1)
-  (setq editorconfig-mode t)
+  (tty-tip-mode 1)
+  (editorconfig-mode 1)
   ;; Smoother scrolling for images
-  (setq pixel-scroll-precision-mode 1)
+  (pixel-scroll-precision-mode 1)
   ;; Terminal Emacs: send kills (incl. evil yanks) to the macOS clipboard.
   ;; GUI Emacs already handles this via gui-select-text, so only override -nw.
   (when (and (not (display-graphic-p)) (executable-find "pbcopy"))
@@ -117,11 +117,11 @@
 (use-package treesit
   :ensure nil
   :if (>= emacs-major-version 31)
-  :config
+  :custom
   ;; Silently fetch + compile a missing grammar the first time a file needs it.
-  (setopt treesit-auto-install-grammar 'always)
+  (treesit-auto-install-grammar 'always)
   ;; Enable every built-in major mode that has a tree-sitter variant.
-  (setopt treesit-enabled-modes t))
+  (treesit-enabled-modes t))
 
 (use-package markdown-ts-mode
   :ensure nil
@@ -155,18 +155,20 @@
 ;; Project management
 (use-package project
   :ensure nil
+  :defer t
+  :custom
+  ;; Override the default project commands to use consult
+  (project-switch-commands
+   '((consult-project-buffer "Buffer" ?b)
+     (consult-ripgrep        "Ripgrep" ?g)
+     (consult-fd             "Find file" ?f)
+     (project-find-dir       "Find dir" ?d)
+     (project-eshell         "Eshell" ?e)))
   :config
   (when (file-directory-p "~/work/ghec")
     (project-remember-projects-under "~/work/ghec"))
   (when (file-directory-p "~/work/ghes")
-    (project-remember-projects-under "~/work/ghes"))
-  ;; Override the default projectg commands to use consult
-  (setq project-switch-commands
-        '((consult-project-buffer "Buffer" ?b)
-          (consult-ripgrep        "Ripgrep" ?g)
-          (consult-fd             "Find file" ?f)
-          (project-find-dir       "Find dir" ?d)
-          (project-eshell         "Eshell" ?e))))
+    (project-remember-projects-under "~/work/ghes")))
 
 ;; Error diagnostics and syntax checks
 (use-package flymake
@@ -196,8 +198,7 @@
   :custom
   (auto-revert-verbose nil)                 ; No "Reverting buffer" chatter
   (global-auto-revert-non-file-buffers t)   ; Also refresh Dired/ibuffer
-  :config
-  (global-auto-revert-mode 1))
+  :hook (after-init . global-auto-revert-mode))
 
 ;; Auto-save file-visiting buffers to their real files after a short idle
 (use-package files
