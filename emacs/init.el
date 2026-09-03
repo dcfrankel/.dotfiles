@@ -92,7 +92,6 @@
   ;; Font size 14 (Emacs :height is in 1/10 pt)
   (set-face-attribute 'default nil :family "Hack Nerd Font" :height 140)
   (setq-default line-spacing 1)
-  (setq completion-styles '(flex basic))
   ;; Store backups in a centralized location
   (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
   ;; Fix issues with frame locking across multiple buffers when using the daemon
@@ -223,6 +222,7 @@
 (require 'module-rainbow-delimiters)
 (require 'module-corfu)
 (require 'module-vertico)
+(require 'module-orderless)
 (require 'module-consult)
 (require 'module-diff-hl)
 (require 'module-indent-bars)
