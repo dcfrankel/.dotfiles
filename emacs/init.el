@@ -5,6 +5,17 @@
 
 ;;; Code:
 ;; =========================
+;; Early configurations
+;; =========================
+
+;; Set up secure TLS variables early in case a package triggers a network call
+(setopt gnutls-verify-error t)
+
+;; Ensure certificate validation if using external fallback
+(when (<= emacs-major-version 31)
+  (setopt tls-checktrust t))
+
+;; =========================
 ;; Functions
 ;; =========================
 (defun my/disable-frame-chrome (&optional _frame)
