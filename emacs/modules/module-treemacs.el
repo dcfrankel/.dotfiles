@@ -14,11 +14,15 @@
   :custom
   (treemacs-width 32)
   (treemacs-follow-after-init t)   ; keep tree in sync with active file
+  ;; Disable python-based dir flattening (auto-enabled just because python3 is
+  ;; on PATH) -- it spawns a python3 process on every directory expand/open,
+  ;; which caused a noticeable delay opening new projects in daemon mode
+  (treemacs-collapse-dirs 0)
+  ;; Root the tree at the current project and follow across projects
+  (treemacs-project-follow-mode 1))
   :config
   ;; No line numbers in the sidebar (global-display-line-numbers-mode is on)
   (add-hook 'treemacs-mode-hook (lambda () (display-line-numbers-mode -1)))
-  ;; Root the tree at the current project and follow across projects
-  (treemacs-project-follow-mode 1))
 
 ;; Evil keybindings inside the treemacs buffer
 ;; (evil-collection has no treemacs module, so this is required and non-conflicting)
