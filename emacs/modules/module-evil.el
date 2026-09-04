@@ -5,9 +5,6 @@
 ;; in non-editing modes.
 
 ;;; Code:
-
-;; Show documentation for the symbol at point: LSP docstring when eglot manages
-;; the buffer, otherwise Emacs' own describe-symbol (e.g. in emacs-lisp-mode).
 (defun my/doc-at-point ()
   "Show documentation for the thing under point, dispatching on major context."
   (interactive)
@@ -17,6 +14,13 @@
    ((symbol-at-point)
     (describe-symbol (symbol-at-point)))
    (t (call-interactively #'describe-symbol))))
+
+(defun my/create-scratch-buffer ()
+  "Create a new unique scratch buffer and switch to it."
+  (interactive)
+  (let ((buf (generate-new-buffer "*scratch*")))
+    (switch-to-buffer buf)
+    (lisp-interaction-mode)))
 
 ;; Evil config
 (use-package evil
@@ -52,7 +56,8 @@
   ;; Evaluate top level elisp expression surrounding the cursor
   (evil-define-key '(normal) 'global (kbd "<leader>e") 'eval-defun)
   ;; Show documentation for the symbol under the cursor
-  (evil-define-key '(normal) 'global (kbd "K") 'my/doc-at-point))
+  (evil-define-key '(normal) 'global (kbd "K") 'my/doc-at-point)
+  (evil-define-key '(normal motion visual) 'global (kbd "<leader>s") 'my/create-scratch-buffer))
 
 (use-package evil-collection
   :pin "melpa"
