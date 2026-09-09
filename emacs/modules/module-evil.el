@@ -47,10 +47,12 @@
   (evil-define-key '(normal motion visual) 'global (kbd "<leader>j") 'evil-window-down)
   (evil-define-key '(normal motion visual) 'global (kbd "<leader>k") 'evil-window-up)
   (evil-define-key '(normal motion visual) 'global (kbd "<leader>l") 'evil-window-right)
-  ;; VSCode-style quick open: find file in project
-  (evil-define-key '(normal insert visual motion) 'global (kbd "C-p") 'consult-fd)
-  ;; VSCode-style project-wide search
-  (evil-define-key '(normal insert visual motion) 'global (kbd "M-F") 'consult-ripgrep)
+  ;; Toggle open file
+  (evil-define-key '(normal motion visual) 'global (kbd "<leader>p") 'consult-fd)
+  ;; Toggle ripgrep file content search
+  (evil-define-key '(normal motion visual) 'global (kbd "<leader>f") 'consult-ripgrep)
+  ;; Toggle switch buffer
+  (evil-define-key '(normal motion visual) 'global (kbd "<leader>b") 'consult-buffer)
   ;; Toggle the directory-tree sidebar
   (evil-define-key '(normal motion visual) 'global (kbd "<leader>t") 'treemacs)
   ;; Evaluate top level elisp expression surrounding the cursor
