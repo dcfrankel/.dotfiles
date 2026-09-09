@@ -158,10 +158,15 @@
 
   :hook
   ((python-mode . eglot-ensure)
+   (python-ts-mode . eglot-ensure)
    (go-mode . eglot-ensure)
+   (go-ts-mode . eglot-ensure)
    (yaml-mode . eglot-ensure)
+   (yaml-ts-mode . eglot-ensure)
    (helm-mode . eglot-ensure)
-   (terraform-mode . eglot-ensure)))
+   (terraform-mode . eglot-ensure)
+   (java-mode . eglot-ensure)
+   (java-ts-mode . eglot-ensure)))
 
 ;; Project management
 (use-package project
