@@ -18,11 +18,17 @@
   ;; on PATH) -- it spawns a python3 process on every directory expand/open,
   ;; which caused a noticeable delay opening new projects in daemon mode
   (treemacs-collapse-dirs 0)
-  ;; Root the tree at the current project and follow across projects
-  (treemacs-project-follow-mode 1))
   :config
   ;; No line numbers in the sidebar (global-display-line-numbers-mode is on)
   (add-hook 'treemacs-mode-hook (lambda () (display-line-numbers-mode -1)))
+  ;; Root the tree at the current project and follow across projects
+  (treemacs-project-follow-mode 1)
+  ;; Daemon workflow: treemacs-follow-mode's idle timer can fire while a
+  ;; frame's treemacs scope is transiently uninitialized (e.g. switching
+  ;; between emacsclient frames), throwing `wrong-type-argument arrayp nil'
+  ;; and spamming *Messages* on every subsequent tick. Skip that tick instead.
+  (define-advice treemacs--follow (:around (fn &rest args) my/treemacs-follow-ignore-errors)
+    (ignore-errors (apply fn args))))
 
 ;; Evil keybindings inside the treemacs buffer
 ;; (evil-collection has no treemacs module, so this is required and non-conflicting)
