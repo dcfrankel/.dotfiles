@@ -164,7 +164,7 @@
   :ensure nil
   :hook (prog-mode . flymake-mode)
   :custom
-  (flymake-show-diagnostics-at-end-of-line 'fancy)
+  (flymake-show-diagnostics-at-end-of-line 'short)
   :config
   ;; Emacs core's `flymake--eol-draw-fancy' hardcodes the wrap column so fancy EOL
   ;; diagnostics wrap even with plenty of screen space. Widen the wrap column to the window width.
