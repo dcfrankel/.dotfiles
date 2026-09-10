@@ -55,6 +55,8 @@
   (evil-define-key '(normal motion visual) 'global (kbd "<leader>b") 'consult-buffer)
   ;; Toggle the directory-tree sidebar
   (evil-define-key '(normal motion visual) 'global (kbd "<leader>t") 'treemacs)
+  ;; Open code actions
+  (evil-define-key '(normal motion visual) 'global (kbd "<leader>.") #'eglot-code-actions)
   ;; Evaluate top level elisp expression surrounding the cursor
   (evil-define-key '(normal) 'global (kbd "<leader>e") 'eval-defun)
   ;; Show documentation for the symbol under the cursor
