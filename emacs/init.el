@@ -141,33 +141,6 @@
   :config
   (require 'markdown-ts-mode-x))
 
-;; Eglot LSP configurations
-(use-package eglot
-  :ensure nil
-  :config
-  ;; Python: use ty as the python language server
-  (add-to-list 'eglot-server-programs '(python-mode . ("uvx" "ty" "server")))
-  ;; Helm charts: dedicated major mode derived from yaml-mode so helm-ls is
-  ;; only invoked for Helm templates, not ordinary YAML files.
-  ;; Activate with M-x helm-mode or a file-local -*- mode: helm -*- header.
-  (define-derived-mode helm-mode yaml-mode "Helm"
-    "Major mode for editing Kubernetes Helm templates.")
-  (add-to-list 'eglot-server-programs '(helm-mode . ("helm_ls" "serve")))
-  ;; Terraform: use terraform-ls as the language server
-  (add-to-list 'eglot-server-programs '(terraform-mode . ("terraform-ls" "serve")))
-
-  :hook
-  ((python-mode . eglot-ensure)
-   (python-ts-mode . eglot-ensure)
-   (go-mode . eglot-ensure)
-   (go-ts-mode . eglot-ensure)
-   (yaml-mode . eglot-ensure)
-   (yaml-ts-mode . eglot-ensure)
-   (helm-mode . eglot-ensure)
-   (terraform-mode . eglot-ensure)
-   (java-mode . eglot-ensure)
-   (java-ts-mode . eglot-ensure)))
-
 ;; Project management
 (use-package project
   :ensure nil
@@ -244,6 +217,7 @@
 (require 'module-diff-hl)
 (require 'module-indent-bars)
 (require 'module-langs)
+(require 'module-lsp)
 (require 'module-git-link)
 
 ;; -------------------------
