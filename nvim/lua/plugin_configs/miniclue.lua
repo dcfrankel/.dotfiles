@@ -1,12 +1,7 @@
 local M = {}
 
 function M.setup()
-  -- Similar to which-key but simpler
-  vim.pack.add({
-    { src = "https://github.com/nvim-mini/mini.clue", version = "stable", name = "mini.clue" },
-  })
-
-  -- Set up mini.clue
+  -- Set up mini.clue (which-key-like, but simpler)
   local miniclue = require("mini.clue")
   miniclue.setup({
     triggers = {
@@ -21,15 +16,11 @@ function M.setup()
       { mode = "n", keys = "g" },
       { mode = "x", keys = "g" },
 
-      -- Marks
+      -- Marks and registers (both triggered by `"` and backtick)
       { mode = "n", keys = '"' },
       { mode = "n", keys = "`" },
       { mode = "x", keys = '"' },
       { mode = "x", keys = "`" },
-
-      -- Registers
-      { mode = "n", keys = '"' },
-      { mode = "x", keys = '"' },
       { mode = "i", keys = "<C-r>" },
       { mode = "c", keys = "<C-r>" },
 
