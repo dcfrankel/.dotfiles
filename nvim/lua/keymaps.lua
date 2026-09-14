@@ -1,8 +1,8 @@
 -- Open the file explorer
 -- Toggle netrw like a sidebar
-vim.keymap.set("n", "<leader>pv", vim.cmd.Lexplore, { desc = "Open file explorer"})
+vim.keymap.set("n", "<leader>e", vim.cmd.Lexplore, { desc = "Open file explorer"})
 -- Format the current buffer using the LSP
-vim.keymap.set("n", "<leader>ff", vim.lsp.buf.format, { desc = "Format buffer" })
+vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, { desc = "Format buffer" })
 -- Move through the quickfix list (based off of vim-unimpaired)
 vim.keymap.set("n", "]q", ":cnext<CR>", { desc = "Next quickfix item" })
 vim.keymap.set("n", "[q", ":cprevious<CR>", { desc = "Previous quickfix item" })
