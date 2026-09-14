@@ -31,3 +31,4 @@ vim.o.complete = ".,o" -- use buffer and omnifunc
 vim.o.completeopt = "fuzzy,preview,menu,menuone,noselect,popup"
 vim.o.autocomplete = true
 vim.o.pumheight = 10 -- Cap the completion popup at 10 items
+vim.o.pumborder = "rounded"
