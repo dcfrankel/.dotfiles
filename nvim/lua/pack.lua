@@ -10,7 +10,7 @@ function M.load_all()
     { src = "https://github.com/catppuccin/nvim", name = "catppuccin" },
 
     -- Fuzzy finder + its dependency
-    { src = "https://github.com/nvim-telescope/telescope.nvim", version = "0.1.8", name = "telescope" },
+    { src = "https://github.com/nvim-telescope/telescope.nvim", version = "0.1.9", name = "telescope" },
     { src = "https://github.com/nvim-lua/plenary.nvim", name = "plenary" },
 
     -- Treesitter (main branch: new setup/install API)
