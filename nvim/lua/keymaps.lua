@@ -17,3 +17,8 @@ end, { expr = true })
 vim.keymap.set("n", "<Esc>", vim.cmd.nohlsearch, { desc = "Clear search highlight" })
 -- Make escape return to normal mode from terminal mode
 vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { desc = "Exit terminal mode" })
+-- Move between window panes
+vim.keymap.set("n", "<leader>h", "<C-w>h", { desc = "Move to left pane" })
+vim.keymap.set("n", "<leader>j", "<C-w>j", { desc = "Move to pane below" })
+vim.keymap.set("n", "<leader>k", "<C-w>k", { desc = "Move to pane above" })
+vim.keymap.set("n", "<leader>l", "<C-w>l", { desc = "Move to right pane" })
