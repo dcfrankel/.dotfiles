@@ -21,6 +21,9 @@ function M.load_all()
     { src = "https://github.com/windwp/nvim-autopairs", name = "nvim-autopairs" },
     { src = "https://github.com/lewis6991/gitsigns.nvim", name = "gitsigns" },
     { src = "https://github.com/nvim-mini/mini.clue", version = "stable", name = "mini.clue" },
+
+    -- Language-specific
+    { src = "https://github.com/mfussenegger/nvim-jdtls", name = "nvim-jdtls" },
   })
 
   -- Set theme
@@ -33,6 +36,7 @@ function M.load_all()
   require("plugin_configs.leap").setup()
   require("plugin_configs.nvim-autopairs").setup()
   require("plugin_configs.gitsigns").setup()
+  require("plugin_configs.jdtls").setup()
 end
 
 return M
