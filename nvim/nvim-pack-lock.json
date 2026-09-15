@@ -1,28 +1,28 @@
 {
   "plugins": {
     "catppuccin": {
-      "rev": "234fc04",
+      "rev": "edefef779ab08ce1a4a404713e3012b0d202bd35",
       "src": "https://github.com/catppuccin/nvim"
     },
     "gitsigns": {
-      "rev": "20ad441",
+      "rev": "fd36f038e52ad8409fbf9926ae4a0a514cca04d8",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "kanagawa": {
-      "rev": "aef7f5c",
+      "rev": "bb85e4bfc8d89b0e62c8fa53ccdd13d12e2f77b3",
       "src": "https://github.com/rebelot/kanagawa.nvim"
     },
     "leap": {
-      "rev": "614481b",
+      "rev": "cbb7d3e4d9584d6b1ae47932f894eb4a16197a52",
       "src": "https://github.com/ggandor/leap.nvim"
     },
     "mini.clue": {
-      "rev": "8b8598a",
+      "rev": "62e9e38c3dc4b7d429f1b6e28d96f96cdff71132",
       "src": "https://github.com/nvim-mini/mini.clue",
       "version": "'stable'"
     },
     "nvim-autopairs": {
-      "rev": "7a2c97c",
+      "rev": "430522f95fe4fb7c511ec64f8c1a90cc6a66c05c",
       "src": "https://github.com/windwp/nvim-autopairs"
     },
     "nvim-treesitter": {
@@ -31,17 +31,17 @@
       "version": "'main'"
     },
     "plenary": {
-      "rev": "b9fd522",
+      "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
       "src": "https://github.com/nvim-lua/plenary.nvim"
     },
     "rose-pine": {
-      "rev": "72a04c4",
+      "rev": "ff483051a47e27d84bdef47703538df1ed9f4a47",
       "src": "https://github.com/rose-pine/neovim"
     },
     "telescope": {
-      "rev": "a0bbec2",
+      "rev": "84b9ba066d1860f7a586ce9cd732fd6c4f77d1d9",
       "src": "https://github.com/nvim-telescope/telescope.nvim",
-      "version": "'0.1.8'"
+      "version": "'0.1.9'"
     }
   }
 }
