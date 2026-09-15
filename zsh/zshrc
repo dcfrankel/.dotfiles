@@ -11,8 +11,8 @@ export LG_CONFIG_FILE="$HOME/.dotfiles/lazygit/config.yaml"
 export STARSHIP_CONFIG="$HOME/.dotfiles/starship/starship.toml"
 
 # Set emacs (terminal mode) as the default editor
-export EDITOR="emacsclient --tty"
-export VISUAL="emacsclient --create-frame"
+export EDITOR="nvim"
+export VISUAL="nvim"
 
 # PATH
 PATH_FILE="$HOME/.dotfiles/sh/path.sh"
