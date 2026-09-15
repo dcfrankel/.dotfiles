@@ -5,7 +5,8 @@ theme = "Catppuccin Macchiato"
 # Font related settings
 font-family = "JetBrainsMono Nerd Font"
 font-size = 14
-font-feature = -liga
+# Disable all ligatures
+font-feature = -liga, -calt, -dlig
 font-thicken = true
 adjust-cell-height = 1
 
