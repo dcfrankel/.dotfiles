@@ -40,3 +40,60 @@ vim.api.nvim_create_autocmd("QuickFixCmdPost", {
   end,
   desc = "Open quickfix window after cgetexpr, vimgrep, make, etc.",
 })
+
+-- Keep the netrw tree sidebar (if open) rooted at the current file's directory
+local function find_netrw_win()
+  for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+    local buf = vim.api.nvim_win_get_buf(win)
+    if vim.bo[buf].filetype == "netrw" then
+      return win
+    end
+  end
+  return nil
+end
+
+-- Guards against the sync below re-triggering itself: restoring focus to the
+-- original file window after the deferred sync is a genuine buffer change
+-- (we'd left it for the netrw window/buffer), so it fires BufEnter again.
+local syncing_netrw = false
+
+vim.api.nvim_create_autocmd("BufEnter", {
+  group = group,
+  desc = "Re-root the netrw tree sidebar (if open) at the newly entered file's directory",
+  callback = function(ev)
+    if syncing_netrw or vim.bo[ev.buf].filetype == "netrw" or vim.bo[ev.buf].buftype ~= "" then
+      return
+    end
+
+    local filepath = vim.api.nvim_buf_get_name(ev.buf)
+    if filepath == "" then
+      return
+    end
+
+    -- Closing/reopening the sidebar changes the window layout, which some callers
+    -- (e.g. Telescope, while it's still unmounting its picker window) don't allow
+    -- from within a BufEnter autocmd. Defer it to the next event-loop tick.
+    vim.schedule(function()
+      if not vim.api.nvim_buf_is_valid(ev.buf) or vim.api.nvim_get_current_buf() ~= ev.buf then
+        return
+      end
+
+      local netrw_win = find_netrw_win()
+      if not netrw_win then
+        return
+      end
+
+      -- Reusing the sidebar's existing buffer/window via `:Explore <dir>` leaves stale
+      -- window-local tree state behind, so close and reopen it with the new directory instead.
+      local cur_win = vim.api.nvim_get_current_win()
+      local dir = vim.fn.fnamemodify(filepath, ":h")
+
+      syncing_netrw = true
+      vim.api.nvim_set_current_win(netrw_win)
+      vim.cmd("Lexplore")
+      vim.cmd("Lexplore " .. vim.fn.fnameescape(dir))
+      vim.api.nvim_set_current_win(cur_win)
+      syncing_netrw = false
+    end)
+  end,
+})
