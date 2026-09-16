@@ -71,7 +71,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
     end
 
     -- Closing/reopening the sidebar changes the window layout, which some callers
-    -- (e.g. Telescope, while it's still unmounting its picker window) don't allow
+    -- (e.g. a floating-window picker, while it's still unmounting) don't allow
     -- from within a BufEnter autocmd. Defer it to the next event-loop tick.
     vim.schedule(function()
       if not vim.api.nvim_buf_is_valid(ev.buf) or vim.api.nvim_get_current_buf() ~= ev.buf then

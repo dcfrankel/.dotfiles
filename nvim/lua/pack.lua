@@ -9,9 +9,8 @@ function M.load_all()
     { src = "https://github.com/rebelot/kanagawa.nvim", version = "bb85e4bfc8d89b0e62c8fa53ccdd13d12e2f77b3", name = "kanagawa" },
     { src = "https://github.com/catppuccin/nvim", version = "edefef779ab08ce1a4a404713e3012b0d202bd35", name = "catppuccin" },
 
-    -- Fuzzy finder + its dependency
-    { src = "https://github.com/nvim-telescope/telescope.nvim", version = "84b9ba066d1860f7a586ce9cd732fd6c4f77d1d9", name = "telescope" },
-    { src = "https://github.com/nvim-lua/plenary.nvim", version = "74b06c6c75e4eeb3108ec01852001636d85a932b", name = "plenary" },
+    -- Fuzzy finder / picker
+    { src = "https://github.com/folke/snacks.nvim", version = "882c996cf28183f4d63640de0b4c02ec886d01f2", name = "snacks" },
 
     -- Treesitter (pinned snapshot of main: new setup/install API)
     { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "9a168f6357ed21c3a636e1727bc7d382abc451b8", name = "nvim-treesitter" },
@@ -31,7 +30,7 @@ function M.load_all()
 
   -- Load various plugin configurations
   require("plugin_configs.miniclue").setup()
-  require("plugin_configs.telescope").setup()
+  require("plugin_configs.snacks").setup()
   require("plugin_configs.treesitter").setup()
   require("plugin_configs.leap").setup()
   require("plugin_configs.nvim-autopairs").setup()

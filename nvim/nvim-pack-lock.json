@@ -40,20 +40,15 @@
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'9a168f6357ed21c3a636e1727bc7d382abc451b8'"
     },
-    "plenary": {
-      "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
-      "src": "https://github.com/nvim-lua/plenary.nvim",
-      "version": "'74b06c6c75e4eeb3108ec01852001636d85a932b'"
-    },
     "rose-pine": {
       "rev": "ff483051a47e27d84bdef47703538df1ed9f4a47",
       "src": "https://github.com/rose-pine/neovim",
       "version": "'ff483051a47e27d84bdef47703538df1ed9f4a47'"
     },
-    "telescope": {
-      "rev": "84b9ba066d1860f7a586ce9cd732fd6c4f77d1d9",
-      "src": "https://github.com/nvim-telescope/telescope.nvim",
-      "version": "'84b9ba066d1860f7a586ce9cd732fd6c4f77d1d9'"
+    "snacks": {
+      "rev": "882c996cf28183f4d63640de0b4c02ec886d01f2",
+      "src": "https://github.com/folke/snacks.nvim",
+      "version": "'882c996cf28183f4d63640de0b4c02ec886d01f2'"
     }
   }
 }
