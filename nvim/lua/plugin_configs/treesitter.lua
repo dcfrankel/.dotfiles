@@ -1,7 +1,7 @@
 local M = {}
 
 -- Parsers we always want available (and whose filetypes get highlighting).
-local parsers = { "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "go", "java" }
+local parsers = { "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "go", "java", "yaml", "helm" }
 
 function M.setup()
   -- The `main` branch drops the old `.configs.setup{}`/`ensure_installed`
@@ -15,7 +15,9 @@ function M.setup()
   -- filetypes. `vim.treesitter.start()` no-ops gracefully without a parser.
   vim.api.nvim_create_autocmd("FileType", {
     group = group,
-    pattern = parsers,
+    -- "yaml.helm-values" is a compound filetype (see lsp.lua); it isn't
+    -- matched by the plain "yaml" pattern above, so list it explicitly.
+    pattern = vim.list_extend(vim.deepcopy(parsers), { "yaml.helm-values" }),
     callback = function()
       pcall(vim.treesitter.start)
       -- Treesitter-based indentation (experimental but handy on main)
