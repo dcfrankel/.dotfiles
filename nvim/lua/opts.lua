@@ -25,6 +25,7 @@ vim.o.winborder = "rounded" -- Rounded borders on floating windows
 vim.o.updatetime = 250 -- Reduce how long to wait for diagnostics window
 vim.o.list = true -- Show white space
 vim.o.listchars = "tab:» ,lead:•,trail:•" -- Symbols used to render white space
+vim.o.autoread = true -- Automatically reload file changes
 
 -- Better autocomplete settings
 vim.o.complete = ".,o" -- use buffer and omnifunc
