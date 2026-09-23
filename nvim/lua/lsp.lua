@@ -17,6 +17,7 @@ vim.lsp.enable("lua_ls")
 vim.lsp.enable("gopls")
 vim.lsp.enable("yamlls")
 vim.lsp.enable("helm_ls")
+vim.lsp.enable("bashls")
 
 -- Diagnostics: show the full diagnostic(s) for the current line inline
 -- (0.11 virtual_lines), keep gutter signs, and sort by severity.
