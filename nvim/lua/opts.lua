@@ -26,6 +26,8 @@ vim.o.updatetime = 250 -- Reduce how long to wait for diagnostics window
 vim.o.list = true -- Show white space
 vim.o.listchars = "tab:» ,lead:•,trail:•" -- Symbols used to render white space
 vim.o.autoread = true -- Automatically reload file changes
+vim.o.laststatus = 2 -- One statusline per window (mirrors Emacs's per-window mode-line)
+vim.o.showmode = false -- Hide the "-- INSERT --" indicator; the statusline's mode tag covers this
 
 -- Better autocomplete settings
 vim.o.complete = ".,o" -- use buffer and omnifunc
