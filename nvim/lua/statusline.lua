@@ -25,10 +25,10 @@ local MODE_HL = {
 }
 
 local DIAG_ORDER = {
-  { severity = vim.diagnostic.severity.ERROR, label = "E", hl = "StatuslineDiagError" },
-  { severity = vim.diagnostic.severity.WARN, label = "W", hl = "StatuslineDiagWarn" },
-  { severity = vim.diagnostic.severity.INFO, label = "I", hl = "StatuslineDiagInfo" },
-  { severity = vim.diagnostic.severity.HINT, label = "H", hl = "StatuslineDiagHint" },
+  { severity = vim.diagnostic.severity.ERROR, label = "E" },
+  { severity = vim.diagnostic.severity.WARN, label = "W" },
+  { severity = vim.diagnostic.severity.INFO, label = "I" },
+  { severity = vim.diagnostic.severity.HINT, label = "H" },
 }
 
 local function escape(s)
@@ -46,7 +46,7 @@ local function join(segments)
       table.insert(nonempty, s)
     end
   end
-  return table.concat(nonempty, hl("StatuslineSep", " ○ "))
+  return table.concat(nonempty, " ○ ")
 end
 
 --- Mode tag (e.g. <N>, <I>), colored per mode.
@@ -55,7 +55,7 @@ local function mode_segment()
   local mode = vim.api.nvim_get_mode().mode
   local entry = MODE_HL[mode]
   if not entry then
-    return hl("StatuslineText", "<" .. mode .. ">")
+    return "<" .. mode .. ">"
   end
   return hl(entry.hl, "<" .. entry.tag .. ">")
 end
@@ -73,7 +73,7 @@ local function filename_segment()
   elseif vim.bo.modified then
     marker = " *"
   end
-  return hl("StatuslineFilename", escape(name)) .. hl("StatuslineMarker", marker)
+  return escape(name) .. marker
 end
 
 --- Current gitsigns branch. Empty when not under git.
@@ -83,20 +83,16 @@ local function branch_segment()
   if not dict or not dict.head or dict.head == "" then
     return ""
   end
-  return hl("StatuslineBranch", escape(dict.head))
+  return escape(dict.head)
 end
 
 --- Buffer filetype. Empty when unset.
 ---@return string
 local function filetype_segment()
-  local ft = vim.bo.filetype
-  if ft == "" then
-    return ""
-  end
-  return hl("StatuslineFiletype", ft)
+  return vim.bo.filetype
 end
 
---- Attached LSP client names, colored per health. Empty when none attached.
+--- Attached LSP client names. Empty when none attached.
 ---@return string
 local function lsp_segment()
   local clients = vim.lsp.get_clients({ bufnr = 0 })
@@ -104,15 +100,10 @@ local function lsp_segment()
     return ""
   end
   local names = {}
-  local all_healthy = true
   for _, client in ipairs(clients) do
     table.insert(names, client.name)
-    if client:is_stopped() then
-      all_healthy = false
-    end
   end
-  local group = all_healthy and "StatuslineLsp" or "StatuslineDiagWarn"
-  return hl(group, escape(table.concat(names, ",")))
+  return escape(table.concat(names, ","))
 end
 
 --- Diagnostic counts by severity (e.g. "E:1 W:2"). Empty when clean.
@@ -123,11 +114,8 @@ local function diagnostics_segment()
   for _, entry in ipairs(DIAG_ORDER) do
     local n = counts[entry.severity]
     if n and n > 0 then
-      table.insert(pieces, hl(entry.hl, entry.label .. ":" .. n))
+      table.insert(pieces, entry.label .. ":" .. n)
     end
-  end
-  if #pieces == 0 then
-    return ""
   end
   return table.concat(pieces, " ")
 end
@@ -143,26 +131,15 @@ function M.render()
 end
 
 function M.setup()
-  local palette = require("catppuccin.palettes").get_palette()
+  local bg = vim.api.nvim_get_hl(0, { name = "StatusLine", link = false }).bg
 
   local groups = {
-    StatuslineModeNormal = { fg = palette.green, bold = true },
-    StatuslineModeInsert = { fg = palette.sky, bold = true },
-    StatuslineModeVisual = { fg = palette.mauve, bold = true },
-    StatuslineModeReplace = { fg = palette.red, bold = true },
-    StatuslineModeOperator = { fg = palette.peach, bold = true },
-    StatuslineModeOther = { fg = palette.lavender, bold = true },
-    StatuslineText = { fg = palette.text, bold = true },
-    StatuslineFilename = { fg = palette.text, bold = true },
-    StatuslineMarker = { fg = palette.red },
-    StatuslineBranch = { fg = palette.peach },
-    StatuslineFiletype = { fg = palette.blue, bold = true },
-    StatuslineLsp = { fg = palette.sky },
-    StatuslineSep = { fg = palette.overlay0 },
-    StatuslineDiagError = { fg = palette.red },
-    StatuslineDiagWarn = { fg = palette.yellow },
-    StatuslineDiagInfo = { fg = palette.blue },
-    StatuslineDiagHint = { fg = palette.overlay1 },
+    StatuslineModeNormal = { fg = "#a6e3a1", bg = bg, bold = true },
+    StatuslineModeInsert = { fg = "#89dceb", bg = bg, bold = true },
+    StatuslineModeVisual = { fg = "#cba6f7", bg = bg, bold = true },
+    StatuslineModeReplace = { fg = "#f38ba8", bg = bg, bold = true },
+    StatuslineModeOperator = { fg = "#fab387", bg = bg, bold = true },
+    StatuslineModeOther = { fg = "#b4befe", bg = bg, bold = true },
   }
 
   for name, opts in pairs(groups) do
