@@ -54,18 +54,20 @@ end
 local function mode_segment()
   local mode = vim.api.nvim_get_mode().mode
   local entry = MODE_HL[mode]
+  local segment_format  = "Mode[%s]"
   if not entry then
-    return "<" .. mode .. ">"
+    return string.format(segment_format, mode)
   end
-  return hl(entry.hl, "<" .. entry.tag .. ">")
+  return hl(entry.hl, string.format(segment_format, entry.tag))
 end
 
 --- Buffer name with a modified (*) or readonly (%) marker.
 ---@return string
 local function filename_segment()
   local name = vim.fn.expand("%:t")
+  local segment_format = "File[%s]"
   if name == "" then
-    name = "[No Name]"
+    name = string.format(segment_format, "No Name")
   end
   local marker = ""
   if vim.bo.readonly then
@@ -73,7 +75,7 @@ local function filename_segment()
   elseif vim.bo.modified then
     marker = " *"
   end
-  return escape(name) .. marker
+  return string.format(segment_format, escape(name) .. marker)
 end
 
 --- Current gitsigns branch. Empty when not under git.
@@ -83,13 +85,13 @@ local function branch_segment()
   if not dict or not dict.head or dict.head == "" then
     return ""
   end
-  return escape(dict.head)
+  return "GitBranch[" .. escape(dict.head) .. "]"
 end
 
 --- Buffer filetype. Empty when unset.
 ---@return string
 local function filetype_segment()
-  return vim.bo.filetype
+  return "FileType[" .. vim.bo.filetype .. "]"
 end
 
 --- Attached LSP client names. Empty when none attached.
@@ -103,7 +105,7 @@ local function lsp_segment()
   for _, client in ipairs(clients) do
     table.insert(names, client.name)
   end
-  return escape(table.concat(names, ","))
+  return "LSPServer[" .. escape(table.concat(names, ",")) .. "]"
 end
 
 --- Diagnostic counts by severity (e.g. "E:1 W:2"). Empty when clean.
@@ -117,7 +119,11 @@ local function diagnostics_segment()
       table.insert(pieces, entry.label .. ":" .. n)
     end
   end
-  return table.concat(pieces, " ")
+  local concated_pieces = table.concat(pieces, "")
+  if concated_pieces == "" then
+    return ""
+  end
+  return "Diagnostics[" .. concated_pieces .. "]"
 end
 
 function M.render()
@@ -131,6 +137,7 @@ function M.render()
 end
 
 function M.setup()
+  -- Get the current themes statusline background
   local bg = vim.api.nvim_get_hl(0, { name = "StatusLine", link = false }).bg
 
   local groups = {
