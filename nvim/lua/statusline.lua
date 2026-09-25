@@ -67,7 +67,7 @@ local function filename_segment()
   local name = vim.fn.expand("%:t")
   local segment_format = "File[%s]"
   if name == "" then
-    name = string.format(segment_format, "No Name")
+    name = "No Name"
   end
   local marker = ""
   if vim.bo.readonly then
