@@ -8,7 +8,7 @@ vim.g.netrw_browse_split = 4 -- Open files in the previous window (keeps the tre
 vim.g.netrw_winsize = 20 -- Set the width of the sidebar (percentage of screen)
 
 -- General settings
-vim.o.guicursor = "" -- Disable the styled cursor, use a solid block
+vim.o.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20" -- Block in normal/visual, thin bar in insert, underline in replace
 vim.o.number = true -- Show absolute line numbers
 vim.o.relativenumber = true -- Set or disable relative line numbers
 vim.o.hlsearch = true -- Enable search highlights
