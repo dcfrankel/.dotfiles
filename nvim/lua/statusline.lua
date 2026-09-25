@@ -24,6 +24,16 @@ local MODE_HL = {
   t = { tag = "T", hl = "StatuslineModeOperator" },
 }
 
+-- Theme highlight groups each mode takes its fg from (first with an fg wins)
+local MODE_SOURCES = {
+  StatuslineModeNormal = { "Function", "Identifier" },
+  StatuslineModeInsert = { "String", "DiagnosticOk" },
+  StatuslineModeVisual = { "Statement", "Keyword" },
+  StatuslineModeReplace = { "DiagnosticError", "ErrorMsg" },
+  StatuslineModeOperator = { "DiagnosticWarn", "WarningMsg" },
+  StatuslineModeOther = { "Constant", "Special" },
+}
+
 local DIAG_ORDER = {
   { severity = vim.diagnostic.severity.ERROR, label = "E" },
   { severity = vim.diagnostic.severity.WARN, label = "W" },
@@ -36,7 +46,7 @@ local function escape(s)
 end
 
 local function hl(name, text)
-  return "%#" .. name .. "#" .. text
+  return "%#" .. name .. "#" .. text .. "%*"
 end
 
 local function join(segments)
@@ -136,22 +146,38 @@ function M.render()
   return " " .. left .. "%=" .. right .. " "
 end
 
-function M.setup()
-  -- Get the current themes statusline background
-  local bg = vim.api.nvim_get_hl(0, { name = "StatusLine", link = false }).bg
-
-  local groups = {
-    StatuslineModeNormal = { fg = "#a6e3a1", bg = bg, bold = true },
-    StatuslineModeInsert = { fg = "#89dceb", bg = bg, bold = true },
-    StatuslineModeVisual = { fg = "#cba6f7", bg = bg, bold = true },
-    StatuslineModeReplace = { fg = "#f38ba8", bg = bg, bold = true },
-    StatuslineModeOperator = { fg = "#fab387", bg = bg, bold = true },
-    StatuslineModeOther = { fg = "#b4befe", bg = bg, bold = true },
-  }
-
-  for name, opts in pairs(groups) do
-    vim.api.nvim_set_hl(0, name, opts)
+--- First fg found among the given highlight groups, or nil.
+---@param names string[]
+---@return integer?
+local function get_fg(names)
+  for _, name in ipairs(names) do
+    local fg = vim.api.nvim_get_hl(0, { name = name, link = false }).fg
+    if fg then
+      return fg
+    end
   end
+end
+
+--- Derive mode highlights from the current theme.
+local function apply_highlights()
+  local statusline = vim.api.nvim_get_hl(0, { name = "StatusLine", link = false })
+
+  for name, sources in pairs(MODE_SOURCES) do
+    vim.api.nvim_set_hl(0, name, {
+      fg = get_fg(sources) or statusline.fg,
+      bg = statusline.bg,
+      bold = true,
+    })
+  end
+end
+
+function M.setup()
+  apply_highlights()
+  -- :colorscheme clears custom groups, so rebuild them from the new theme
+  vim.api.nvim_create_autocmd("ColorScheme", {
+    group = vim.api.nvim_create_augroup("Statusline", { clear = true }),
+    callback = apply_highlights,
+  })
 
   vim.o.statusline = "%{%v:lua.require('statusline').render()%}"
 end
