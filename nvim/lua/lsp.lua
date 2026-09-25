@@ -7,7 +7,7 @@ vim.filetype.add({
     [".*/templates/.*%.ya?ml"] = "helm",
     [".*/templates/.*%.tpl"] = "helm",
     [".*/templates/NOTES%.txt"] = "helm",
-    [".*/values.*%.ya?ml"] = "yaml.helm-values",
+    [".*values.*%.ya?ml"] = "yaml.helm-values",
   },
 })
 
