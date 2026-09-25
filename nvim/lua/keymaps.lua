@@ -18,6 +18,10 @@ end, { expr = true })
 vim.keymap.set("i", "<S-Tab>", function()
   return vim.fn.pumvisible() == 1 and "<C-p>" or "<S-Tab>"
 end, { expr = true })
+-- Make Enter accept the completion popup instead of inserting a newline
+vim.keymap.set("i", "<CR>", function()
+  return vim.fn.pumvisible() == 1 and "<C-y>" or "<CR>"
+end, { expr = true })
 -- Clear search highlight with escape (not a default)
 vim.keymap.set("n", "<Esc>", vim.cmd.nohlsearch, { desc = "Clear search highlight" })
 -- Make escape return to normal mode from terminal mode
