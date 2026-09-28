@@ -81,7 +81,7 @@ local function filename_segment()
   end
   local marker = ""
   if vim.bo.readonly then
-    marker = " %"
+    marker = " %%"
   elseif vim.bo.modified then
     marker = " *"
   end
