@@ -29,6 +29,10 @@ vim.o.autoread = true -- Automatically reload file changes
 vim.o.laststatus = 2 -- One statusline per window (mirrors Emacs's per-window mode-line)
 vim.o.showmode = false -- Hide the "-- INSERT --" indicator; the statusline's mode tag covers this
 
+-- Better regex search
+vim.opt.ignorecase = true  -- Ignore case in search patterns
+vim.opt.smartcase = true   -- Override 'ignorecase' if the pattern contains upper case characters
+
 -- Better autocomplete settings
 vim.o.complete = ".,o" -- use buffer and omnifunc
 vim.o.completeopt = "fuzzy,preview,menu,menuone,noselect,popup"
