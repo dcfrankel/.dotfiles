@@ -18,6 +18,10 @@ export VISUAL="nvim"
 PATH_FILE="$HOME/.dotfiles/sh/path.sh"
 [[ -f "$PATH_FILE" ]] && source "$PATH_FILE"
 
+# Colors for ls, tree, and other tools
+COLORS_FILE="$HOME/.dotfiles/sh/colors.sh"
+[[ -f "$COLORS_FILE" ]] && source "$COLORS_FILE"
+
 #### ZSH Configs ####
 # Make vim bindings work for completions selection
 zmodload zsh/complist
@@ -30,6 +34,8 @@ bindkey -M menuselect 'l' vi-forward-char
 zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*'
 # List file details
 zstyle ':completion:*' file-list all
+# Color completion entries using LS_COLORS
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 DISABLE_MAGIC_FUNCTIONS=true
 
 # Partial completion suggestions
