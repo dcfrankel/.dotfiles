@@ -35,6 +35,9 @@ keybind = super+j=goto_split:bottom
 keybind = super+k=goto_split:top
 keybind = super+l=goto_split:right
 
+# Rename the current tab
+keybind = super+r=prompt_tab_title
+
 # Always require confirmation before closing splits/tabs
 confirm-close-surface = always
 
