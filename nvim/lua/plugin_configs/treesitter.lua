@@ -1,13 +1,16 @@
 local M = {}
 
 -- Parsers we always want available (and whose filetypes get highlighting).
-local parsers = { "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "go", "java", "yaml", "helm" }
+local parsers = { "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "go", "java", "yaml", "helm", "terraform" }
 
 function M.setup()
   -- The `main` branch drops the old `.configs.setup{}`/`ensure_installed`
   -- module system. Instead we install parsers explicitly and turn on
   -- highlighting per-buffer via `vim.treesitter.start()`.
   require("nvim-treesitter").install(parsers)
+
+  -- *.tfvars files get the "terraform-vars" filetype; reuse the terraform parser.
+  vim.treesitter.language.register("terraform", "terraform-vars")
 
   local group = vim.api.nvim_create_augroup("UserConfig", { clear = false })
 
@@ -17,7 +20,8 @@ function M.setup()
     group = group,
     -- "yaml.helm-values" is a compound filetype (see lsp.lua); it isn't
     -- matched by the plain "yaml" pattern above, so list it explicitly.
-    pattern = vim.list_extend(vim.deepcopy(parsers), { "yaml.helm-values" }),
+    -- Same for "terraform-vars", which reuses the terraform parser.
+    pattern = vim.list_extend(vim.deepcopy(parsers), { "yaml.helm-values", "terraform-vars" }),
     callback = function()
       pcall(vim.treesitter.start)
       -- Treesitter-based indentation (experimental but handy on main)
