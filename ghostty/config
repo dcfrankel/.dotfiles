@@ -38,9 +38,6 @@ keybind = super+l=goto_split:right
 # Rename the current tab
 keybind = super+r=prompt_tab_title
 
-# Always require confirmation before closing splits/tabs
-confirm-close-surface = always
-
 # Make it easier to identify current split
 unfocused-split-opacity = 0.35
 
