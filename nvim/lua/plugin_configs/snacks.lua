@@ -22,11 +22,54 @@ local function copy_git_link()
   })
 end
 
+-- Rewrite a multi-term query into a PCRE2 pattern so terms match in any order
+-- (like consult + orderless). `!term` excludes lines containing term. The
+-- \G...\K tail makes rg report each term as its own match for highlighting.
+---@param query string whitespace-separated search terms
+---@return string? pattern PCRE2 pattern, or nil if the query needs no rewrite
+local function orderless_pattern(query)
+  local positive, lookaheads = {}, {}
+  for term in query:gmatch("%S+") do
+    local negated = term:match("^!(.+)$")
+    if negated then
+      lookaheads[#lookaheads + 1] = ("(?!.*?(?:%s))"):format(negated)
+    else
+      positive[#positive + 1] = ("(?:%s)"):format(term)
+      lookaheads[#lookaheads + 1] = ("(?=.*?%s)"):format(positive[#positive])
+    end
+  end
+  if #lookaheads < 2 or #positive == 0 then
+    return nil
+  end
+  return ("(?:^%s|\\G(?!^)).*?\\K(?:%s)"):format(table.concat(lookaheads), table.concat(positive, "|"))
+end
+
+---@param opts snacks.picker.grep.Config
+---@param ctx snacks.picker.finder.ctx
+---@return snacks.picker.finder.result
+local function orderless_grep(opts, ctx)
+  local grep = require("snacks.picker.source.grep").grep
+  -- Preserve snacks' optional "query -- <rg args>" suffix
+  local query, rg_args = ctx.filter.search:match("^(.-)(%s+%-%-%s*.*)$")
+  local pattern = orderless_pattern(query or ctx.filter.search)
+  if not pattern then
+    return grep(opts, ctx)
+  end
+  local filter = ctx.filter:clone()
+  filter.search = pattern .. (rg_args or "")
+  opts = vim.tbl_extend("force", {}, opts, { args = vim.list_extend({ "--pcre2" }, opts.args or {}) })
+  -- Don't mutate ctx.filter: the finder compares its search to detect changes
+  return grep(opts, setmetatable({ filter = filter }, { __index = ctx }))
+end
+
 function M.setup()
   require("snacks").setup({
     picker = {
       matcher = {
         frecency = true, -- boost frequently/recently picked items in rankings
+      },
+      sources = {
+        grep = { finder = orderless_grep },
       },
     },
   })
