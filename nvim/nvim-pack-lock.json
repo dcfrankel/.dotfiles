@@ -40,6 +40,11 @@
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'9a168f6357ed21c3a636e1727bc7d382abc451b8'"
     },
+    "oil": {
+      "rev": "80eb2d6719649ea597b4c14a98f66d38960fd89c",
+      "src": "https://github.com/stevearc/oil.nvim",
+      "version": "'80eb2d6719649ea597b4c14a98f66d38960fd89c'"
+    },
     "rose-pine": {
       "rev": "ff483051a47e27d84bdef47703538df1ed9f4a47",
       "src": "https://github.com/rose-pine/neovim",
