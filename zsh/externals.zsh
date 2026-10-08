@@ -31,6 +31,9 @@ if [[ -x "$(command -v zoxide)" ]]; then
     alias cdi='zi'
 fi
 
+#### Neovim Configs ####
+[[ -x "$(command -v nvim)" ]] && alias vim='nvim'
+
 #### Claude Configs ####
 # Force claude to use bash as the shell
 [[ -x "$(command -v claude)" ]] && alias claude="SHELL=/bin/bash claude --permission-mode plan"
