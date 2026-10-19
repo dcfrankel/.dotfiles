@@ -16,7 +16,7 @@ add_newline = false
 palette = "catppuccin_frappe"
 
 [os]
-disabled = false
+disabled = true
 style = "bg:red fg:crust"
 
 [os.symbols]
