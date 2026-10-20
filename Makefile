@@ -9,6 +9,7 @@
 # "$$HOME/dest:relative/source" pairs. Sources are relative to $DOTFILES.
 # The doubled '$$' escapes make's own '$' so the shell sees a literal '$HOME'.
 LINKS = \
+	$$HOME/.claude/CLAUDE.md:agents/AGENTS.md \
 	$$HOME/.zshrc:zsh/zshrc \
 	$$HOME/.editorconfig:.editorconfig \
 	$$HOME/.gitconfig:git/gitconfig \
