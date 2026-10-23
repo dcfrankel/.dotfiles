@@ -20,6 +20,7 @@ LINKS = \
 	$$HOME/.config/ghostty/config:ghostty/config \
 	$$HOME/.emacs.d:emacs \
 	$$HOME/.config/fish:fish \
+	$$HOME/.config/nushell/config.nu:nushell/config.nu \
 	$$HOME/.vimrc:vim/vimrc \
 	$$HOME/.ideavimrc:vim/ideavimrc \
 	$$HOME/.config/nix/nix.conf:nix/nix.conf
