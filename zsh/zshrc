@@ -12,6 +12,8 @@ export EDITOR="nvim"
 export VISUAL="nvim"
 
 # PATH
+# Keep PATH entries unique since sh/path.sh may re-add entries from .zprofile
+typeset -U path PATH
 PATH_FILE="$HOME/.dotfiles/sh/path.sh"
 [[ -f "$PATH_FILE" ]] && source "$PATH_FILE"
 
