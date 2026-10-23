@@ -70,6 +70,7 @@ function M.setup()
       },
       sources = {
         grep = { finder = orderless_grep },
+        files = { hidden = true }, -- include dotfiles/dirs like .github (.git and gitignored stay excluded)
       },
     },
   })
