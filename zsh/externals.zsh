@@ -20,10 +20,6 @@ function fzf_init() {
 #### Bat Configs ####
 [[ -x "$(command -v bat)" ]] && alias cat='bat --paging=never'
 
-#### Jujutsu Configs ####
-# Use dynamic completions even though they are unstable
-[[ -x "$(command -v jj)" ]] && source <(COMPLETE=zsh jj)
-
 #### Zoxide Configs ####
 if [[ -x "$(command -v zoxide)" ]]; then
     eval "$(zoxide init zsh)"
