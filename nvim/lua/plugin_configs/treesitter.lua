@@ -1,7 +1,7 @@
 local M = {}
 
 -- Parsers we always want available (and whose filetypes get highlighting).
-local parsers = { "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "go", "java", "yaml", "helm", "terraform" }
+local parsers = { "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "go", "java", "yaml", "helm", "terraform", "nu" }
 
 function M.setup()
   -- The `main` branch drops the old `.configs.setup{}`/`ensure_installed`
