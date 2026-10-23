@@ -71,10 +71,10 @@ local function mode_segment()
   return hl(entry.hl, string.format(segment_format, entry.tag))
 end
 
---- Buffer name with a modified (*) or readonly (%) marker.
+--- Buffer path (relative to cwd, or ~-collapsed) with a modified (*) or readonly (%) marker.
 ---@return string
 local function filename_segment()
-  local name = vim.fn.expand("%:t")
+  local name = vim.fn.expand("%:~:.")
   local segment_format = "File[%s]"
   if name == "" then
     name = "No Name"
