@@ -8,6 +8,7 @@
 
 # "$$HOME/dest:relative/source" pairs. Sources are relative to $DOTFILES.
 # The doubled '$$' escapes make's own '$' so the shell sees a literal '$HOME'.
+# Escape spaces in paths with '\ ' so the shell keeps each pair as one word.
 LINKS = \
 	$$HOME/.claude/CLAUDE.md:agents/AGENTS.md \
 	$$HOME/.zshrc:zsh/zshrc \
@@ -21,6 +22,7 @@ LINKS = \
 	$$HOME/.emacs.d:emacs \
 	$$HOME/.config/fish:fish \
 	$$HOME/.config/nushell/config.nu:nushell/config.nu \
+	$$HOME/Library/Application\ Support/nushell/config.nu:nushell/config.nu \
 	$$HOME/.vimrc:vim/vimrc \
 	$$HOME/.ideavimrc:vim/ideavimrc \
 	$$HOME/.config/nix/nix.conf:nix/nix.conf

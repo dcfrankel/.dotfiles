@@ -16,6 +16,8 @@ Symbolic links should be created for the following files and directories:
 | `$HOME/.config/ghostty/config` | `$HOME/.dotfiles/ghostty/config` |
 | `$HOME/.emacs.d` | `$HOME/.dotfiles/emacs` |
 | `$HOME/.config/fish` | `$HOME/.dotfiles/fish` |
+| `$HOME/.config/nushell/config.nu` | `$HOME/.dotfiles/nushell/config.nu` |
+| `$HOME/Library/Application Support/nushell/config.nu` (macOS) | `$HOME/.dotfiles/nushell/config.nu` |
 | `$HOME/.vimrc` | `$HOME/.dotfiles/vim/vimrc` |
 | `$HOME/.ideavimrc` | `$HOME/.dotfiles/vim/ideavimrc` |
 | `$HOME/.config/nix/nix.conf` | `$HOME/.dotfiles/nix/nix.conf` |
