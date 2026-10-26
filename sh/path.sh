@@ -4,7 +4,7 @@
 [ -d /opt/homebrew/bin ] && export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
 
 # User binaries
-export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 
 # System wide binaries
 export PATH="/usr/local/bin:$PATH"
