@@ -22,3 +22,5 @@ git:
 disableStartupPopups: true
 worktree:
   defaultPath: "../"
+os:
+  editPreset: nvim
