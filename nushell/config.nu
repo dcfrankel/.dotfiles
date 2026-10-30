@@ -60,6 +60,15 @@ $env.config.show_banner = false
 # Launch emacs in headless mode (no window) and spawn a daemon if one doesn't exist
 alias e = emacsclient --tty --alternate-editor=""
 
+#### Bash Snippets ####
+# Run a bash snippet (arg, piped string, or the clipboard if neither) in bash.
+# BASH_ENV makes non-interactive bash source sh/path.sh (PATH_FILE above) first
+def b [snippet?: string] {
+  let piped = $in
+  let script = if $snippet != null { $snippet } else if $piped != null { $piped } else { pbpaste }
+  with-env { BASH_ENV: $PATH_FILE } { ^bash -c $script }
+}
+
 #### Source external binary configurations ####
 source ($DOTFILES | path join "nushell/externals.nu")
 
