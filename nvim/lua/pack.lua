@@ -16,7 +16,7 @@ function M.load_all()
     { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "9a168f6357ed21c3a636e1727bc7d382abc451b8", name = "nvim-treesitter" },
 
     -- Editing / navigation helpers
-    { src = "https://github.com/ggandor/leap.nvim", version = "cbb7d3e4d9584d6b1ae47932f894eb4a16197a52", name = "leap" },
+    { src = "https://github.com/folke/flash.nvim", version = "5f0f270fdc7c5b0c21d903ee85b9cb06f2ac636a", name = "flash" },
     { src = "https://github.com/windwp/nvim-autopairs", version = "430522f95fe4fb7c511ec64f8c1a90cc6a66c05c", name = "nvim-autopairs" },
     { src = "https://github.com/lewis6991/gitsigns.nvim", version = "fd36f038e52ad8409fbf9926ae4a0a514cca04d8", name = "gitsigns" },
     { src = "https://github.com/nvim-mini/mini.clue", version = "62e9e38c3dc4b7d429f1b6e28d96f96cdff71132", name = "mini.clue" },
@@ -33,7 +33,7 @@ function M.load_all()
   require("plugin_configs.miniclue").setup()
   require("plugin_configs.snacks").setup()
   require("plugin_configs.treesitter").setup()
-  require("plugin_configs.leap").setup()
+  require("plugin_configs.flash").setup()
   require("plugin_configs.nvim-autopairs").setup()
   require("plugin_configs.gitsigns").setup()
   require("plugin_configs.oil").setup()
