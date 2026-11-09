@@ -16,6 +16,15 @@ def autoload-external [bin: string, gen: closure] {
   }
 }
 
+#### Carapace Configs ####
+# Fall back to other shells' completions for commands carapace has no completer for
+$env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense'
+# Case-insensitive matching, like zsh's matcher-list
+$env.CARAPACE_MATCH = '1'
+# Sets the external completer. Autoload files load alphabetically, so carapace.nu
+# loads before fzf.nu, which wraps the existing completer to add `**<tab>` support
+autoload-external carapace { carapace _carapace nushell }
+
 #### fzf related Configs ####
 $env.FZF_DEFAULT_OPTS = '--style full'
 

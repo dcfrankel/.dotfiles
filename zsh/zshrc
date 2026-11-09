@@ -42,6 +42,17 @@ zstyle ':completion:*' list-suffixes
 zstyle ':completion:*' expand prefix suffix
 autoload -Uz compinit && compinit
 
+# Carapace multi-shell completions (must come after compinit)
+if [[ -x "$(command -v carapace)" ]]; then
+  # Fall back to other shells' completions for commands carapace has no completer for
+  export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense'
+  # Case-insensitive matching
+  export CARAPACE_MATCH=1
+  # Show group headers so carapace's grouped/described completions render nicely
+  zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
+  source <(carapace _carapace zsh)
+fi
+
 # Options
 setopt auto_remove_slash # automatically remove slash from completions
 setopt inc_append_history # save commands in history immediately
