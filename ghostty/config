@@ -43,6 +43,3 @@ unfocused-split-opacity = 0.35
 
 # Make tabs insert at the end position (not after the active tab)
 window-new-tab-position = end
-
-# Use nushell
-command = "/opt/homebrew/bin/nu"
