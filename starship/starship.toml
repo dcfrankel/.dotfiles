@@ -1,7 +1,7 @@
 format = """
 ([](fg:red)$os$username[](fg:red))\
 ([](fg:peach)$directory[](fg:peach))\
-([](fg:yellow)$git_branch$git_status[](fg:yellow))\
+([](fg:yellow)$git_branch${custom.git_worktree}$git_status[](fg:yellow))\
 ([](fg:lavender)$time[](fg:lavender))\
 [ ](fg:lavender)\
 $character"""
@@ -69,6 +69,18 @@ format = '[[ $symbol $branch ](fg:crust bg:yellow)]($style)'
 [git_status]
 style = "bg:yellow"
 format = '[[($all_status$ahead_behind )](fg:crust bg:yellow)]($style)'
+
+[custom.git_worktree]
+description = "Indicator when inside a linked git worktree"
+require_repo = true
+shell = ["sh"]
+when = '''
+set -- $(git rev-parse --path-format=absolute --git-dir --git-common-dir 2>/dev/null)
+[ -n "$1" ] && [ "$1" != "$2" ]
+'''
+symbol = "󰙅"
+style = "bg:yellow"
+format = '[[ $symbol ](fg:crust bg:yellow)]($style)'
 
 [aws]
 symbol = ""
