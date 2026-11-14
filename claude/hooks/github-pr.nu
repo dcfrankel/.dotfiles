@@ -4,8 +4,10 @@
 #   - title is prefixed with "<PROJECT>-<ID> - " (asks if the ID differs from
 #     the current branch's)
 #   - body is no longer than MAX_BODY_LINES lines (inline, heredoc, or file)
+#   - in a bare+worktree repo's container dir (which has no branch of its own),
+#     the PR's branch is given explicitly or the command runs in a worktree
 
-use hooklib.nu [TICKET_RE ask branch-ticket deny flag-value run-hook simple-commands strip-wrappers]
+use hooklib.nu [TICKET_RE ask bare-root branch-ticket deny flag-value in-worktree run-hook simple-commands strip-wrappers ticket-of with-cwd]
 
 const MAX_BODY_LINES = 10
 
@@ -30,7 +32,15 @@ def pr-body [argv: list<string>, cwd: string]: nothing -> any {
 
 # Verdict for one `gh pr create|edit` argv.
 def check-pr [argv: list<string>, cwd: string]: nothing -> any {
-  let ticket = branch-ticket $cwd
+  let head = flag-value $argv [--head -H]
+  let action = $argv | get 2
+  if (bare-root $cwd) != null and not (in-worktree $cwd) {
+    let target = $argv | get -o 3 | default '-'
+    if ($action == create and $head == null) or ($action == edit and ($target | str starts-with '-')) {
+      return (deny $"AGENTS.md: ($cwd) is a bare repo's container dir, not a checkout, so `gh pr ($action)` can't tell which branch the PR is for. Run it inside the worktree \(`cd <repo>/<branch>`\) or name the branch \(--head <branch> / gh pr edit <branch>\).")
+    }
+  }
+  let ticket = if $head != null { ticket-of $head } else { branch-ticket $cwd }
   let example = $"($ticket | default 'ABC-123') - <short_summary>"
   let title = flag-value $argv [--title -t]
 
@@ -42,7 +52,7 @@ def check-pr [argv: list<string>, cwd: string]: nothing -> any {
     if $ticket != null and $title_ticket != $ticket {
       return (ask $"AGENTS.md: PR title uses ($title_ticket) but the branch is for ($ticket). Confirm this is intended.")
     }
-  } else if ($argv | get 2) == create and not ($argv | any {|a| $a in [--web -w] }) {
+  } else if $action == create and not ($argv | any {|a| $a in [--web -w] }) {
     return (deny $"AGENTS.md: pass an explicit --title of the form \"($example)\".")
   }
 
@@ -59,9 +69,10 @@ def check-pr [argv: list<string>, cwd: string]: nothing -> any {
 export def verdict [input: record]: nothing -> any {
   let cwd = $input.cwd? | default '.'
   let commands = simple-commands ($input.tool_input?.command? | default '')
-  for argv in ($commands | each {|c| strip-wrappers $c }) {
+  for c in (with-cwd $cwd $commands) {
+    let argv = strip-wrappers $c.argv
     if ($argv | take 2) == [gh pr] and ($argv | get -o 2) in [create edit] {
-      let result = check-pr $argv $cwd
+      let result = check-pr $argv $c.cwd
       if $result != null { return $result }
     }
   }

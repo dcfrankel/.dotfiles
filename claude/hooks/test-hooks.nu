@@ -151,6 +151,100 @@ def "test github-pr branch ticket" [] {
   }
 }
 
+# Run body with a bare+worktree repo, as used in work directories: R/.bare (bare),
+# R/.git pointing at it, and worktrees R/main and R/ABC-1/feat. body gets R.
+def with-bare-repo [body: closure]: nothing -> any {
+  let base = mktemp -d | path expand
+  try {
+    let src = $base | path join src
+    let repo = $base | path join repo
+    with-env {GIT_AUTHOR_NAME: t, GIT_AUTHOR_EMAIL: t@t, GIT_COMMITTER_NAME: t, GIT_COMMITTER_EMAIL: t@t} {
+      ^git init -q -b main $src
+      "x" | save ($src | path join a.txt)
+      ^git -C $src add a.txt
+      ^git -C $src commit -q -m init
+      ^git clone -q --bare $src ($repo | path join .bare)
+      "gitdir: ./.bare\n" | save ($repo | path join .git)
+      ^git -C $repo worktree add -q main main
+      ^git -C $repo worktree add -q ABC-1/feat -b ABC-1/feat
+    }
+    do $body $repo
+  } finally { rm -rf $base }
+}
+
+def "test git-branch bare worktree layout" [] {
+  with-bare-repo {|repo|
+    let feat = $repo | path join ABC-1/feat
+    assert verdicts {|i| git-branch verdict $i } ((bash-cases $repo [
+      [cmd expect];
+      ['git worktree add ABC-2/foo' deny]
+      ['git worktree add newthing' deny]
+      ['git worktree add ABC-2/foo -b ABC-2/foo' allow]
+      ['git worktree add ABC-2/foo -b ABC-2/foo origin/main' allow]
+      ['git worktree add tmp -b ABC-2/foo' ask]
+      ['git worktree add other main' ask]
+      ['git worktree add --detach scratch HEAD' allow]
+      ['git worktree list' allow]
+      ['git worktree remove ABC-1/feat' allow]
+      ['cd ABC-1/feat && git switch main' ask]
+      ['git -C ABC-1/feat switch main' ask]
+    ]) ++ (bash-cases $feat [
+      [cmd expect];
+      ['git switch main' ask]
+      ['git switch -c ABC-3/x' ask]
+      ['git checkout -b ABC-3/x' ask]
+      ['git checkout -b nope' deny]
+      ['git checkout main' ask]
+      ['git checkout -- a.txt' allow]
+      ['git checkout a.txt' allow]
+      ['git status' allow]
+      ['git worktree add ../../ABC-3/y -b ABC-3/y' allow]
+      ['git worktree add ../ABC-3/y -b ABC-3/y' ask]
+      ['cd ../.. && git worktree add ABC-4/z' deny]
+    ]))
+  }
+}
+
+def "test github-pr bare worktree layout" [] {
+  with-bare-repo {|repo|
+    let feat = $repo | path join ABC-1/feat
+    assert verdicts {|i| github-pr verdict $i } ((bash-cases $repo [
+      [cmd expect];
+      ['gh pr create --title "ABC-1 - x" --body y' deny]
+      ['gh pr edit --title "ABC-1 - x"' deny]
+      ['gh pr create --title "ABC-1 - x" --body y --head ABC-1/feat' allow]
+      ['gh pr create --title "ABC-1 - x" --body y -H ABC-2/x' ask]
+      ['gh pr edit 12 --title "ABC-1 - x"' allow]
+      ['cd ABC-1/feat && gh pr create --title "ABC-1 - x" --body y' allow]
+    ]) ++ (bash-cases $feat [
+      [cmd expect];
+      ['gh pr create --title "ABC-1 - x" --body y' allow]
+      ['gh pr create --title "ABC-2 - x" --body y' ask]
+      ['gh pr view' allow]
+    ]))
+  }
+}
+
+def "test normal clone has no layout rules" [] {
+  with-tmp {|repo|
+    ^git init -q -b ABC-1/feature $repo
+    assert verdicts {|i| git-branch verdict $i } (bash-cases $repo [
+      [cmd expect];
+      ['git switch main' allow]
+      ['git checkout -b ABC-2/x' allow]
+      ['git worktree add ../elsewhere -b ABC-2/y' allow]
+      ['git worktree add ../wt' deny]
+    ])
+  }
+}
+
+def "test e2e git-branch bare worktree deny" [] {
+  with-bare-repo {|repo|
+    let out = run-hook git-branch.nu (bash-input 'git worktree add ABC-9/x' $repo | to json) | from json
+    assert equal $out.hookSpecificOutput?.permissionDecision? deny
+  }
+}
+
 def "test jira-story" [] {
   let full = "### Summary\nx\n### Acceptance Criteria\ny\n### Technical Details / Other Notes\nz"
   let adf_heading = {|text| {type: heading, attrs: {level: 3}, content: [{type: text, text: $text}]} }

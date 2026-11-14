@@ -75,10 +75,75 @@ export def run-hook [name: string, check: closure]: string -> nothing {
   }
 }
 
-# Ticket ID derived from the current git branch in cwd, if any.
-export def branch-ticket [cwd: string]: nothing -> any {
-  let branch = do { ^git -C $cwd branch --show-current } | complete | get stdout | str trim
+# Trimmed stdout of a git command run in dir, or null if it fails.
+export def git-out [dir: string, args: list<string>]: nothing -> any {
+  if not ($dir | path exists) { return null }
+  let res = do { ^git -C $dir ...$args } | complete
+  if $res.exit_code == 0 { $res.stdout | str trim }
+}
+
+# Container dir of a bare+worktree repo (<repo>/.bare plus <repo>/<branch>/
+# worktrees) that dir belongs to, or null for normal clones and non-repos.
+export def bare-root [dir: string]: nothing -> any {
+  let common = git-out $dir [rev-parse --path-format=absolute --git-common-dir]
+  if $common != null and ($common | path basename) == .bare { $common | path dirname }
+}
+
+# Whether dir is inside a work tree (false in a bare repo's container dir).
+export def in-worktree [dir: string]: nothing -> bool {
+  (git-out $dir [rev-parse --is-inside-work-tree]) == 'true'
+}
+
+# Whether name is an existing local branch in the repo at dir.
+export def local-branch [dir: string, name: string]: nothing -> bool {
+  (git-out $dir [show-ref --verify $"refs/heads/($name)"]) != null
+}
+
+# Ticket ID at the start of a branch name, if any.
+export def ticket-of [branch: any]: nothing -> any {
+  if $branch == null { return null }
   $branch | parse --regex ('^(?<id>' + $TICKET_RE + ')/') | get -o 0.id
+}
+
+# Ticket ID derived from the current git branch in cwd, if any. A bare repo's
+# container dir has no checked-out branch of its own, so it yields none.
+export def branch-ticket [cwd: string]: nothing -> any {
+  if not (in-worktree $cwd) { return null }
+  ticket-of (git-out $cwd [branch --show-current])
+}
+
+# Resolve a path the way a shell would from dir: `~` expands, relative paths
+# join onto dir, and `.`/`..` are normalized.
+export def resolve-path [dir: string, p: string]: nothing -> string {
+  let p = if $p == '~' or ($p | str starts-with '~/') { $p | path expand } else { $p }
+  $dir | path join $p | path expand --no-symlink
+}
+
+# Pair each simple command with the dir it effectively runs in, following
+# `cd <dir>` from one command to the next (`cd` alone goes to $HOME).
+export def with-cwd [cwd: string, commands: list<list<string>>]: nothing -> list<record> {
+  mut dir = $cwd
+  mut out = []
+  for argv in $commands {
+    let args = strip-wrappers $argv
+    if ($args | get -o 0) == cd {
+      let target = $args | skip 1 | where {|a| not ($a | str starts-with '-') } | get -o 0
+      $dir = if $target == null { $env.HOME? | default $dir } else { resolve-path $dir $target }
+    }
+    $out = $out | append {cwd: $dir, argv: $argv}
+  }
+  $out
+}
+
+# Dir a git invocation runs in: cwd with each `-C <dir>` applied in order.
+export def git-dir [cwd: string, argv: list<string>]: nothing -> string {
+  mut dir = $cwd
+  mut args = strip-wrappers $argv | skip 1
+  while ($args | is-not-empty) and ($args | first | str starts-with '-') {
+    if ($args | first) == -C and ($args | length) > 1 { $dir = resolve-path $dir ($args | get 1) }
+    $args = $args | skip (if ($args | first) in [-C -c --git-dir --work-tree] { 2 } else { 1 })
+  }
+  $dir
 }
 
 # Contents of each top-level `$(...)` in s.
