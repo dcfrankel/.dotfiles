@@ -165,6 +165,8 @@ def with-bare-repo [body: closure]: nothing -> any {
       ^git -C $src commit -q -m init
       ^git clone -q --bare $src ($repo | path join .bare)
       "gitdir: ./.bare\n" | save ($repo | path join .git)
+      ^git -C $repo config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
+      ^git -C $repo fetch -q
       ^git -C $repo worktree add -q main main
       ^git -C $repo worktree add -q ABC-1/feat -b ABC-1/feat
     }
@@ -180,7 +182,12 @@ def "test git-branch bare worktree layout" [] {
       ['git worktree add ABC-2/foo' deny]
       ['git worktree add newthing' deny]
       ['git worktree add ABC-2/foo -b ABC-2/foo' allow]
-      ['git worktree add ABC-2/foo -b ABC-2/foo origin/main' allow]
+      ['git worktree add ABC-2/foo -b ABC-2/foo origin/main' deny]
+      ['git worktree add ABC-2/foo -b ABC-2/foo --no-track origin/main' allow]
+      ['git worktree add ABC-2/foo -b ABC-2/foo main' allow]
+      ['git -C main branch ABC-3/x origin/main' deny]
+      ['git -C main branch ABC-3/x --no-track origin/main' allow]
+      ['git -C main branch -u origin/main' allow]
       ['git worktree add tmp -b ABC-2/foo' ask]
       ['git worktree add other main' ask]
       ['git worktree add --detach scratch HEAD' allow]
@@ -194,6 +201,10 @@ def "test git-branch bare worktree layout" [] {
       ['git switch -c ABC-3/x' ask]
       ['git checkout -b ABC-3/x' ask]
       ['git checkout -b nope' deny]
+      ['git checkout -b ABC-3/x origin/main' deny]
+      ['git switch -c ABC-3/x origin/main' deny]
+      ['git switch -c ABC-3/x --no-track origin/main' ask]
+      ['git switch -c ABC-3/x --track origin/main' ask]
       ['git checkout main' ask]
       ['git checkout -- a.txt' allow]
       ['git checkout a.txt' allow]
@@ -242,6 +253,14 @@ def "test e2e git-branch bare worktree deny" [] {
   with-bare-repo {|repo|
     let out = run-hook git-branch.nu (bash-input 'git worktree add ABC-9/x' $repo | to json) | from json
     assert equal $out.hookSpecificOutput?.permissionDecision? deny
+  }
+}
+
+def "test e2e git-branch tracking deny" [] {
+  with-bare-repo {|repo|
+    let out = run-hook git-branch.nu (bash-input 'git fetch && git worktree add ABC-9/x -b ABC-9/x origin/main' $repo | to json) | from json
+    assert equal $out.hookSpecificOutput?.permissionDecision? deny
+    assert str contains $out.hookSpecificOutput.permissionDecisionReason '--no-track'
   }
 }
 

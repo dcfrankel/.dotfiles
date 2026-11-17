@@ -6,6 +6,8 @@
 #     worktree), worktree dirs match their branch (deny when git would silently
 #     name the branch after the last path component, ask otherwise), and
 #     branches are not switched or created inside an existing worktree (ask).
+#   - Branches made from a remote-tracking ref (e.g. origin/main) pass
+#     --no-track, so they don't get it as their upstream (deny).
 
 use hooklib.nu [TICKET_RE ask bare-root deny flag-value git-dir git-out in-worktree local-branch resolve-path run-hook simple-commands strip-wrappers with-cwd]
 
@@ -94,6 +96,53 @@ def new-branch-name [argv: list<string>, dir: string]: nothing -> any {
   }
 }
 
+# Flags that say how a new branch's upstream is set; any of them is deliberate.
+const TRACK_FLAGS = [--no-track --track -t]
+
+# `git branch` flags under which positionals aren't <name> [<start-point>].
+const BRANCH_NON_CREATE = [-m -M -c -C -d -D -l -u --move --copy --delete --list --set-upstream-to --unset-upstream --edit-description]
+
+# Start point of a branch-creating command, if it gives one.
+def start-point [argv: list<string>]: nothing -> any {
+  match (subcommand-args $argv) {
+    [worktree, add, ..$rest] => {
+      let wa = worktree-add $rest
+      if $wa.new != null { $wa.commit }
+    }
+    [$sub, ..$rest] if $sub in [checkout switch] => {
+      if (flag-value $rest $CREATE_FLAGS) == null { return null }
+      mut positional = []
+      mut i = 0
+      while $i < ($rest | length) {
+        let a = $rest | get $i
+        if $a == '--' { break }
+        if $a in $CREATE_FLAGS {
+          $i += 2
+          continue
+        }
+        if not ($a | str starts-with '-') { $positional = $positional | append $a }
+        $i += 1
+      }
+      $positional | get -o 0
+    }
+    [branch, ..$rest] => {
+      if ($rest | any {|a| ($a in $BRANCH_NON_CREATE) or ($a | str starts-with '--set-upstream-to=') }) { return null }
+      $rest | where {|a| not ($a | str starts-with '-') } | get -o 1
+    }
+    _ => null
+  }
+}
+
+# Deny branching from a remote-tracking ref without --no-track: git would set
+# the new branch's upstream to it (e.g. origin/main), so pushes target it.
+def track-verdict [argv: list<string>, dir: string]: nothing -> any {
+  let args = subcommand-args $argv
+  if ($args | any {|a| ($a in $TRACK_FLAGS) or ($a | str starts-with '--track=') }) { return null }
+  let start = start-point $argv
+  if $start == null or (git-out $dir [show-ref --verify $"refs/remotes/($start)"]) == null { return null }
+  deny $"AGENTS.md: branching from remote-tracking '($start)' sets the new branch's upstream to ($start), which must be unset before pushing a feature branch. Re-run with --no-track \(e.g. `git worktree add <ID>/<feat> -b <ID>/<feat> --no-track ($start)`\); push.autoSetupRemote sets the right upstream on first push."
+}
+
 def ticket-verdict [argv: list<string>, dir: string]: nothing -> any {
   let name = new-branch-name $argv $dir
   if $name != null and not ($name =~ $'^($TICKET_RE)/.+') {
@@ -165,7 +214,7 @@ export def verdict [input: record]: nothing -> any {
     let argv = strip-wrappers $c.argv
     if ($argv | get -o 0) != git { continue }
     let dir = git-dir $c.cwd $argv
-    let found = [(layout-verdict $argv $dir) (ticket-verdict $argv $dir)] | compact
+    let found = [(layout-verdict $argv $dir) (ticket-verdict $argv $dir) (track-verdict $argv $dir)] | compact
     let denied = $found | where decision == deny | get -o 0
     if $denied != null { return $denied }
     $asks = $asks ++ $found
