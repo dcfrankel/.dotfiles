@@ -35,6 +35,8 @@ function M.setup()
     clues = {
       -- Enhance this by adding descriptions for <Leader> mapping groups
       miniclue.gen_clues.builtin_completion(),
+      { mode = "n", keys = "<Leader>g", desc = "+Git" },
+      { mode = "x", keys = "<Leader>g", desc = "+Git" },
       miniclue.gen_clues.g(),
       miniclue.gen_clues.marks(),
       miniclue.gen_clues.registers(),

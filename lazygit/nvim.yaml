@@ -1,0 +1,6 @@
+# Overlay merged on top of config.yaml only when lazygit is launched from
+# lazygit.nvim (see nvim/lua/plugin_configs/lazygit.lua).
+os:
+  # Open files (`o`) in the parent Neovim instead of the OS default app:
+  # quit lazygit (closing the float), then open the file in a new tab.
+  open: 'nvim --server "$NVIM" --remote-send q; nvim --server "$NVIM" --remote-tab {{filename}}'

@@ -20,6 +20,11 @@
       "src": "https://github.com/rebelot/kanagawa.nvim",
       "version": "'bb85e4bfc8d89b0e62c8fa53ccdd13d12e2f77b3'"
     },
+    "lazygit": {
+      "rev": "9ffc6103926718f7070fb4017694543cd7dc9718",
+      "src": "https://github.com/kdheepak/lazygit.nvim",
+      "version": "'9ffc6103926718f7070fb4017694543cd7dc9718'"
+    },
     "mini.clue": {
       "rev": "62e9e38c3dc4b7d429f1b6e28d96f96cdff71132",
       "src": "https://github.com/nvim-mini/mini.clue",

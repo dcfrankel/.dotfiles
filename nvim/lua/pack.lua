@@ -19,6 +19,7 @@ function M.load_all()
     { src = "https://github.com/folke/flash.nvim", version = "5f0f270fdc7c5b0c21d903ee85b9cb06f2ac636a", name = "flash" },
     { src = "https://github.com/windwp/nvim-autopairs", version = "430522f95fe4fb7c511ec64f8c1a90cc6a66c05c", name = "nvim-autopairs" },
     { src = "https://github.com/lewis6991/gitsigns.nvim", version = "fd36f038e52ad8409fbf9926ae4a0a514cca04d8", name = "gitsigns" },
+    { src = "https://github.com/kdheepak/lazygit.nvim", version = "9ffc6103926718f7070fb4017694543cd7dc9718", name = "lazygit" },
     { src = "https://github.com/nvim-mini/mini.clue", version = "62e9e38c3dc4b7d429f1b6e28d96f96cdff71132", name = "mini.clue" },
     { src = "https://github.com/stevearc/oil.nvim", version = "80eb2d6719649ea597b4c14a98f66d38960fd89c", name = "oil" },
 
@@ -36,6 +37,7 @@ function M.load_all()
   require("plugin_configs.flash").setup()
   require("plugin_configs.nvim-autopairs").setup()
   require("plugin_configs.gitsigns").setup()
+  require("plugin_configs.lazygit").setup()
   require("plugin_configs.oil").setup()
   require("plugin_configs.jdtls").setup()
   require("statusline").setup()

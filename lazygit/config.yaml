@@ -23,4 +23,4 @@ disableStartupPopups: true
 worktree:
   defaultPath: "../"
 os:
-  editPreset: nvim
+  editPreset: nvim-remote
