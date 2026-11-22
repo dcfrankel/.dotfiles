@@ -67,6 +67,10 @@ AWS_COMMANDS_FILE="$HOME/.dotfiles/zsh/aws_commands.zsh"
 KUBECTL_COMMANDS_FILE="$HOME/.dotfiles/zsh/kubectl_commands.zsh"
 [[ -f "$KUBECTL_COMMANDS_FILE" ]] && source "$KUBECTL_COMMANDS_FILE"
 
+#### Source useful custom git commands ####
+GIT_COMMANDS_FILE="$HOME/.dotfiles/zsh/git_commands.zsh"
+[[ -f "$GIT_COMMANDS_FILE" ]] && source "$GIT_COMMANDS_FILE"
+
 #### Work Specific Configs ####
 WORK_CONFIGS_FILE="$HOME/.zshrc_work.zsh"
 [[ -f "$WORK_CONFIGS_FILE" ]] && source "$WORK_CONFIGS_FILE"
