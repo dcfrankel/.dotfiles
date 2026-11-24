@@ -25,6 +25,31 @@ if [[ -x "$(command -v zoxide)" ]]; then
     eval "$(zoxide init zsh)"
     alias cd='z'
     alias cdi='zi'
+
+    # Seed zoxide with every git repo/worktree found under the given paths
+    # eg `zoxide_seed ~/work/ghec ~/work/ghes`
+    # Low score (-s 1) keeps seeded entries below directories actually visited
+    zoxide_seed() {
+      if (( $# == 0 )); then
+        printf '%s\n' "usage: zoxide_seed <path>..." >&2
+        return 1
+      fi
+
+      # Match .git files (worktrees) and .git dirs (normal clones), and skip
+      # descending into .git/.bare since they never contain checkouts
+      local -a git_paths
+      git_paths=(${(f)"$(find "$@" -maxdepth 6 \
+        \( -name .git -o -name .bare \) -prune -name .git -print 2>/dev/null)"})
+
+      if (( ${#git_paths} == 0 )); then
+        printf '%s\n' "zoxide_seed: no git repos found in: $*" >&2
+        return 1
+      fi
+
+      # :h strips the trailing /.git to get the repo/worktree directory
+      zoxide add -s 1 -- "${git_paths[@]:h}"
+      printf 'zoxide_seed: added %d directories\n' "${#git_paths}"
+    }
 fi
 
 #### Neovim Configs ####
