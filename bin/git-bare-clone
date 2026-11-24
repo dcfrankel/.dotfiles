@@ -1,0 +1,35 @@
+#!/usr/bin/env nu
+# Bare clone a repo and set it up for worktree usage:
+#   <dir>/.bare  the bare repo
+#   <dir>/.git   file pointing at ./.bare
+# If <dir>/.bare already exists the clone is skipped and only setup is done.
+#
+# Prints <dir> on stdout (everything else goes to stderr), so callers can
+# cd into it: `cd "$(git-bare-clone <url>)"`, or use the `gbc` shell wrapper.
+
+# Bare clone a repo into <dir>/.bare and set it up for worktrees
+def main [
+  url: string  # Repo URL to clone
+  dir?: path   # Target directory (default: the repo name from the URL)
+] {
+  let name = $dir | default ($url | path basename | str replace -r '\.git$' '')
+  if ($name | is-empty) {
+    error make --unspanned {msg: 'usage: git-bare-clone <url> [dir]'}
+  }
+  let dir = $name | path expand
+  let bare = $dir | path join .bare
+
+  if ($bare | path exists) {
+    print -e $"Found existing ($bare), skipping clone"
+  } else if ($dir | path exists) and (ls --all $dir | is-not-empty) {
+    error make --unspanned {msg: $"git-bare-clone: '($dir)' already exists and is not empty"}
+  } else {
+    ^git clone --bare $url $bare
+  }
+
+  "gitdir: ./.bare\n" | save --force ($dir | path join .git)
+  ^git -C $dir config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'
+  ^git -C $dir fetch origin
+
+  $dir
+}

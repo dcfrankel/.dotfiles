@@ -6,6 +6,9 @@
 # User binaries
 export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 
+# Dotfiles scripts (bin/*), usable from any shell
+export PATH="$HOME/.dotfiles/bin:$PATH"
+
 # System wide binaries
 export PATH="/usr/local/bin:$PATH"
 

@@ -1,0 +1,29 @@
+#!/usr/bin/env nu
+# Seed zoxide with every git repo/worktree found under the given paths.
+# Seeded entries get a low score so directories actually visited rank higher.
+#
+# Example: zoxide-seed ~/work/ghec ~/work/ghes
+
+# Add every git repo/worktree under the given paths to zoxide
+def main [
+  ...paths: path  # Directories to search, up to 6 levels deep
+] {
+  if ($paths | is-empty) {
+    error make --unspanned {msg: 'usage: zoxide-seed <path>...'}
+  }
+
+  # A .git file (worktree) or .git dir (normal clone) marks a checkout.
+  # Never descend into .git or .bare, since they never contain checkouts.
+  let repos = $paths
+    | each {|root| cd $root; glob '**/.git' --depth 6 --exclude ['**/.git/*' '**/.bare'] }
+    | flatten
+    | path dirname
+    | uniq
+
+  if ($repos | is-empty) {
+    error make --unspanned {msg: $"zoxide-seed: no git repos found in: ($paths | str join ' ')"}
+  }
+
+  ^zoxide add --score 1 -- ...$repos
+  print -e $"zoxide-seed: added ($repos | length) directories"
+}

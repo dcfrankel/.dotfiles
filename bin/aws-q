@@ -1,0 +1,76 @@
+#!/usr/bin/env nu
+# A sane set of AWS CLI queries, printed as tab-separated text (one row per
+# resource, no header) so the output pipes cleanly into cut/awk/sort.
+# Extra arguments are passed through to aws, eg `aws-q instances --region us-west-2`.
+
+const AWS_FLAGS = [--no-cli-pager --output json]
+
+# Run an aws command and parse its JSON output
+def aws-json [...args: string] {
+  ^aws ...$args ...$AWS_FLAGS | from json
+}
+
+# The value of a resource's `Name` tag, or null if it has none
+def name-tag [tags: any] {
+  $tags | default [] | where Key == Name | get 0?.Value?
+}
+
+def to-text [] {
+  to tsv --noheaders
+}
+
+# Readable AWS CLI queries. Extra args after a subcommand go to aws.
+def main [] {
+  help main
+}
+
+# EC2 instances: instance_id, name, ip_address, state, sub_net
+def --wrapped "main instances" [...args: string] {
+  aws-json ec2 describe-instances ...$args
+  | get Reservations.Instances
+  | flatten
+  | each {|i| {
+      instance_id: $i.InstanceId
+      name: (name-tag $i.Tags?)
+      ip_address: $i.PrivateIpAddress?
+      state: $i.State.Name
+      sub_net: $i.SubnetId?
+    } }
+  | to-text
+}
+
+# VPC subnets: subnet, name, cidr, az
+def --wrapped "main subnets" [...args: string] {
+  aws-json ec2 describe-subnets ...$args
+  | get Subnets
+  | each {|s| {
+      subnet: $s.SubnetId
+      name: (name-tag $s.Tags?)
+      cidr: $s.CidrBlock
+      az: $s.AvailabilityZone
+    } }
+  | to-text
+}
+
+# EBS volumes: volume_id, instance_id, state (of the first attachment)
+def --wrapped "main volumes" [...args: string] {
+  aws-json ec2 describe-volumes ...$args
+  | get Volumes
+  | each {|v|
+      let attachment = $v.Attachments | get 0? | default {}
+      {
+        volume_id: $v.VolumeId
+        instance_id: $attachment.InstanceId?
+        state: $attachment.State?
+      }
+    }
+  | to-text
+}
+
+# SSM Parameter Store parameters: name, type, data_type
+def --wrapped "main params" [...args: string] {
+  aws-json ssm describe-parameters ...$args
+  | get Parameters
+  | each {|p| {name: $p.Name, type: $p.Type, data_type: $p.DataType?} }
+  | to-text
+}

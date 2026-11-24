@@ -54,6 +54,8 @@ setopt share_history # share history between shells
 alias ls='ls -ltah --color'
 # Launch emacs in headless mode (no window) and spawn a daemon if one doesn't exist
 alias e='emacsclient --tty --alternate-editor=""'
+# Bare clone a repo for worktree usage (bin/git-bare-clone) and cd into it
+gbc() { local dir; dir=$(git-bare-clone "$@") && cd "$dir"; }
 
 #### Source external binary configurations ####
 EXTERNALS_FILE="$HOME/.dotfiles/zsh/externals.zsh"
@@ -62,17 +64,9 @@ EXTERNALS_FILE="$HOME/.dotfiles/zsh/externals.zsh"
 #### Source additional plugin configurations ####
 source "$HOME/.dotfiles/zsh/plugins.zsh"
 
-#### Source useful custom AWS CLI commands ####
-AWS_COMMANDS_FILE="$HOME/.dotfiles/zsh/aws_commands.zsh"
-[[ -f "$AWS_COMMANDS_FILE" ]] && source "$AWS_COMMANDS_FILE"
-
 #### Source useful custom kubectl CLI commands ####
 KUBECTL_COMMANDS_FILE="$HOME/.dotfiles/zsh/kubectl_commands.zsh"
 [[ -f "$KUBECTL_COMMANDS_FILE" ]] && source "$KUBECTL_COMMANDS_FILE"
-
-#### Source useful custom git commands ####
-GIT_COMMANDS_FILE="$HOME/.dotfiles/zsh/git_commands.zsh"
-[[ -f "$GIT_COMMANDS_FILE" ]] && source "$GIT_COMMANDS_FILE"
 
 #### Work Specific Configs ####
 WORK_CONFIGS_FILE="$HOME/.zshrc_work.zsh"
