@@ -5,15 +5,8 @@
 if [[ -x "$(command -v brew)" ]]; then
   brew_prefix="$(brew --prefix)"
 
-  #### Vi Mode Configs ####
-  zsh_vi_mode_path="$brew_prefix/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
-  if [[ -f "$zsh_vi_mode_path" ]]; then
-    source "$zsh_vi_mode_path"
-    # zsh vi mode breaks CTRL+R search with fzf unless added here
-    zvm_after_init_commands+=(fzf_init)
-  else
-    fzf_init
-  fi
+  #### FZF Configs ####
+  fzf_init
 
   ##### ZSH Autosuggestions Configs #####
   zsh_autosuggestions_path="$brew_prefix/share/zsh-autosuggestions/zsh-autosuggestions.zsh"

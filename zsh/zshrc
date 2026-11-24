@@ -22,6 +22,9 @@ COLORS_FILE="$HOME/.dotfiles/sh/colors.sh"
 [[ -f "$COLORS_FILE" ]] && source "$COLORS_FILE"
 
 #### ZSH Configs ####
+# Use emacs keybindings (zsh defaults to vi mode when EDITOR contains "vi")
+bindkey -e
+
 # Make vim bindings work for completions selection
 zmodload zsh/complist
 bindkey -M menuselect 'h' vi-backward-char
