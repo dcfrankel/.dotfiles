@@ -2,5 +2,6 @@
 # lazygit.nvim (see nvim/lua/plugin_configs/lazygit.lua).
 os:
   # Open files (`o`) in the parent Neovim instead of the OS default app:
-  # quit lazygit (closing the float), then open the file in a new tab.
-  open: 'nvim --server "$NVIM" --remote-send q; nvim --server "$NVIM" --remote-tab {{filename}}'
+  # quit lazygit (closing the float), then open the file as a buffer in the
+  # current window. Mirrors lazygit's built-in `nvim-remote` edit preset.
+  open: 'nvim --server "$NVIM" --remote-send q && nvim --server "$NVIM" --remote {{filename}}'
