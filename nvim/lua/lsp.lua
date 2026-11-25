@@ -20,6 +20,7 @@ vim.lsp.enable("helm_ls")
 vim.lsp.enable("bashls")
 vim.lsp.enable("terraformls")
 vim.lsp.enable("nushell")
+vim.lsp.enable("pyrefly")
 
 -- Diagnostics: show the full diagnostic(s) for the current line inline
 -- (0.11 virtual_lines), keep gutter signs, and sort by severity.
